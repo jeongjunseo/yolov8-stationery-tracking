@@ -1,0 +1,343 @@
+{
+  "date": "2026-11-19",
+  "timezone": "Asia/Seoul",
+  "review_method": "Assistant visual inspection of three contact sheets preserving each image aspect ratio; figures screened at full size and caption crop was checked separately.",
+  "counts": {
+    "images": 687,
+    "cross_split_pairs": 102590,
+    "heuristic_candidate_pairs": 494,
+    "candidate_unique_images": {
+      "train": 136,
+      "valid": 54,
+      "test": 30
+    },
+    "test_images_with_train_candidate": 29,
+    "byte_identical_cross_split_pairs": 0,
+    "canonical_filename_cross_split_groups": 0,
+    "eraser_same_second_filename_cross_split_groups": 52,
+    "visually_reviewed_pairs": 18,
+    "strongest_sample_pairs": 12,
+    "threshold_edge_sample_pairs": 6,
+    "near_identical_scene_and_view_pairs_in_sample": 12,
+    "same_setting_but_distinct_pose_or_view_pairs_in_sample": 6,
+    "strongest_sample_unique_images": {
+      "train": 12,
+      "valid": 6,
+      "test": 6
+    },
+    "all_reviewed_unique_images": {
+      "train": 18,
+      "valid": 12,
+      "test": 6
+    },
+    "reused_images_between_reviewed_pairs": 0
+  },
+  "interpretation": "The reviewed strongest examples demonstrate near-identical eraser scene/view content across train-valid and train-test. Treat scene-level split leakage as a concrete limitation of this baseline; this audit cannot quantify the resulting metric bias.",
+  "not_claimed": [
+    "The 494 heuristic candidate pairs are not 494 confirmed duplicates.",
+    "No reviewed pair is byte-identical.",
+    "The purposive sample cannot estimate the prevalence among all candidates.",
+    "No candidate for another class does not establish its scene independence.",
+    "Filename timestamps do not authenticate capture time or prove video origin."
+  ],
+  "data_preservation_check": {
+    "reference": "Prepared transfer ZIP dataset_manifest.json",
+    "archive_sha256": "1ee9ad1ba42e00a2af6a04de79d44358373837db4448d4efb3d7be66e998acf8",
+    "image_sha256_matches": 687,
+    "label_sha256_matches": 687,
+    "all_images_and_labels_match_original_manifest": true,
+    "images_labels_splits_changed": false
+  },
+  "layout_check": {
+    "canvas_width": 1000,
+    "column_width": 500,
+    "caption_left_padding": 8,
+    "maximum_caption_line_width": 464,
+    "all_caption_lines_inside_canvas": true,
+    "note": "A full-size caption crop verified the left edge; some large tool previews appeared clipped but the saved JPEG captions are complete."
+  },
+  "reviews": [
+    {
+      "review_index": 1,
+      "left": "data/train/images/eraser_20250908150416 (1)_jpg.rf.axyq1bpuNj4LcWXBkq7R.jpg",
+      "right": "data/valid/images/eraser_20250908150417_jpg.rf.GKqyXydSsqjW3OaLyaZ8.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "Three erasers on the same cutting mat, essentially matching positions, angles, and camera viewpoint.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 0,
+      "rgb_mae": 1.630534
+    },
+    {
+      "review_index": 2,
+      "left": "data/train/images/eraser_20250904152030_jpg.rf.HKbMpaeub9kd2h8dNSIc.jpg",
+      "right": "data/test/images/eraser_20250904152031 (1)_jpg.rf.EOPmaZ4De7G5JadOTZ2n.jpg",
+      "split_pair": [
+        "train",
+        "test"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "Black and blue erasers in matching positions on the same mat; background tools and viewpoint nearly match.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 0,
+      "rgb_mae": 1.74056
+    },
+    {
+      "review_index": 3,
+      "left": "data/train/images/eraser_20250904151803_jpg.rf.SWEnpbHoVIT5Ozfirc9m.jpg",
+      "right": "data/test/images/eraser_20250904151803 (1)_jpg.rf.ppqBEm2MUqiWKsNquXwt.jpg",
+      "split_pair": [
+        "train",
+        "test"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "One blue eraser lying flat at the same position and angle on the same grid; tiny image differences.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 0,
+      "rgb_mae": 1.829753
+    },
+    {
+      "review_index": 4,
+      "left": "data/train/images/eraser_20250904151846_jpg.rf.lMkbnBb8sAUoua3nolzR.jpg",
+      "right": "data/valid/images/eraser_20250904151845_jpg.rf.fIvo1D0EPm4JgW28T8uW.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "Black eraser upright in almost the same pose, position, and camera view on the same mat.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 0,
+      "rgb_mae": 1.916992
+    },
+    {
+      "review_index": 5,
+      "left": "data/train/images/eraser_20250908150325 (1)_jpg.rf.VVNs544il3wQydzTjokW.jpg",
+      "right": "data/valid/images/eraser_20250908150326_jpg.rf.YwKdqY6VN31h7KBdc996.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "White eraser upright in almost the same position and view on the same mat.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 0,
+      "rgb_mae": 2.125326
+    },
+    {
+      "review_index": 6,
+      "left": "data/train/images/eraser_20250904151755 (1)_jpg.rf.s8B16FFJv1yEY5sIZ0cK.jpg",
+      "right": "data/valid/images/eraser_20250904151755_jpg.rf.iULd5mUs0IWmzHwe5Ijg.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "Blue-and-white eraser upright with near-matching pose, background objects, and camera view.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 1,
+      "rgb_mae": 1.522461
+    },
+    {
+      "review_index": 7,
+      "left": "data/train/images/eraser_20250904151835 (1)_jpg.rf.ZW0HAvHG62MajkwLO2aD.jpg",
+      "right": "data/valid/images/eraser_20250904151835_jpg.rf.HloVtUt0yLlgXoipMLXr.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "Black eraser upright, viewed from almost the same direction at the same grid position.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 1,
+      "rgb_mae": 1.739258
+    },
+    {
+      "review_index": 8,
+      "left": "data/train/images/eraser_20250904151735 (1)_jpg.rf.DfEcE1vDNOBzpgXVGYdz.jpg",
+      "right": "data/test/images/eraser_20250904151736_jpg.rf.dXNNT9PiyQn8ikispXiX.jpg",
+      "split_pair": [
+        "train",
+        "test"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "Blue-and-white eraser upright, matching pose and camera view with minor differences.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 1,
+      "rgb_mae": 2.124349
+    },
+    {
+      "review_index": 9,
+      "left": "data/train/images/eraser_20250908150320 (1)_jpg.rf.O2UPjQnIFG98MdP1ZHnH.jpg",
+      "right": "data/valid/images/eraser_20250908150321_jpg.rf.mFgWIXBtH2LjqCk2KiFf.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "White eraser upright, essentially matching pose and viewpoint on the same mat.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 1,
+      "rgb_mae": 2.128906
+    },
+    {
+      "review_index": 10,
+      "left": "data/train/images/eraser_20250904151743 (1)_jpg.rf.j0FPk1o1X9GppDlR0xR4.jpg",
+      "right": "data/test/images/eraser_20250904151744_jpg.rf.MI2iK2dxLTI7rwCwvfxf.jpg",
+      "split_pair": [
+        "train",
+        "test"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "Blue-and-white eraser upright, same arrangement and almost the same viewpoint.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 1,
+      "rgb_mae": 2.952148
+    },
+    {
+      "review_index": 11,
+      "left": "data/train/images/eraser_20250904151756_jpg.rf.9dyyNc0jhghKyk7xuGRx.jpg",
+      "right": "data/test/images/eraser_20250904151753_jpg.rf.mPSkdpKZv7uoW0QdsMyl.jpg",
+      "split_pair": [
+        "train",
+        "test"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "Blue-and-white eraser upright with the same scene and near-matching view; small camera/pose difference.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 1,
+      "rgb_mae": 3.123372
+    },
+    {
+      "review_index": 12,
+      "left": "data/train/images/eraser_20250904151743_jpg.rf.Zahxuws6e2THZSG45rPA.jpg",
+      "right": "data/test/images/eraser_20250904151745_jpg.rf.KIZe8t9D5JlY2wmwoO7w.jpg",
+      "split_pair": [
+        "train",
+        "test"
+      ],
+      "classification": "near_identical_scene_and_view",
+      "note": "Blue-and-white eraser upright with almost the same arrangement and view; small orientation difference.",
+      "byte_identical": false,
+      "phash_distance": 0,
+      "dhash_distance": 1,
+      "rgb_mae": 3.30957
+    },
+    {
+      "review_index": 13,
+      "left": "data/train/images/eraser_20250904151731 (1)_jpg.rf.c43kPy9id9Q3PvIbiSJJ.jpg",
+      "right": "data/valid/images/eraser_20250904151749 (1)_jpg.rf.tlL7s8Ba4N0MQttM4uJS.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "same_setting_with_distinct_pose_or_view",
+      "note": "Same background and blue eraser, but position/scale or camera view visibly differs.",
+      "byte_identical": false,
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 9.930339
+    },
+    {
+      "review_index": 14,
+      "left": "data/train/images/eraser_20250904151730_jpg.rf.iZfmQ55ojqWJtcaRqMQ3.jpg",
+      "right": "data/valid/images/eraser_20250904151749_jpg.rf.0lNhnLnBXLJrr8sZkRqj.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "same_setting_with_distinct_pose_or_view",
+      "note": "Same setting and blue eraser, but camera view/position differs enough not to assert a near-frame duplicate.",
+      "byte_identical": false,
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 9.795898
+    },
+    {
+      "review_index": 15,
+      "left": "data/train/images/eraser_20250908150319_jpg.rf.wEd1NDmXSYkTep8GGj1m.jpg",
+      "right": "data/valid/images/eraser_20250908150310_jpg.rf.mmt7YbWcI2m90ETugAvL.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "same_setting_with_distinct_pose_or_view",
+      "note": "Same white eraser setting but clearly different object rotation.",
+      "byte_identical": false,
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 9.777995
+    },
+    {
+      "review_index": 16,
+      "left": "data/train/images/eraser_20250908150315_jpg.rf.QFyDVDWZrLC9LNsg5TXh.jpg",
+      "right": "data/valid/images/eraser_20250908150307_jpg.rf.rd7PVgRCyJgFfAZ8Pb10.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "same_setting_with_distinct_pose_or_view",
+      "note": "Same white eraser setting but clearly different object rotation/viewpoint.",
+      "byte_identical": false,
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 8.914388
+    },
+    {
+      "review_index": 17,
+      "left": "data/train/images/eraser_20250908150342_jpg.rf.Rha9AMbJLw5xRCYGxmW4.jpg",
+      "right": "data/valid/images/eraser_20250908150316 (1)_jpg.rf.ZjE4nIsgMnmDUpYXpQd2.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "same_setting_with_distinct_pose_or_view",
+      "note": "Same white eraser setting but clearly different rotation and view.",
+      "byte_identical": false,
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 8.087565
+    },
+    {
+      "review_index": 18,
+      "left": "data/train/images/eraser_20250904151850_jpg.rf.496vzGp02ndzprj9xhAo.jpg",
+      "right": "data/valid/images/eraser_20250904151824_jpg.rf.z7CZ3Ob0tisTYN1ujA0G.jpg",
+      "split_pair": [
+        "train",
+        "valid"
+      ],
+      "classification": "same_setting_with_distinct_pose_or_view",
+      "note": "Same black eraser setting but clearly different object rotation and view.",
+      "byte_identical": false,
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 5.938477
+    }
+  ],
+  "artifacts": {
+    "automated_audit": "near_duplicate_audit.json",
+    "image_hashes": "near_duplicate_image_hashes.json",
+    "strongest_sheets": [
+      "near_duplicate_candidates_01.jpg",
+      "near_duplicate_candidates_02.jpg"
+    ],
+    "threshold_sheets": [
+      "near_duplicate_threshold/near_duplicate_candidates_01.jpg"
+    ],
+    "threshold_selection": "near_duplicate_threshold/selected_pairs.json"
+  }
+}

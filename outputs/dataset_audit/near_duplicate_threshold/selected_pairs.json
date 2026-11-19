@@ -1,0 +1,176 @@
+{
+  "selection": "Six weakest-threshold candidate pairs, disjoint from strongest sample; purposive review, not statistical estimation",
+  "pairs": [
+    {
+      "left": {
+        "path": "data/train/images/eraser_20250904151731 (1)_jpg.rf.c43kPy9id9Q3PvIbiSJJ.jpg",
+        "split": "train",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 40631,
+        "sha256": "812ceac7915022e8b48988ba4cc0f444d72e0586dd7792a85a21d3e5d7f1d2b3",
+        "phash64": "d8f07a7bac8c9590",
+        "dhash128": "1081f0f0f0d06020203ebb5800010000"
+      },
+      "right": {
+        "path": "data/valid/images/eraser_20250904151749 (1)_jpg.rf.tlL7s8Ba4N0MQttM4uJS.jpg",
+        "split": "valid",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 40459,
+        "sha256": "ea4b80740b21d19c2ae373416392f5256cf83cc37d079daebd4d559e30c7e926",
+        "phash64": "d8f07979a8ad9590",
+        "dhash128": "1981e0e0d0f06020383eb34c00110000"
+      },
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 9.930339,
+      "review_index": 13
+    },
+    {
+      "left": {
+        "path": "data/train/images/eraser_20250904151730_jpg.rf.iZfmQ55ojqWJtcaRqMQ3.jpg",
+        "split": "train",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 40349,
+        "sha256": "60b95f0a9829c6e936a1b13ebf3f7fccb668f70f7c2b4dee9f1aa303cefde8af",
+        "phash64": "d8f07a7bac8c9590",
+        "dhash128": "1181f0f0f0d06020203ebb5800010000"
+      },
+      "right": {
+        "path": "data/valid/images/eraser_20250904151749_jpg.rf.0lNhnLnBXLJrr8sZkRqj.jpg",
+        "split": "valid",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 40804,
+        "sha256": "2d3ac10519c73fafac73cf9f88a4bf8bb44217659abd76e3cf8423586bf9e5ee",
+        "phash64": "d8f07979a8ad9590",
+        "dhash128": "1981e0e0d0d06060383eb34c00110080"
+      },
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 9.795898,
+      "review_index": 14
+    },
+    {
+      "left": {
+        "path": "data/train/images/eraser_20250908150319_jpg.rf.wEd1NDmXSYkTep8GGj1m.jpg",
+        "split": "train",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 41673,
+        "sha256": "78e7492a40cfe909eb268a22bfd77edaef746e96cdccf10606e4a8eaf021999f",
+        "phash64": "cecd336364cc4c63",
+        "dhash128": "8350e0e0e0614101be7e3a0000000000"
+      },
+      "right": {
+        "path": "data/valid/images/eraser_20250908150310_jpg.rf.mmt7YbWcI2m90ETugAvL.jpg",
+        "split": "valid",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 40789,
+        "sha256": "a2730a7ce43e4a4681efd51753c2337f58399b2e0d02f699582af08356cad094",
+        "phash64": "cdcd336348cc4c67",
+        "dhash128": "8340f0f0f0e04041be7e580000000001"
+      },
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 9.777995,
+      "review_index": 15
+    },
+    {
+      "left": {
+        "path": "data/train/images/eraser_20250908150315_jpg.rf.QFyDVDWZrLC9LNsg5TXh.jpg",
+        "split": "train",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 42978,
+        "sha256": "4fdf15fe205da617f4deb46eebfaefc1d9deb67070a6fc44eefc544c5349952c",
+        "phash64": "cccd336361cccc66",
+        "dhash128": "8350f0f0e0e04141be7e580000000001"
+      },
+      "right": {
+        "path": "data/valid/images/eraser_20250908150307_jpg.rf.rd7PVgRCyJgFfAZ8Pb10.jpg",
+        "split": "valid",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 42579,
+        "sha256": "122f955521d7c36ac83cdab97bf6eac4ca1a964ffd70610cf01974b60052bcd2",
+        "phash64": "cdc9236369cc4c67",
+        "dhash128": "a348f0f0d0c04001bf7e7a0000000000"
+      },
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 8.914388,
+      "review_index": 16
+    },
+    {
+      "left": {
+        "path": "data/train/images/eraser_20250908150342_jpg.rf.Rha9AMbJLw5xRCYGxmW4.jpg",
+        "split": "train",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 44092,
+        "sha256": "65bf35f35d2937e0c65e90da98de3304d29dd6a34878468b2f6f2d03aca01dbb",
+        "phash64": "cccd23674ccc4c67",
+        "dhash128": "e340f0f0f0614101cf7e5a0000000100"
+      },
+      "right": {
+        "path": "data/valid/images/eraser_20250908150316 (1)_jpg.rf.ZjE4nIsgMnmDUpYXpQd2.jpg",
+        "split": "valid",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 43970,
+        "sha256": "daf32e2baa6c32913448418b08962985de5fab888380f2f077006544de4bccfe",
+        "phash64": "cecd33634ccc4663",
+        "dhash128": "8350e0e0e06141019e7e780000000000"
+      },
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 8.087565,
+      "review_index": 17
+    },
+    {
+      "left": {
+        "path": "data/train/images/eraser_20250904151850_jpg.rf.496vzGp02ndzprj9xhAo.jpg",
+        "split": "train",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 40868,
+        "sha256": "6311766114fb712e279028919a86da3fc5eda82ada604cf357132578f3ee9eb8",
+        "phash64": "d38228880dd577f7",
+        "dhash128": "b2e948c8f0f07033bda67a1900000001"
+      },
+      "right": {
+        "path": "data/valid/images/eraser_20250904151824_jpg.rf.z7CZ3Ob0tisTYN1ujA0G.jpg",
+        "split": "valid",
+        "source_class": "eraser",
+        "width": 640,
+        "height": 480,
+        "bytes": 39902,
+        "sha256": "47adb2b7db037219dd9dd4f22cfcf42c0d0a9eb79002f74e4113d8bd919a6429",
+        "phash64": "d3822888217777f7",
+        "dhash128": "a2a148c8e8f07031bda6661918000000"
+      },
+      "phash_distance": 6,
+      "dhash_distance": 12,
+      "rgb_mae": 5.938477,
+      "review_index": 18
+    }
+  ],
+  "contact_sheets": [
+    "near_duplicate_candidates_01.jpg"
+  ]
+}

@@ -73,7 +73,13 @@ data/
 | correction_tape | 129 | 259 |
 | eraser | 318 | 385 |
 
-이미지 687장 디코딩과 기존 검사 스크립트의 좌표·완전 중복 검사는 통과했습니다. 다만 [빈 라벨 이미지 연락시트](outputs/dataset_audit/empty_labels_contact_sheet.jpg)의 02번에는 형광펜이 보이는데 라벨은 비어 있어 추가 검토가 필요합니다. 검사 통과가 라벨 내용의 완전성을 보장하지는 않습니다. 유사 장면이나 연속 프레임의 split 간 누출은 아직 검사하지 않았습니다.
+이미지 687장 디코딩과 기존 검사 스크립트의 좌표·완전 중복 검사는 통과했습니다. 다만 [빈 라벨 이미지 연락시트](outputs/dataset_audit/empty_labels_contact_sheet.jpg)의 02번에는 형광펜이 보이는데 라벨은 비어 있어 추가 검토가 필요합니다. 검사 통과가 라벨 내용의 완전성을 보장하지는 않습니다.
+
+추가 [유사 장면 감사](outputs/dataset_audit/near_duplicate_audit.json)에서는 split이 다른 이미지 조합 102,590쌍을 비교했습니다. 바이트가 완전히 같은 쌍은 0개였지만, 이미지 해시와 색상 차이 기준을 만족한 유사 후보 494쌍이 모두 eraser에서 나왔습니다(train–valid 239쌍, train–test 210쌍, valid–test 45쌍). 후보에 포함된 고유 이미지는 train 136장·valid 54장·test 30장이며, test 29장은 train 이미지와 후보 관계에 있었습니다.
+
+가장 유사한 후보 중 이미지가 서로 겹치지 않는 12쌍을 [연락시트 1](outputs/dataset_audit/near_duplicate_candidates_01.jpg)·[연락시트 2](outputs/dataset_audit/near_duplicate_candidates_02.jpg)에서 검토한 결과, 거의 같은 배경·물체 배치·시점이 split을 넘나드는 사례를 확인했습니다. 다만 [임계값 근처 6쌍](outputs/dataset_audit/near_duplicate_threshold/near_duplicate_candidates_01.jpg)에는 회전·시점 차이가 분명한 사례도 있어 **494쌍 전체를 확정 중복으로 해석하지 않습니다.** 상세 해시는 [이미지별 기록](outputs/dataset_audit/near_duplicate_image_hashes.json)에 있습니다. 이 결과는 특히 eraser의 validation·test 성능을 새로운 장면에 대한 일반화 성능으로 해석할 때의 한계입니다. 영향의 크기는 아직 측정하지 않았습니다.
+
+현재 학습은 기존 분할·라벨·설정을 유지한 기준 실험으로 계속하며, 이미지·라벨 1,374개 파일의 SHA-256이 원본 ZIP 매니페스트와 일치함을 확인했습니다. 개별 시각 판정과 원본 보존 검사는 [시각 검토 기록](outputs/dataset_audit/near_duplicate_visual_review.json)에 남겼습니다. 후속 실험에서는 촬영 세션·장면별로 이미지를 묶어 같은 그룹을 하나의 split에만 배치하고, 누락 라벨을 검토한 뒤 동일 학습 설정으로 결과를 비교하는 것이 필요합니다.
 
 ## 2. 설치
 
@@ -135,8 +141,11 @@ python scripts/evaluate.py --device 0
 세 객체가 모두 보이고 천천히 이동하는 5초 이상의 원본 영상을 `inputs/source.mp4`에 둡니다.
 
 ```powershell
-python scripts/track_video.py --source inputs/source.mp4 --model models/best.pt --device 0
+python scripts/track_video.py --source inputs/source.mp4 --model models/best.pt --device 0 --output outputs/final_5s_render.mp4
+ffmpeg -n -i outputs/final_5s_render.mp4 -map 0:v:0 -an -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -fps_mode passthrough -movflags +faststart outputs/final_5s.mp4
 ```
+
+위 제출 절차는 FFmpeg의 `libx264` 인코더를 사용할 수 있는 환경에서 실행합니다. OpenCV가 만든 `mp4v` 렌더링 파일은 보존하고, [GitHub에서 권장하는 H.264](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/attaching-files) 형식으로 최종 파일을 따로 만듭니다. `-n`은 기존 파일의 덮어쓰기를 막습니다. 변환 후에도 전체 프레임 수·타임스탬프·5초 재생 길이와 CSV 일치를 확인합니다. 실제 원본 영상이 아직 없어 이 영상 제작 절차는 실행 전입니다.
 
 생성 결과:
 

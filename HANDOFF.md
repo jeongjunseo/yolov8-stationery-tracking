@@ -169,3 +169,17 @@ The user confirmed the supplied course references are the professor's assignment
 - The backup args.yaml verifies YOLOv8n, GPU device 0, batch 16, epochs 100, imgsz 640, workers 4, seed 42, deterministic=True, with original train.py settings. There is no observed GPU OOM or batch reduction.
 - Both Drive weights/best.pt and weights/last.pt exist at 31,775,527 bytes. They are intermediate checkpoints, not a verified completed models/best.pt.
 - Local monitoring snapshots are under ignored runs/colab_monitor/20261119T124150Z_3c8dfaf4. Training continues on Colab; do not interrupt it or resume the local CPU process. Wait for all 100 epochs and the completed training record before importing final artifacts.
+
+### Video delivery readiness review
+
+- Existing track_video.py writes mp4v; for reliable browser/GitHub playback, render to a new outputs/final_5s_render.mp4 and transcode a separate outputs/final_5s.mp4 with FFmpeg libx264/yuv420p/faststart, preserving original frame timestamps. README contains the exact non-overwriting command. Do not force a new frame rate or trim to hide an incorrect duration.
+- No real video has been provided, and this conversion has not run. ffmpeg/ffprobe were not found on the local PATH during review. Check/install a trusted build only when preparing the actual clip, or use a verified available Colab build.
+- The currently running Colab checkout predates this documentation update and will skip video because its source is absent. Keep the final real-video rendering and codec/duration/CSV verification as outstanding work after training.
+
+### Cross-split near-scene audit during GPU training
+
+- A read-only audit of all 687 images compared 102,590 cross-split pairs. Strong heuristic candidates require all of pHash64 distance <=6, horizontal+vertical dHash128 distance <=12, and resized 32x32 RGB mean absolute error <=12. This flagged 494 candidate pairs, all eraser: train-valid=239, train-test=210, valid-test=45.
+- Candidate pairs involve 136 distinct train, 54 valid, and 30 test images. Of the test images, 29 have a candidate pair with a train image. These are heuristic participation counts, not counts of confirmed duplicate images.
+- Root visually reviewed the 12 strongest image-disjoint pairs in outputs/dataset_audit/near_duplicate_candidates_01.jpg and _02.jpg: nearly the same eraser arrangement, green grid mat, and viewpoint across splits were visible. They use 12 distinct train, 6 valid, and 6 test images. Byte-identical cross-split duplicates remain zero.
+- Six additional threshold-near candidates include visible object rotation/viewpoint changes. Do not call all 494 candidates exact duplicates or confirmed frame duplicates. The visual evidence does establish a material scene-level independence concern, particularly for eraser, so final test metrics must not be presented as unbiased performance on entirely new scenes.
+- All original image/label SHA256 hashes still match the transfer archive manifest. The running baseline, labels, splits, and training conditions are unchanged. A future corrected experiment should use scene/session groups and a fresh independent test set; it must be distinguished from this baseline and must not interrupt the current authorized run.
