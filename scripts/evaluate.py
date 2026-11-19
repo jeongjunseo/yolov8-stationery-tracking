@@ -20,6 +20,43 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def per_class_metrics(
+    metrics, names: dict[int, str] | list[str]
+) -> dict[str, dict[str, float | int | None]]:
+    """평가 행을 실제 클래스 ID에 대응시키고 평가되지 않은 값은 비워 둔다."""
+    rows = {
+        int(class_id): row
+        for row, class_id in enumerate(metrics.box.ap_class_index)
+    }
+    target_counts = getattr(metrics, "nt_per_class", None)
+    class_items = names.items() if isinstance(names, dict) else enumerate(names)
+    results = {}
+    for class_id, name in class_items:
+        values = {
+            "class_id": int(class_id),
+            "precision": None,
+            "recall": None,
+            "mAP50": None,
+            "mAP50-95": None,
+            "target_count": (
+                int(target_counts[class_id])
+                if target_counts is not None and 0 <= class_id < len(target_counts)
+                else None
+            ),
+        }
+        if class_id in rows:
+            # class_result의 인자는 클래스 ID가 아니라 ap_class_index의 행 번호다.
+            precision, recall, map50, map50_95 = metrics.box.class_result(rows[class_id])
+            values.update(
+                precision=float(precision),
+                recall=float(recall),
+                mAP50=float(map50),
+            )
+            values["mAP50-95"] = float(map50_95)
+        results[str(name)] = values
+    return results
+
+
 def main() -> None:
     args = parse_args()
     model_path = args.model.resolve()
@@ -44,7 +81,7 @@ def main() -> None:
 
     metrics = model.val(**val_options)
     names = model.names
-    class_maps = metrics.box.maps.tolist()
+    class_metrics = per_class_metrics(metrics, names)
     summary = {
         "split": "test",
         "precision": float(metrics.box.mp),
@@ -53,9 +90,9 @@ def main() -> None:
         "mAP75": float(metrics.box.map75),
         "mAP50-95": float(metrics.box.map),
         "per_class_mAP50-95": {
-            str(names[class_id]): float(class_map)
-            for class_id, class_map in enumerate(class_maps)
+            name: values["mAP50-95"] for name, values in class_metrics.items()
         },
+        "per_class": class_metrics,
     }
 
     output_path = PROJECT_ROOT / "outputs" / "test_metrics.json"

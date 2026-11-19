@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-19",
+  "purpose": "Pre-training environment verification; no training or evaluation has run.",
+  "python": "3.14.0",
+  "os": "Windows-11-10.0.26200-SP0",
+  "environment": "Fresh project venv on D: accessed through .venv junction",
+  "packages": {
+    "torch": "2.15.0",
+    "torchvision": "0.29.2",
+    "ultralytics": "8.4.215",
+    "opencv-python": "4.14.0.94",
+    "PyYAML": "6.0.3"
+  },
+  "torch_version": "2.15.0+cpu",
+  "torch_cuda_build": null,
+  "cuda_available": false,
+  "cuda_device_count": 0,
+  "display_hardware": [
+    "AMD Radeon(TM) Graphics",
+    "Parsec Virtual Display Adapter"
+  ],
+  "nvidia_smi_found": false,
+  "training_started": false,
+  "source_video_exists": false,
+  "pip_check": "passed"
+}

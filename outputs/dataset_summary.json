@@ -1,0 +1,180 @@
+{
+  "date": "2026-11-19",
+  "purpose": "Dataset audit only; not model performance or tracking results.",
+  "dataset_root": "data",
+  "aggregate": {
+    "images": 687,
+    "labels": 687,
+    "objects": 868,
+    "empty_labels": 21,
+    "missing_labels": 0,
+    "classes": {
+      "highlighter": {
+        "class_id": 0,
+        "images": 219,
+        "objects": 224
+      },
+      "correction_tape": {
+        "class_id": 1,
+        "images": 129,
+        "objects": 259
+      },
+      "eraser": {
+        "class_id": 2,
+        "images": 318,
+        "objects": 385
+      }
+    }
+  },
+  "splits": {
+    "train": {
+      "images": 498,
+      "labels": 498,
+      "objects": 614,
+      "empty_labels": 15,
+      "empty_label_images": [
+        "data/train/images/highlighter_-trashed-1786713651-IMG_20260715_185047353_jpg.rf.DEjgqNaiBGDHmxZtHWhH.jpg",
+        "data/train/images/highlighter_IMG_20260713_162103695_HDR_jpg.rf.Sbrd0MiyGuUjja7V5nXf.jpg",
+        "data/train/images/highlighter_IMG_20260713_162530727_HDR_jpg.rf.pOXaly27K4sHEco8hdaY.jpg",
+        "data/train/images/highlighter_IMG_20260715_184834569_HDR_jpg.rf.k8jAChvENfGuJEI6slHU.jpg",
+        "data/train/images/highlighter_IMG_20260715_184845995_HDR_jpg.rf.oJyaZ3EqTM7k4itrQtjg.jpg",
+        "data/train/images/highlighter_IMG_20260715_184850631_HDR_jpg.rf.DR1WqtYteS5WMolT7kSB.jpg",
+        "data/train/images/highlighter_IMG_20260715_184857860_jpg.rf.wEc9lF1Ltcq5JjpbfeSz.jpg",
+        "data/train/images/highlighter_IMG_20260715_184900560_HDR_jpg.rf.JxoyqIDo3eeKDdJGScgK.jpg",
+        "data/train/images/highlighter_IMG_20260715_184950934_HDR_jpg.rf.oqIXjaSqyfnlHJdwO7L9.jpg",
+        "data/train/images/highlighter_IMG_20260715_185100346_jpg.rf.VgDOKnjLfWrb57gjPljD.jpg",
+        "data/train/images/highlighter_IMG_20260715_185115392_jpg.rf.xQejWqeMTjSSZdNORGW2.jpg",
+        "data/train/images/highlighter_IMG_20260715_185133743_jpg.rf.FbET5myURgOmAPkJzhUe.jpg",
+        "data/train/images/highlighter_IMG_20260715_185138268_jpg.rf.YYCZwnpGo8xhmwdc5knM.jpg",
+        "data/train/images/highlighter_IMG_20260715_185145311_jpg.rf.iRP8Wkrsspz6KTbhxCZf.jpg",
+        "data/train/images/highlighter_IMG_20260715_185158749_jpg.rf.bXtJ9Uidn9MMIwAfhkLD.jpg"
+      ],
+      "missing_labels": 0,
+      "missing_label_images": [],
+      "classes": {
+        "highlighter": {
+          "class_id": 0,
+          "images": 177,
+          "objects": 180
+        },
+        "correction_tape": {
+          "class_id": 1,
+          "images": 89,
+          "objects": 163
+        },
+        "eraser": {
+          "class_id": 2,
+          "images": 217,
+          "objects": 271
+        }
+      }
+    },
+    "valid": {
+      "images": 116,
+      "labels": 116,
+      "objects": 146,
+      "empty_labels": 4,
+      "empty_label_images": [
+        "data/valid/images/highlighter_IMG_20260715_184854885_HDR_jpg.rf.PN6IyTeWsfIPH1nMyQeu.jpg",
+        "data/valid/images/highlighter_IMG_20260715_184914199_HDR_jpg.rf.wasqVetFko4rKY0CUSBI.jpg",
+        "data/valid/images/highlighter_IMG_20260715_184926746_HDR_jpg.rf.6XspxDQjJzgPDeh0enjc.jpg",
+        "data/valid/images/highlighter_IMG_20260715_185031268_jpg.rf.0kOblTibMPL56wExkxfl.jpg"
+      ],
+      "missing_labels": 0,
+      "missing_label_images": [],
+      "classes": {
+        "highlighter": {
+          "class_id": 0,
+          "images": 21,
+          "objects": 21
+        },
+        "correction_tape": {
+          "class_id": 1,
+          "images": 26,
+          "objects": 52
+        },
+        "eraser": {
+          "class_id": 2,
+          "images": 65,
+          "objects": 73
+        }
+      }
+    },
+    "test": {
+      "images": 73,
+      "labels": 73,
+      "objects": 108,
+      "empty_labels": 2,
+      "empty_label_images": [
+        "data/test/images/highlighter_IMG_20260715_002335316_jpg.rf.txFnprUzKvgpR4omdKAd.jpg",
+        "data/test/images/highlighter_IMG_20260715_185010452_jpg.rf.7hWMUvwNPvrNyc4Un1yM.jpg"
+      ],
+      "missing_labels": 0,
+      "missing_label_images": [],
+      "classes": {
+        "highlighter": {
+          "class_id": 0,
+          "images": 21,
+          "objects": 23
+        },
+        "correction_tape": {
+          "class_id": 1,
+          "images": 14,
+          "objects": 44
+        },
+        "eraser": {
+          "class_id": 2,
+          "images": 36,
+          "objects": 41
+        }
+      }
+    }
+  },
+  "validation": {
+    "dataset_check": {
+      "command": "python scripts/check_dataset.py",
+      "status": "passed",
+      "exit_code": 0,
+      "source": "Completed main-agent validation in this session."
+    },
+    "image_decode": {
+      "method": "Pillow Image.open followed by Image.load for every image",
+      "checked": 687,
+      "errors": 0,
+      "source": "Completed read-only audit in this session before creating these outputs."
+    },
+    "exact_duplicate_cross_split_check": "passed by scripts/check_dataset.py",
+    "near_duplicate_or_scene_leakage_check": "not performed",
+    "empty_label_semantic_review": "Contact sheet reviewed; sample 02 contains a visible highlighter despite an empty label. Full-resolution review of all 21 images was not performed."
+  },
+  "limitations": [
+    "All 21 empty-label thumbnails were visually reviewed. Sample 02 shows a highlighter with an empty label, so the empty-label set cannot be treated as verified background-only data. Full-resolution review of all 21 images was not performed.",
+    "Exact duplicate hashes were checked; near-duplicate images and related scenes across splits were not checked.",
+    "No model training, performance evaluation, or tracking result is represented by this audit."
+  ],
+  "empty_labels_contact_sheet": "outputs/dataset_audit/empty_labels_contact_sheet.jpg",
+  "visual_review": {
+    "date": "2026-11-19",
+    "method": "Visual review of all 21 thumbnails in the empty-label contact sheet",
+    "contact_sheet": "outputs/dataset_audit/empty_labels_contact_sheet.jpg",
+    "images_reviewed_as_thumbnails": 21,
+    "full_resolution_review_of_all_images": false,
+    "findings": [
+      {
+        "contact_sheet_sample": 2,
+        "split": "train",
+        "image": "data/train/images/highlighter_IMG_20260713_162103695_HDR_jpg.rf.Sbrd0MiyGuUjja7V5nXf.jpg",
+        "label": "data/train/labels/highlighter_IMG_20260713_162103695_HDR_jpg.rf.Sbrd0MiyGuUjja7V5nXf.txt",
+        "observation": "A highlighter with green caps is visible along the left edge, but its annotation file is empty.",
+        "assessment": "Suspected missing object annotation; cannot treat all empty-label images as verified background-only samples.",
+        "source_image_modified": false,
+        "source_label_modified": false
+      }
+    ],
+    "limitations": [
+      "Thumbnail inspection is not a full-resolution semantic audit of every image.",
+      "The review does not certify that the remaining 20 empty-label images have no missed target objects.",
+      "No source images or labels were modified."
+    ]
+  }
+}

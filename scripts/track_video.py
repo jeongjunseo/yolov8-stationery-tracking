@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import math
 from collections import defaultdict, deque
 from pathlib import Path
 
@@ -25,6 +26,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--iou", type=float, default=0.5)
     parser.add_argument("--trail-length", type=int, default=60)
     parser.add_argument("--tracker", default="bytetrack.yaml")
+    parser.add_argument("--device", default=None, help="예: 0, cpu")
     return parser.parse_args()
 
 
@@ -43,17 +45,22 @@ def main() -> None:
         raise FileNotFoundError(f"학습 모델을 찾을 수 없습니다: {model_path}")
     if not source_path.is_file():
         raise FileNotFoundError(f"입력 영상을 찾을 수 없습니다: {source_path}")
-    if args.duration <= 0:
-        raise ValueError("duration은 0보다 커야 합니다.")
+    if not math.isfinite(args.duration) or args.duration <= 0:
+        raise ValueError("duration은 유한한 양수여야 합니다.")
     if args.trail_length < 2:
         raise ValueError("trail-length는 2 이상이어야 합니다.")
+    if output_path == trajectory_path:
+        raise ValueError("영상과 CSV의 출력 경로는 서로 달라야 합니다.")
+    for destination in (output_path, trajectory_path):
+        if destination.exists():
+            raise FileExistsError(f"기존 파일을 보존합니다. 다른 출력 경로를 지정하세요: {destination}")
 
     capture = cv2.VideoCapture(str(source_path))
     if not capture.isOpened():
         raise RuntimeError(f"입력 영상을 열 수 없습니다: {source_path}")
 
     fps = capture.get(cv2.CAP_PROP_FPS)
-    if fps <= 0:
+    if not math.isfinite(fps) or fps <= 0:
         capture.release()
         raise RuntimeError("입력 영상의 FPS를 읽을 수 없습니다.")
 
@@ -61,6 +68,9 @@ def main() -> None:
     height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
     source_frames = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
     max_frames = int(round(fps * args.duration))
+    if max_frames < 1:
+        capture.release()
+        raise ValueError("요청한 길이가 입력 영상의 한 프레임보다 너무 짧습니다.")
     if source_frames > 0 and source_frames < max_frames:
         capture.release()
         raise ValueError(
@@ -68,10 +78,18 @@ def main() -> None:
             f"최소 {args.duration:.2f}초가 필요합니다."
         )
 
+    # 정수 프레임 수에 맞춰 출력 시간축을 정규화한다.
+    output_fps = max_frames / args.duration
+    print(f"원본 FPS: {fps:.6f}, 출력 FPS: {output_fps:.6f}")
+    print(
+        f"{max_frames} frames를 {args.duration:.6f}초로 저장합니다. "
+        "FPS가 다르면 재생 속도가 소폭 조정되며 CSV 시간은 출력 영상 기준입니다."
+    )
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
     trajectory_path.parent.mkdir(parents=True, exist_ok=True)
     writer = cv2.VideoWriter(
-        str(output_path), cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height)
+        str(output_path), cv2.VideoWriter_fourcc(*"mp4v"), output_fps, (width, height)
     )
     if not writer.isOpened():
         capture.release()
@@ -110,6 +128,7 @@ def main() -> None:
                     tracker=args.tracker,
                     conf=args.conf,
                     iou=args.iou,
+                    device=args.device,
                     verbose=False,
                 )[0]
                 annotated_frame = result.plot(line_width=2, labels=True, conf=True)
@@ -134,7 +153,7 @@ def main() -> None:
                         csv_writer.writerow(
                             [
                                 frame_index,
-                                round(frame_index / fps, 4),
+                                round(frame_index / output_fps, 4),
                                 track_id,
                                 class_id,
                                 class_name(model.names, class_id),
@@ -152,7 +171,7 @@ def main() -> None:
 
     print(f"추적 영상 저장 완료: {output_path}")
     print(f"궤적 데이터 저장 완료: {trajectory_path}")
-    print(f"처리 길이: {frame_index / fps:.2f}초 ({frame_index} frames)")
+    print(f"처리 길이: {frame_index / output_fps:.6f}초 ({frame_index} frames)")
 
 
 if __name__ == "__main__":
