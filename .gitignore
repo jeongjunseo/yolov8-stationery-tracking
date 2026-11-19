@@ -8,6 +8,7 @@ __pycache__/
 runs/
 
 # 원본 데이터와 입력 영상은 저장소에 올리지 않음
+data/raw/
 data/train/images/*
 data/train/labels/*
 data/valid/images/*
