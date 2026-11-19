@@ -1,0 +1,367 @@
+{
+  "checked_at_utc": "2026-11-19T16:56:13.320778+00:00",
+  "source": {
+    "filename": "1000030242.mp4",
+    "bytes": 26398062,
+    "sha256": "c284b4cc16c9d19368e8c427e81b143c40e5bd4e754cc63b8dfebe22638531a2",
+    "unchanged": true,
+    "codec": "hevc",
+    "profile": "Main 10",
+    "pixel_format": "yuv420p10le",
+    "color_primaries": "bt2020",
+    "color_transfer": "smpte2084",
+    "color_space": "bt2020nc",
+    "rotation_metadata_degrees": -90,
+    "coded_size": [
+      1920,
+      1080
+    ],
+    "display_size": [
+      1080,
+      1920
+    ],
+    "frames": 287,
+    "duration_seconds": 9.566089,
+    "avg_frame_rate": "6457500/215237"
+  },
+  "preprocessing": {
+    "ffmpeg_version": "9.0.2-essentials_build-www.gyan.dev",
+    "ffmpeg_vendor_archive_sha256": "60f467265b1e312373dbcd92200c2618a74850f98d3d078e94296bb3fa2047ba",
+    "vendor_checksum_verified": true,
+    "filtergraph": "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=mobius:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p",
+    "derived_input_sha256": "5e2484cb1b0e8f34aa5f63de28ae4342e2619220cfbc76320953b0c934380e7e",
+    "derived_frames": 287,
+    "derived_size": [
+      1080,
+      1920
+    ],
+    "derived_color_space": "BT709 SDR",
+    "derived_fps": "30/1",
+    "derived_duration_seconds": 9.566667,
+    "source_audio_not_included_in_output": true,
+    "frame_selection": "First 150 decoded frames from tone-mapped input; output time is frame index / 30."
+  },
+  "inference": {
+    "model": "models/best.pt",
+    "model_sha256": "72eec58f57a0decd694a98606e9759824cb7cb4d75af345e9ae8db735a4d66ea",
+    "model_unchanged": true,
+    "device": "cpu",
+    "training_resumed": false,
+    "local_training_processes_verified_stopped": true,
+    "ultralytics": "8.4.215",
+    "torch": "2.15.0+cpu",
+    "lap": "0.5.14",
+    "imgsz": 1280,
+    "rotate_inference_clockwise_degrees": 90,
+    "output_orientation": "original portrait",
+    "confidence": 0.25,
+    "nms_iou": 0.5,
+    "agnostic_nms": true,
+    "tracker": "bytetrack.yaml",
+    "tracker_settings": {
+      "track_high_thresh": 0.25,
+      "track_low_thresh": 0.1,
+      "new_track_thresh": 0.25,
+      "track_buffer": 30,
+      "match_thresh": 0.8,
+      "fuse_score": true
+    },
+    "trail_length_observations": 60,
+    "coordinates": "Integer centers in original output-image pixels, after inverse rotation.",
+    "settings_exploration": "outputs/tracking_experiments.json"
+  },
+  "output": {
+    "video": "outputs/final_5s.mp4",
+    "video_bytes": 8644494,
+    "video_sha256": "6f78446e677f3b1b6dece44540c410df6b86f8aa8141ad9c87cdfef54f7972ba",
+    "csv": "outputs/trajectory.csv",
+    "csv_bytes": 13363,
+    "csv_sha256": "40c92e65450080dc9d9c78fcdaa04c4961753742545f806e27e705646eb6468b",
+    "codec": "h264",
+    "pixel_format": "yuv420p",
+    "size": [
+      1080,
+      1920
+    ],
+    "fps": "30/1",
+    "decoded_frames": 150,
+    "duration_seconds": 5.0,
+    "first_pts_seconds": 0.0,
+    "last_pts_seconds": 4.966667,
+    "last_frame_end_seconds": 5.0,
+    "audio_streams": 0,
+    "encoding": {
+      "codec": "libx264",
+      "preset": "medium",
+      "crf": 18,
+      "fps_mode": "passthrough",
+      "movflags": "+faststart"
+    }
+  },
+  "checks": {
+    "single_video_stream_no_audio": {
+      "passed": true
+    },
+    "h264_yuv420p": {
+      "passed": true
+    },
+    "portrait_1080x1920": {
+      "passed": true
+    },
+    "fps_30": {
+      "passed": true
+    },
+    "ffprobe_150_decoded_frames": {
+      "passed": true
+    },
+    "stream_and_container_duration_5": {
+      "passed": true,
+      "detail": {
+        "stream_seconds": 5.0,
+        "container_seconds": 5.0,
+        "stream_tick": 6.510416666666667e-05
+      }
+    },
+    "stream_start_zero": {
+      "passed": true
+    },
+    "150_presentation_timestamps": {
+      "passed": true
+    },
+    "presentation_timeline_matches_csv": {
+      "passed": true,
+      "detail": {
+        "first_pts": 0.0,
+        "last_pts": 4.966667,
+        "max_seconds_error": 3.33333333379926e-07
+      }
+    },
+    "last_frame_ends_at_5": {
+      "passed": true,
+      "detail": {
+        "last_frame_duration": "0.033333",
+        "end_seconds": 5.0
+      }
+    },
+    "csv_schema": {
+      "passed": true,
+      "detail": [
+        "frame",
+        "time_sec",
+        "track_id",
+        "class_id",
+        "class_name",
+        "confidence",
+        "center_x",
+        "center_y"
+      ]
+    },
+    "csv_values_and_unique_frame_id": {
+      "passed": true,
+      "detail": []
+    },
+    "csv_nonempty": {
+      "passed": true
+    },
+    "csv_frame_order": {
+      "passed": true
+    },
+    "render_decodes_150_at_30fps": {
+      "passed": true,
+      "detail": {
+        "frames": 150,
+        "fps": 30.0
+      }
+    },
+    "render_original_orientation": {
+      "passed": true,
+      "detail": [
+        [
+          1920,
+          1080
+        ]
+      ]
+    },
+    "final_decodes_150_at_30fps": {
+      "passed": true,
+      "detail": {
+        "frames": 150,
+        "fps": 30.0
+      }
+    },
+    "final_original_orientation": {
+      "passed": true,
+      "detail": [
+        [
+          1920,
+          1080
+        ]
+      ]
+    },
+    "render_and_final_frame_counts_match": {
+      "passed": true
+    },
+    "input_files_unchanged": {
+      "passed": true
+    }
+  },
+  "csv_summary": {
+    "rows": 300,
+    "unique_ids": 2,
+    "class_row_counts": {
+      "highlighter": 68,
+      "correction_tape": 150,
+      "eraser": 82
+    },
+    "class_frame_counts": {
+      "highlighter": 68,
+      "correction_tape": 150,
+      "eraser": 82
+    },
+    "frames_without_tracked_rows": [],
+    "tracks": {
+      "1": {
+        "rows": 150,
+        "first_frame": 0,
+        "last_frame": 149,
+        "classes": [
+          "eraser",
+          "highlighter"
+        ],
+        "class_changes": [
+          {
+            "frame": 6,
+            "from": "eraser",
+            "to": "highlighter"
+          },
+          {
+            "frame": 10,
+            "from": "highlighter",
+            "to": "eraser"
+          },
+          {
+            "frame": 22,
+            "from": "eraser",
+            "to": "highlighter"
+          },
+          {
+            "frame": 24,
+            "from": "highlighter",
+            "to": "eraser"
+          },
+          {
+            "frame": 28,
+            "from": "eraser",
+            "to": "highlighter"
+          },
+          {
+            "frame": 43,
+            "from": "highlighter",
+            "to": "eraser"
+          },
+          {
+            "frame": 59,
+            "from": "eraser",
+            "to": "highlighter"
+          },
+          {
+            "frame": 63,
+            "from": "highlighter",
+            "to": "eraser"
+          },
+          {
+            "frame": 64,
+            "from": "eraser",
+            "to": "highlighter"
+          },
+          {
+            "frame": 103,
+            "from": "highlighter",
+            "to": "eraser"
+          },
+          {
+            "frame": 104,
+            "from": "eraser",
+            "to": "highlighter"
+          },
+          {
+            "frame": 106,
+            "from": "highlighter",
+            "to": "eraser"
+          },
+          {
+            "frame": 111,
+            "from": "eraser",
+            "to": "highlighter"
+          },
+          {
+            "frame": 112,
+            "from": "highlighter",
+            "to": "eraser"
+          },
+          {
+            "frame": 137,
+            "from": "eraser",
+            "to": "highlighter"
+          },
+          {
+            "frame": 138,
+            "from": "highlighter",
+            "to": "eraser"
+          }
+        ],
+        "gaps": []
+      },
+      "2": {
+        "rows": 150,
+        "first_frame": 0,
+        "last_frame": 149,
+        "classes": [
+          "correction_tape"
+        ],
+        "class_changes": [],
+        "gaps": []
+      }
+    }
+  },
+  "overlay_consistency": {
+    "definition": "CSV ID histories, last 60 observations, drawn only while ID is present; line width 3. Yellow B<120/G>140/R>140; 2px axis tolerance.",
+    "frames_with_expected_trails": 149,
+    "mean_frame_coverage": 1.0,
+    "pixel_weighted_coverage": 1.0,
+    "manual_trail_review_required": false,
+    "limitation": "Color overlap supports rendering/CSV consistency only. Yellow background can inflate overlap; this does not establish correct object classes or physical identities."
+  },
+  "visual_review": {
+    "sample_frames": [
+      0,
+      30,
+      60,
+      90,
+      120,
+      149
+    ],
+    "preview": "report/assets/tracking/preview.jpg",
+    "class_id_and_yellow_trail_visible": true,
+    "physical_track_1": "eraser; labels alternate eraser/highlighter",
+    "physical_track_2": "correction tape",
+    "actual_highlighter_missed": true,
+    "track_1_class_changes": 16,
+    "manual_boxes_or_class_overrides_used": false
+  },
+  "limitations": [
+    "The actual long yellow highlighter is missed; 68 highlighter CSV rows belong to the physical eraser, not successful highlighter detections.",
+    "Track 1 changes predicted class 16 times. Stable ID numbers do not establish correct classification.",
+    "The camera moves while the objects are largely stationary; trails describe image coordinates and are not physical-world trajectories.",
+    "Settings were explored on this same source video. No independent tracking accuracy, MOTA or IDF1 was measured.",
+    "Confidence 0.25 filters out the lower-score 0.1-0.25 candidates before default ByteTrack association.",
+    "The original split has known near-scene independence concerns; stored test metrics do not guarantee performance on this new video."
+  ],
+  "status": {
+    "video_and_csv_created": true,
+    "timing_coordinates_and_rendering_checks_passed": true,
+    "required_artifact_files_present": true,
+    "all_three_physical_objects_correctly_tracked": false,
+    "tracking_accuracy_goal_met": false
+  }
+}

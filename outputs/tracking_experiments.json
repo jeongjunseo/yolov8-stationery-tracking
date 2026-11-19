@@ -1,0 +1,101 @@
+{
+  "purpose": "Deployment-video configuration exploration, not held-out test evaluation. Counts are predicted rows, not correct object detections.",
+  "sample_exploration": {
+    "frames": [
+      0,
+      75,
+      149
+    ],
+    "input_variants": [
+      "raw HDR decoded by OpenCV",
+      "Mobius tone-mapped SDR BT709"
+    ],
+    "imgsz": [
+      640,
+      1280
+    ],
+    "clockwise_rotations": [
+      0,
+      90
+    ],
+    "evaluations": 24,
+    "confidence_floor_for_diagnosis": 0.01,
+    "finding": "High-confidence highlighter boxes were mostly on the physical eraser. The actual long yellow target was not reliably detected."
+  },
+  "full_five_second_runs": [
+    {
+      "name": "raw_default",
+      "source": "raw_hdr_opencv",
+      "imgsz": 640,
+      "rotate_inference": 0,
+      "agnostic_nms": false,
+      "confidence": 0.25,
+      "nms_iou": 0.5,
+      "rows": 117,
+      "predicted_class_rows": {
+        "highlighter": 3,
+        "correction_tape": 114,
+        "eraser": 0
+      },
+      "unique_ids": 3,
+      "csv_sha256": "ebb385eadc1b2d76cda7d7465b3eb071afbe207906505cb72bfde4548066366b",
+      "selected": false
+    },
+    {
+      "name": "sdr_default",
+      "source": "SDR_BT709",
+      "imgsz": 640,
+      "rotate_inference": 0,
+      "agnostic_nms": false,
+      "confidence": 0.25,
+      "nms_iou": 0.5,
+      "rows": 13,
+      "predicted_class_rows": {
+        "highlighter": 4,
+        "correction_tape": 9,
+        "eraser": 0
+      },
+      "unique_ids": 2,
+      "csv_sha256": "84879faf478a010b699d3713c4c6399666e429b9334e533d33eff5bdd0e81d35",
+      "selected": false
+    },
+    {
+      "name": "sdr_rotated",
+      "source": "SDR_BT709",
+      "imgsz": 1280,
+      "rotate_inference": 90,
+      "agnostic_nms": false,
+      "confidence": 0.25,
+      "nms_iou": 0.5,
+      "rows": 410,
+      "predicted_class_rows": {
+        "highlighter": 121,
+        "correction_tape": 150,
+        "eraser": 139
+      },
+      "unique_ids": 14,
+      "csv_sha256": "b90c2a7748a625af05e59ed4ea7667d01255ca9a7a9d6d6632cedc1c99c65c90",
+      "selected": false
+    },
+    {
+      "name": "sdr_rotated_agnostic",
+      "source": "SDR_BT709",
+      "imgsz": 1280,
+      "rotate_inference": 90,
+      "agnostic_nms": true,
+      "confidence": 0.25,
+      "nms_iou": 0.5,
+      "rows": 300,
+      "predicted_class_rows": {
+        "highlighter": 68,
+        "correction_tape": 150,
+        "eraser": 82
+      },
+      "unique_ids": 2,
+      "csv_sha256": "40c92e65450080dc9d9c78fcdaa04c4961753742545f806e27e705646eb6468b",
+      "selected": true
+    }
+  ],
+  "selection_reason": "Final candidate removes overlapping cross-class duplicate boxes and keeps two track IDs for 150 frames; it does not solve the missing actual highlighter or eraser class flips.",
+  "training_and_official_test_metrics_changed": false
+}

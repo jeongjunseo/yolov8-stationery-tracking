@@ -6,20 +6,21 @@
 
 교수님이 제공하신 자료는 [과제 지침 메모](docs/ASSIGNMENT_GUIDELINES.md)에 별도로 보존했습니다. **Colab Tesla T4의 CUDA 장치 0에서 batch 16으로 100 epoch 학습과 test 평가를 완료했습니다.** 기존 데이터 687장의 분할·라벨·설정을 유지했으며, 학습 CSV의 누적 시간은 **2시간 43분 54.78초**입니다. GPU 메모리 부족이나 batch 축소 없이 한 번의 시도로 완료했고, 100회의 epoch 백업이 성공했습니다.
 
-Test 73장·정답 객체 108개에서 **Precision 93.70%, Recall 88.77%, mAP50 93.58%, mAP50-95 76.68%**를 얻었습니다. 이 수치는 아래의 빈 라벨과 eraser 유사 장면 한계를 포함한 기존 분할의 결과입니다. **실제 원본 영상이 없어 5초 추적 영상과 궤적 CSV는 아직 제작 전입니다.**
+Test 73장·정답 객체 108개에서 **Precision 93.70%, Recall 88.77%, mAP50 93.58%, mAP50-95 76.68%**를 얻었습니다. 이 수치는 아래의 빈 라벨과 eraser 유사 장면 한계를 포함한 기존 분할의 결과입니다. 사용자가 제공한 실제 영상으로 **5초 결과 영상과 궤적 CSV를 생성했습니다. 다만 위쪽 노란 형광펜을 놓쳤고, 지우개는 형광펜으로도 오분류되어 세 실제 물체의 정확한 추적 목표는 달성하지 못했습니다.**
 
-로컬 CPU 학습은 batch 16·8의 메모리 오류 후 batch 4로 1 epoch를 완료했습니다. 2번째 epoch 44%에서 19:28 KST 사용자 요청으로 일시정지했으며 메모리 상태·체크포인트·로그를 보존했습니다. 이 중간 결과를 최종 모델 또는 test 성능으로 사용하지 않습니다. 원본 영상은 사용자가 준비할 예정입니다.
+로컬 CPU 학습은 batch 16·8의 메모리 오류 후 batch 4로 1 epoch를 완료했습니다. 2번째 epoch 44%에서 19:28 KST 사용자 요청으로 일시정지했으며 메모리 상태·체크포인트·로그를 보존했습니다. 이 중간 결과를 최종 모델 또는 test 성능으로 사용하지 않습니다. 영상 추론은 완료된 Colab 모델을 로컬 CPU에서 실행했으며, 일시정지한 학습을 재개하지 않았습니다.
 
 - 인계 및 다음 실행 조건: [HANDOFF.md](HANDOFF.md)
 - 실제 데이터 감사 결과: [outputs/dataset_summary.json](outputs/dataset_summary.json)
 - 실제 Colab 환경과 데이터 검사: [colab_environment.json](outputs/colab_environment.json), [colab_dataset_check.json](outputs/colab_dataset_check.json)
 - 학습 완료·산출물 검증: [colab_training_run.json](outputs/colab_training_run.json), [artifact_verification.json](outputs/artifact_verification.json)
 - 학습 모델·test 지표: [best.pt](models/best.pt), [test_metrics.json](outputs/test_metrics.json)
+- 실제 5초 영상·궤적: [final_5s.mp4](outputs/final_5s.mp4), [trajectory.csv](outputs/trajectory.csv)
 - 로컬 CPU 실행 상태: `outputs/training_status.json` (로컬 전용, Git 제외)
 - 확인된 사실과 미완료 항목: [report/REPORT.md](report/REPORT.md)
 - 공개 저장소: https://github.com/jeongjunseo/yolov8-stationery-tracking
 
-`models/best.pt`는 6,500,778 bytes이며 Colab 기록과 SHA-256이 일치합니다. 로컬 CPU에서 모델을 불러와 세 클래스와 파일 무변경을 확인했습니다. 아래 학습·평가 명령은 완료된 실험의 재현 절차이며, 영상 제작 명령은 원본 제공 후 실행할 절차입니다.
+`models/best.pt`는 6,500,778 bytes이며 Colab 기록과 SHA-256이 일치합니다. 로컬 CPU에서 모델을 불러와 세 클래스와 파일 무변경을 확인했습니다. 아래 명령은 완료된 학습·평가와 실제 영상 처리의 재현 절차입니다.
 
 ## Colab에서 실행
 
@@ -156,35 +157,39 @@ python scripts/evaluate.py --device 0
 
 ## 6. 5초 추적 영상 제작
 
-세 객체가 모두 보이고 천천히 이동하는 5초 이상의 원본 영상을 `inputs/source.mp4`에 둡니다.
+사용자가 업로드한 `1000030242.mp4`는 9.566089초·287프레임의 HEVC 10-bit HDR(PQ/BT.2020) 영상이며, 회전 메타데이터를 적용한 화면은 1080 × 1920입니다. 원본 26,398,062 bytes를 보존하고 별도 SDR(BT.709) 입력을 만든 뒤 앞 5초를 처리했습니다. 원본은 프로젝트 상위 폴더에 있으며 공개 저장소에 포함하지 않습니다.
+
+아래는 프로젝트 루트에서 실행하는 재현 예시입니다. [FFmpeg 공식 다운로드 페이지](https://ffmpeg.org/download.html)의 Windows 빌드 링크를 통해 확보한 FFmpeg 9.0.2 gyan 빌드를 사용했습니다. `ffmpeg`가 PATH에 없으면 해당 실행 파일의 경로로 바꿉니다. `zscale`, `tonemap`, `libx264`가 필요하며 HDR 변환 방법은 [FFmpeg tonemap 문서](https://ffmpeg.org/ffmpeg-filters.html#tonemap)를 참고합니다.
 
 ```powershell
-python scripts/track_video.py --source inputs/source.mp4 --model models/best.pt --device 0 --output outputs/final_5s_render.mp4
-ffmpeg -n -i outputs/final_5s_render.mp4 -map 0:v:0 -an -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -fps_mode passthrough -movflags +faststart outputs/final_5s.mp4
+ffmpeg -n -i ../1000030242.mp4 -map 0:v:0 -an -map_metadata -1 -vf "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=mobius:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p" -c:v libx264 -crf 16 -preset fast -pix_fmt yuv420p -fps_mode passthrough -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart inputs/source_sdr.mp4
+python scripts/track_video.py --source inputs/source_sdr.mp4 --model models/best.pt --device cpu --imgsz 1280 --rotate-inference 90 --agnostic-nms --conf 0.25 --iou 0.5 --trail-length 60 --tracker bytetrack.yaml --duration 5 --output outputs/final_5s_render.mp4 --trajectory outputs/trajectory.csv
+ffmpeg -n -i outputs/final_5s_render.mp4 -map 0:v:0 -an -map_metadata -1 -c:v libx264 -preset medium -crf 18 -pix_fmt yuv420p -fps_mode passthrough -movflags +faststart outputs/final_5s.mp4
 ```
 
-위 제출 절차는 FFmpeg의 `libx264` 인코더를 사용할 수 있는 환경에서 실행합니다. OpenCV가 만든 `mp4v` 렌더링 파일은 보존하고, [GitHub에서 권장하는 H.264](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/attaching-files) 형식으로 최종 파일을 따로 만듭니다. `-n`은 기존 파일의 덮어쓰기를 막습니다. 변환 후에도 전체 프레임 수·타임스탬프·5초 재생 길이와 CSV 일치를 확인합니다. 실제 원본 영상이 아직 없어 이 영상 제작 절차는 실행 전입니다.
+추론 입력만 시계방향 90도로 회전하며 예측 박스·중심 좌표는 원래 세로 영상 좌표로 복원합니다. `--agnostic-nms`는 클래스가 달라도 겹치는 검출 박스를 억제합니다. ByteTrack은 `persist=True`로 ID를 연결하고 최근 60개 중심 좌표를 궤적으로 표시하며, 별도 재식별(Re-ID) 모델을 사용하지 않습니다. 예측 클래스나 좌표를 수동으로 정답에 맞추지 않았습니다.
 
-생성 결과:
+HDR/SDR, 입력 크기 640/1280, 추론 회전 0/90도를 같은 영상의 3개 프레임에서 진단한 뒤 전체 5초 실행들을 비교해 위 설정을 선택했습니다. 표본 진단의 confidence 하한은 0.01, 전체 5초 실행의 confidence는 0.25였으며 [탐색 기록](outputs/tracking_experiments.json)에 구분했습니다. 이는 이 영상에 대한 탐색이며 학습 설정이나 공식 test 평가를 변경한 것이 아닙니다. Class-agnostic NMS 적용 전의 14개 ID·410행은 적용 후 2개 ID·300행으로 줄었지만, 분류 오류는 남았습니다.
 
-- `outputs/final_5s.mp4`: 클래스명, 신뢰도, 추적 ID, 이동 궤적이 표시된 5초 영상
-- `outputs/trajectory.csv`: 프레임별 객체 중심 좌표와 추적 ID
+| 추적 ID | 실제 관찰 대상 | CSV 예측 클래스와 행 수 | 한계 |
+|---:|---|---|---|
+| 1 | 지우개 | eraser 82 / highlighter 68 | 같은 물체의 클래스가 16회 바뀜 |
+| 2 | 수정테이프 | correction_tape 150 | 150프레임에 같은 ID 기록 |
+| 없음 | 위쪽 노란 형광펜 | 검출 없음 | 추적 실패 |
 
-신뢰도 임계값은 필요할 때만 조정합니다.
+CSV의 세 클래스 이름은 **실제 물체 3개를 모두 추적했다는 뜻이 아닙니다.** 형광펜 예측 68행은 지우개에 붙은 오분류입니다. ID 1·2는 각각 150프레임에 기록됐으며, 정식 IDF1·MOTA 등 추적 정확도는 측정하지 않았습니다. 물체가 대체로 놓여 있는 상태에서 카메라가 움직이므로 노란 궤적은 화면 좌표의 변화이며 실제 공간에서 물체가 이동한 경로는 아닙니다.
 
-```powershell
-python scripts/track_video.py --conf 0.35 --trail-length 90
-```
+[최종 영상 다운로드](outputs/final_5s.mp4) · [궤적 CSV](outputs/trajectory.csv)
 
-ByteTrack은 프레임 사이의 객체 ID를 연결하는 추적기이며 별도의 재식별(Re-ID) 모델을 사용하지 않습니다.
+![실제 영상의 추적 결과 미리보기](report/assets/tracking/preview.jpg)
 
-출력 프레임 수를 `round(원본 FPS × 5)`로 정하고, 출력 FPS를 `프레임 수 / 5`로 정규화합니다. 예를 들어 29.97 FPS 입력에서는 150프레임을 30 FPS로 저장해 출력 시간축을 5초로 맞춥니다. 이 경우 재생 속도가 약 0.1% 달라지며 CSV의 `time_sec`는 출력 영상 기준입니다. 실제 제출 영상은 생성 후 컨테이너 재생 시간과 프레임 수까지 검증해야 합니다.
+영상은 H.264/yuv420p, 1080 × 1920, 30 FPS, 150프레임이며 컨테이너 길이는 정확히 5초이고 오디오는 없습니다. CSV는 300행, 프레임 0–149, 출력 시간 0–4.9667초입니다. 마지막 프레임의 시작 시각이 149/30초이고 그 프레임까지 재생하면 5초가 됩니다. 전체 디코딩·프레임 시간·CSV 범위·파일 보존 등 20개 검사가 통과했으며 노란 궤적과 CSV 이력도 대조했습니다. [tracking_verification.json](outputs/tracking_verification.json)은 파일·시간·렌더링 검증 통과와 세 물체 추적 목표 미달성을 별도로 기록합니다.
 
-기존 영상이나 CSV가 있으면 덮어쓰지 않고 중단합니다. 재실행 시 `--output`과 `--trajectory`로 새로운 경로를 지정합니다.
+출력 프레임 수를 `round(원본 FPS × 5)`로 정하고 출력 FPS를 `프레임 수 / 5`로 정규화합니다. 소수 FPS 입력에서는 재생 속도가 조금 달라질 수 있으며 CSV 시간은 출력 영상 기준입니다. OpenCV의 `mp4v` 중간 파일을 보존하고, [GitHub에서 권장하는 H.264](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/attaching-files)로 최종 파일을 따로 만듭니다. FFmpeg의 `-n`과 추적 스크립트는 기존 출력을 덮어쓰지 않습니다. 이미 최종 영상·CSV가 있는 저장소에서 재실행할 때에는 중간·최종 영상 및 `--trajectory`에 새 경로를 지정합니다.
 
 ## 7. 보고서와 GitHub 제출
 
-[report/REPORT.md](report/REPORT.md)에 완료된 Colab 학습·test 성능·실패 사례와 이전 CPU 시도를 구분해 기록했습니다. 원본 영상에 대한 실제 추적 결과와 검증이 남아 있으므로 전체 과제는 아직 완료되지 않았습니다. 최종 제출 경로는 다음과 같습니다.
+[report/REPORT.md](report/REPORT.md)에 Colab 학습·test 성능·실패 사례와 실제 영상의 추적 결과를 기록했습니다. 모델·지표·영상·CSV는 생성했으나 세 물체를 모두 정확히 감지·추적하는 성능 목표는 미달성입니다. 실제 형광펜·지우개와 여러 촬영 조건의 라벨 데이터를 추가한 별도 보완 실험이 필요하며, 이번 결과를 위해 재학습하지 않았습니다. 최종 제출 경로는 다음과 같습니다.
 
 ```text
 models/best.pt
@@ -199,7 +204,7 @@ data/stationery.yaml
 
 [GitHub 공식 제한](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)에 따라 파일 하나가 100 MiB를 넘으면 일반 push가 거부되므로, 그런 경우에만 Git LFS를 사용합니다. 원본 데이터 이미지와 라벨은 기본적으로 `.gitignore`에 포함되어 있습니다.
 
-`runs/`는 Git에서 제외되므로 실제 생성된 CSV·설정·학습 곡선은 [report/assets/train/](report/assets/train/), test 그래프는 [report/assets/test/](report/assets/test/), 실패 그림은 [report/assets/failures/](report/assets/failures/)로 복사했습니다. 42개 그림의 무결성과 모델 로딩을 확인했으며, 현재 결과 파일은 모두 100 MiB 미만입니다. 가장 큰 결과 파일은 6,500,778 bytes의 모델입니다. [검증 기록](outputs/artifact_verification.json)은 영상·CSV가 미완료임도 명시합니다.
+`runs/`는 Git에서 제외되므로 실제 생성된 CSV·설정·학습 곡선은 [report/assets/train/](report/assets/train/), test 그래프는 [report/assets/test/](report/assets/test/), 실패 그림은 [report/assets/failures/](report/assets/failures/)로 복사했습니다. 기존 42개 학습·평가·실패 그림의 무결성과 모델 로딩을 확인했습니다. 현재 결과 파일은 모두 100 MiB 미만이며, 가장 큰 공개 결과물은 8,644,494 bytes의 최종 영상입니다. 모델·평가는 [artifact_verification.json](outputs/artifact_verification.json), 실제 영상·CSV와 추적 한계는 [tracking_verification.json](outputs/tracking_verification.json)을 함께 확인합니다.
 
 코드 회귀 검증은 `python -m unittest discover -s tests -v`로 실행합니다. 이 테스트의 영상은 임시 합성 데이터와 모의 검출 결과를 사용하며 실제 학습·검출 성능이나 ByteTrack의 ID 유지 성능을 입증하지 않습니다.
 

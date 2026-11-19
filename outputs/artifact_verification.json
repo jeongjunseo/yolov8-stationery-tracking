@@ -26,5 +26,6 @@
   "real_source_video_present": false,
   "tracking_video_and_csv_complete": false,
   "submission_complete": false,
-  "note": "Checks verify saved Colab outputs and local model loading. They do not rerun training/evaluation or establish independent-scene generalization. Real-video tracking remains pending."
+  "superseded_for_video_status_by": "outputs/tracking_verification.json",
+  "note": "Historical Colab-import snapshot at checked_at_utc: the source video had not arrived then. Saved Colab outputs and model loading were checked without rerunning training/evaluation. See tracking_verification.json for the later real-video artifacts and their detection limitations."
 }

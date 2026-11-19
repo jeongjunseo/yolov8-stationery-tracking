@@ -136,6 +136,8 @@ class TrackingPipelineTests(unittest.TestCase):
         model_factory.assert_called_once_with(str(self.model.resolve()))
         self.assertEqual(len(detector.calls), 150)
         self.assertTrue(all(call["device"] == "0" for call in detector.calls))
+        self.assertTrue(all(call["imgsz"] == 640 for call in detector.calls))
+        self.assertTrue(all(call["agnostic_nms"] is False for call in detector.calls))
         self.assertTrue(all(call["persist"] is True for call in detector.calls))
         self.assertTrue(all(call["tracker"] == "bytetrack.yaml" for call in detector.calls))
 

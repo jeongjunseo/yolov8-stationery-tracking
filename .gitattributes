@@ -1,0 +1,4 @@
+# Preserve verified artifact bytes across Windows and Linux checkouts.
+models/best.pt -text
+outputs/final_5s.mp4 -text
+outputs/trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
