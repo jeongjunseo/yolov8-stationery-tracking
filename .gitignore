@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.py[cod]
+.idea/
+.vscode/
+
+# 재생성 가능한 학습 로그
+runs/
+
+# 원본 데이터와 입력 영상은 저장소에 올리지 않음
+data/train/images/*
+data/train/labels/*
+data/valid/images/*
+data/valid/labels/*
+data/test/images/*
+data/test/labels/*
+inputs/*
+
+# 빈 폴더 구조는 유지
+!**/.gitkeep
+

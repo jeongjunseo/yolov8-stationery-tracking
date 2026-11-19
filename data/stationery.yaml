@@ -1,0 +1,9 @@
+train: train/images
+val: valid/images
+test: test/images
+
+names:
+  0: highlighter
+  1: correction_tape
+  2: eraser
+
