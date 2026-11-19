@@ -1,16 +1,20 @@
 # YOLOv8 문구류 객체 감지 및 추적 — 진행 보고서
 
+> 2026-11-19 19:28 KST: 사용자 요청으로 학습 프로세스를 일시정지했다. 메모리와 체크포인트를 보존했으며 아래는 일시정지 전 진행 기록이다.
+
+> 이후 사용자는 교수님 자료를 별도 기록하고 Colab에서 학습하도록 지시했다. [과제 지침 메모](../docs/ASSIGNMENT_GUIDELINES.md)와 [Colab 실행 노트북](../notebooks/train_colab.ipynb)을 준비했다. 아래 CPU 실험은 중간 시도이며, Colab GPU의 실제 결과가 확보되면 구분해 반영해야 한다.
+
 기록일: 2026-11-19 (Asia/Seoul)
 
 저장소: https://github.com/jeongjunseo/yolov8-stationery-tracking
 
-**현재 상태: 데이터·실행 환경 검증 완료 범위를 기록한 진행 보고서이다. GPU 학습, test 평가, 실제 추적 영상 제작이 완료되지 않아 최종 결과보고서로 제출할 수 없다.**
+**현재 상태: 사용자가 CPU 학습을 허용해 학습을 시작했다. batch 16과 8 실행이 각각 실제 CPU 메모리 부족으로 종료됐고, batch 4 재시도가 정상적으로 학습 배치를 처리하고 있다. 학습, test 평가, 실제 추적 영상 제작이 완료되지 않아 현재 문서는 진행 보고서이다.**
 
 ## 1. 목적과 현재 결과
 
 YOLOv8n으로 형광펜(`highlighter`, ID 0), 수정테이프(`correction_tape`, ID 1), 지우개(`eraser`, ID 2)를 학습하고, 별도 test split에서 성능을 평가한 뒤 ByteTrack으로 클래스명·추적 ID·이동 궤적이 표시되는 5초 영상을 만드는 것이 목표이다.
 
-이전 컴퓨터의 `HANDOFF.md`를 기준으로 작업을 재개했다. 저장소를 복제하고 제공된 `data.zip`에서 기존 분할 데이터를 복원했다. 데이터와 라벨을 새로 만들거나 재분할하지 않았다. 현재 PC에서는 NVIDIA GPU가 확인되지 않아 요청된 CUDA 학습을 시작하지 않았다. 입력 영상도 아직 없다.
+이전 컴퓨터의 `HANDOFF.md`를 기준으로 작업을 재개했다. 저장소를 복제하고 제공된 `data.zip`에서 기존 분할 데이터를 복원했다. 데이터와 라벨을 새로 만들거나 재분할하지 않았다. 현재 PC에서는 NVIDIA GPU가 확인되지 않았으며, 이후 사용자의 명시적 승인에 따라 CPU로 장치를 변경해 학습을 실행했다. 사용자는 입력 영상을 준비할 예정이며, 영상 준비 전에도 학습과 평가는 계속 진행한다.
 
 ## 2. 데이터 출처와 전처리
 
@@ -52,7 +56,7 @@ highlighter 원본 240장 중 21장의 라벨 파일이 비어 있어 해당 클
 
 ![빈 라벨 21장 감사 연락시트](../outputs/dataset_audit/empty_labels_contact_sheet.jpg)
 
-연락시트 02번 train 이미지 `highlighter_IMG_20260713_162103695_HDR_jpg.rf.Sbrd0MiyGuUjja7V5nXf.jpg`에는 왼쪽 가장자리에 녹색 뚜껑의 형광펜이 보이는데 라벨은 비어 있다. 최소 이 사례는 누락 객체 라벨 검토 대상이다. 원본 라벨은 수정하지 않았다. 이 사례는 학습 모델의 미검출 사례가 아니라 **정답 데이터의 문제**이다.
+연락시트 02번 train 이미지 `highlighter_IMG_20260713_162103695_HDR_jpg.rf.Sbrd0MiyGuUjja7V5nXf.jpg`에는 왼쪽 가장자리에 녹색 뚜껑의 형광펜이 보이는데 라벨은 비어 있다. 최소 이 사례는 누락 객체 라벨 검토 대상이다. 이번 실행은 기존 데이터 보존 원칙에 따라 원본 라벨을 그대로 사용하며, 이 문제를 결과 해석의 한계로 기록한다. 이 사례는 학습 모델의 미검출 사례가 아니라 **정답 데이터의 문제**이다.
 
 나머지 빈 라벨도 썸네일 검토만 했으므로 원해상도에서의 정답 완전성을 보증하지 않는다. SHA-256 완전 중복 검사와 달리 유사 장면·연속 프레임의 split 간 누출은 확인하지 않았다. 따라서 장면 단위 분리가 완료됐다고 단정하지 않는다.
 
@@ -73,27 +77,34 @@ highlighter 원본 240장 중 21장의 라벨 파일이 비어 있어 해당 클
 
 이전 PC의 `.venv`를 사용하지 않았다. 이번 새 환경의 첫 의존성 설치는 C: 공간 부족으로 실패했고, 해당 불완전 환경을 D:에 보존한 뒤 D:에 새 환경을 구성했다. 기존 사용자 파일을 삭제하지 않았다. 시스템 CUDA 빌드가 설치되어 있어도 NVIDIA 하드웨어가 없어 CUDA를 사용할 수 없다는 점을 확인했다.
 
-새 환경에서 `requirements.txt` 설치와 `pip check`는 성공했다. 이 환경은 코드 검증용 CPU 빌드이며 CUDA 학습 환경이 마련됐다는 뜻은 아니다. [환경 확인 JSON](../outputs/environment_check.json)에 실제 버전과 CUDA 상태를 저장했다. NVIDIA GPU PC에서는 해당 하드웨어·드라이버에 맞는 CUDA PyTorch를 별도로 설치해야 한다.
+새 환경에서 `requirements.txt` 설치와 `pip check`는 성공했다. 사용자가 CPU 학습을 허용한 후 이 CPU 빌드로 학습을 실행했다. [환경 확인 JSON](../outputs/environment_check.json)에 실제 버전과 CUDA 상태를 저장했다. NVIDIA GPU PC에서 실행하는 경우에는 해당 하드웨어·드라이버에 맞는 CUDA PyTorch를 별도로 설치해야 한다.
 
-예정 학습 조건은 기존 `scripts/train.py` 그대로이다.
+최초 CPU 실행은 기존 `scripts/train.py`에서 장치만 `cpu`로 지정했다. 실제 메모리 부족 발생에 따라 batch만 16에서 8, 다시 4로 낮췄다.
 
 | 항목 | 설정 |
 |---|---|
 | 모델 | COCO 사전 학습 YOLOv8n (`yolov8n.pt`) |
 | epochs / imgsz | 100 / 640 |
-| batch / workers | 16 / 4 |
+| batch | 16과 8에서 CPU 메모리 부족 발생 후 4로 재시도 |
+| workers | 스크립트 인자 4 / Ultralytics CPU 실행 실제값 0 |
 | seed / deterministic | 42 / True |
-| device | 0 (CUDA 사용 가능 확인 후) |
+| device | cpu (사용자 명시적 승인) |
+| optimizer | auto → 실제 선택 AdamW |
+| 실제 초기 학습률 | 0.001429 |
 
 ```powershell
-python scripts/train.py --device 0 --batch 16 --epochs 100
+python scripts/train.py --device cpu --batch 4 --epochs 100
 ```
 
-GPU 메모리 부족이 실제로 발생할 때만 batch를 8 또는 4로 낮춘다. 아직 학습을 시작하지 않아 학습 손실, 최적 epoch, 과적합 여부, 학습 시간, 성능 그래프는 측정되지 않았다.
+학습 로그와 체크포인트는 프로젝트의 `runs/`를 통해 D:에 저장한다. 최초 실행은 2026-11-19 19:17:51 KST에 시작했으나 19:18:27 KST에 `DefaultCPUAllocator: not enough memory` 오류로 종료됐다. 오류 메시지의 할당 요청 크기는 13,107,200 bytes이며 첫 epoch 결과는 생성되지 않았다. 사용자 프로그램이나 데이터를 삭제·변경하지 않고, 메모리 부족 시 batch를 낮추는 대응을 승인된 CPU 실행에 적용했다. 실패 로그와 상태는 `runs/session_cpu_20261119/`에 보존했다.
+
+batch 8 재시도는 19:20:06 KST에 시작했으나 첫 epoch의 11/63 배치에서 CPU 메모리 부족으로 실패했고, 19:21:02 KST에 종료됐다. 할당 요청 크기는 16,384,000 bytes였다. 이 시도에서도 완료 epoch는 0개이며, 로그와 `status.json`은 `runs/session_cpu_20261119_b8/`에 보존했다.
+
+batch 4 재시도는 19:22:27 KST에 시작해 학습 배치를 정상 처리 중이다. 정상 실행 중인 학습을 중단한 적은 없으며, 실제 오류로 종료된 시도 이후 재실행했다. 최신 상태는 [실행 상태 JSON](../outputs/training_status.json), 로그는 `runs/session_cpu_20261119_b4/`, 실제 학습 결과 디렉터리는 `runs/train/stationery-3/`이다. 아직 최적 epoch, 과적합 여부, 완료 학습 시간, 최종 학습 곡선을 판단할 수 없다.
 
 ## 5. 성능 평가 상태와 분석 계획
 
-학습 완료 후 `python scripts/evaluate.py --device 0`으로 test 73장, 정답 객체 108개를 평가한다. 결과는 `outputs/test_metrics.json`에 저장한다.
+학습 완료 후 `python scripts/evaluate.py --device cpu`로 test 73장, 정답 객체 108개를 평가한다. 실행 도우미는 학습 성공과 `models/best.pt` 생성 확인 후 평가를 실행하도록 구성되어 있다. CPU 재시도가 진행 중이므로 평가는 아직 실행되지 않았다. 결과는 `outputs/test_metrics.json`에 저장한다.
 
 | 지표 | 현재 결과 |
 |---|---|
@@ -111,7 +122,7 @@ GPU 메모리 부족이 실제로 발생할 때만 batch를 8 또는 4로 낮춘
 
 검출 결과를 ByteTrack에 전달하고 `persist=True`로 프레임 사이 추적 상태를 유지한다. ID별 객체 중심 좌표를 저장하고 최근 60개 좌표를 선으로 연결해 궤적을 표시한다. 기본 confidence는 0.25, 검출 NMS IoU는 0.5이다. 별도 Re-ID 모델은 사용하지 않는다.
 
-`--device` 인자가 없던 문제를 보완해 요청된 GPU 명령을 받을 수 있도록 했다. 출력 프레임 수 `N=round(원본 FPS×5)`에 대해 출력 FPS를 `N/5`로 설정하고 CSV 시간을 같은 출력 시간축에 맞췄다. 예를 들어 29.97 FPS 입력은 150프레임 / 30 FPS로 출력하여 5초를 구성하며 재생 속도는 약 0.1% 달라진다. 기존 영상·CSV가 있으면 덮어쓰지 않는다.
+`--device` 인자가 없던 문제를 보완해 CPU 또는 GPU 장치를 지정할 수 있도록 했다. 이번 PC에서는 모델과 입력 영상 준비 후 `--device cpu`로 실행한다. 출력 프레임 수 `N=round(원본 FPS×5)`에 대해 출력 FPS를 `N/5`로 설정하고 CSV 시간을 같은 출력 시간축에 맞췄다. 예를 들어 29.97 FPS 입력은 150프레임 / 30 FPS로 출력하여 5초를 구성하며 재생 속도는 약 0.1% 달라진다. 기존 영상·CSV가 있으면 덮어쓰지 않는다.
 
 `inputs/source.mp4`와 학습된 `models/best.pt`가 아직 없으므로 실제 영상은 생성되지 않았다. 코드 테스트에서 사용하는 합성 영상과 모의 검출 결과는 제출 영상이나 모델 성능의 근거가 아니다. 실제 생성 후 영상 재생 길이, 세 클래스의 표시, ID와 궤적, CSV 좌표의 움직임을 확인해야 한다.
 
@@ -132,11 +143,11 @@ GPU 메모리 부족이 실제로 발생할 때만 batch를 8 또는 4로 낮춘
 |---|---|
 | 공개 GitHub 저장소 | 공개 상태 확인 |
 | 데이터 구성·검사 기록 | 작성 완료 |
-| models/best.pt | 미생성 — GPU 학습 필요 |
+| models/best.pt | 미생성 — batch 4 CPU 학습 진행 중 |
 | outputs/test_metrics.json | 미생성 — 학습 모델 필요 |
 | 학습·평가 성능 그래프 | 미생성 |
 | outputs/final_5s.mp4 | 미생성 — 모델과 입력 영상 필요 |
 | outputs/trajectory.csv | 미생성 |
 | 최종 결과보고서 | 미완료 — 현재 문서는 진행 보고서 |
 
-NVIDIA GPU 환경 확보, 빈 라벨 이상 검토, CUDA 학습, test 평가, 실제 추적 영상 제작 순으로 이어가야 한다. `runs/`는 Git에서 제외되므로 완료된 학습·평가 그래프는 `report/assets/` 등 공개 경로로 복사한다. 각 제출 파일이 GitHub 일반 push 제한 100 MiB 이내인지 확인하고 최종 산출물을 커밋·push해야 한다.
+진행 중인 CPU 학습을 완료한 뒤 test 평가와 실제 추적 영상 제작을 수행해야 한다. 기존 라벨의 알려진 문제는 이번 실행의 한계로 유지하며 후속 보정 실험과 구분한다. `runs/`는 Git에서 제외되므로 완료된 학습·평가 그래프는 `report/assets/` 등 공개 경로로 복사한다. 각 제출 파일이 GitHub 일반 push 제한 100 MiB 이내인지 확인하고 최종 산출물을 커밋·push해야 한다.

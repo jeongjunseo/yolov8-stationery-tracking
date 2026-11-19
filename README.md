@@ -4,14 +4,29 @@
 
 ## 현재 진행 상태 — 2026-11-19
 
-데이터 복원·검증과 실행 코드 보완을 완료했습니다. **학습과 성능 평가, 실제 추적 영상 제작은 아직 실행하지 않았습니다.** 현재 PC에서는 AMD Radeon 내장 그래픽만 확인되며 NVIDIA GPU가 없어 CUDA 장치를 사용할 수 없습니다. `inputs/source.mp4`도 제공되지 않았습니다.
+교수님이 제공하신 자료는 [과제 지침 메모](docs/ASSIGNMENT_GUIDELINES.md)에 별도로 보존했습니다. **사용자의 최신 지시에 따라 Colab GPU 학습으로 전환합니다.** [Colab 실행 노트북](notebooks/train_colab.ipynb)을 준비했으며, 아직 실제 Colab GPU 학습을 시작했다는 뜻은 아닙니다.
+
+로컬 CPU 학습은 batch 16·8의 메모리 오류 후 batch 4로 1 epoch를 완료했습니다. 2번째 epoch 44%에서 19:28 KST 사용자 요청으로 일시정지했으며 메모리 상태·체크포인트·로그를 보존했습니다. 이 중간 결과를 최종 모델 또는 test 성능으로 사용하지 않습니다. 원본 영상은 사용자가 준비할 예정입니다.
 
 - 인계 및 다음 실행 조건: [HANDOFF.md](HANDOFF.md)
 - 실제 데이터 감사 결과: [outputs/dataset_summary.json](outputs/dataset_summary.json)
+- 로컬 CPU 실행 상태: `outputs/training_status.json` (로컬 전용, Git 제외)
 - 확인된 사실과 미완료 항목: [report/REPORT.md](report/REPORT.md)
 - 공개 저장소: https://github.com/jeongjunseo/yolov8-stationery-tracking
 
 `models/best.pt`, `outputs/test_metrics.json`, `outputs/final_5s.mp4`, `outputs/trajectory.csv`는 아직 생성되지 않았습니다. 아래 학습·평가·추적 명령은 실행 절차이며 완료된 결과를 의미하지 않습니다.
+
+## Colab에서 실행
+
+[Colab에서 노트북 열기](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/train_colab.ipynb)
+
+1. GPU 런타임을 연결하고 노트북의 셀을 순서대로 실행합니다. `nvidia-smi`와 PyTorch CUDA 검사를 통과해야 학습을 시작합니다.
+2. Google Drive 연결을 승인합니다. 기본 데이터 위치는 `MyDrive/yolov8-stationery-tracking/`이며, 전체 ZIP 또는 `stationery_dataset.parts.json`에 나열된 분할 파일을 읽습니다. 분할 파일은 `/content/stationery_dataset.zip`으로 재조립하고 각 조각·전체 ZIP·이미지·라벨의 SHA-256을 검사합니다.
+3. 기존 `scripts/train.py`를 YOLOv8n, batch 16, epochs 100, imgsz 640, seed 42로 실행합니다. 실제 CUDA 메모리 부족이 발생할 때만 batch를 8 또는 4로 낮춥니다. 콜백으로 체크포인트를 백업하고 라이브러리의 내부 batch 자동 변경을 차단하여 이 조건을 지킵니다. 모델·증강·최적화·시드 설정은 그대로 유지합니다.
+4. 학습 완료 후 test 평가와 고정 임계값 실패 분석을 실행합니다. 원본 영상이 없으면 영상 단계는 보류하고 모델·성능·그래프를 먼저 저장합니다.
+5. 체크포인트와 결과 ZIP은 Drive의 `yolov8-stationery-tracking/colab_runs/<run-id>/`에 저장합니다. 측정된 결과를 검토한 뒤 README와 보고서를 완성하고 GitHub에 반영합니다.
+
+Colab은 로컬 `.venv`나 Windows junction을 사용하지 않습니다. 노트북은 실제 GPU 장치와 완료 epoch 수를 확인하며, CPU 중간 체크포인트를 완료된 Colab 학습 결과로 대체하지 않습니다.
 
 ## 1. 데이터 기준
 
@@ -76,7 +91,7 @@ GPU 학습 PC에서는 `nvidia-smi`로 NVIDIA GPU와 드라이버를 확인한 �
 python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU')"
 ```
 
-이번 작업에서는 `torch.cuda.is_available()`이 `True`인 경우에만 GPU 학습을 시작합니다. NVIDIA GPU가 없는 현재 PC에서 CPU 학습으로 임의 전환하지 않습니다.
+GPU 실행은 `torch.cuda.is_available()`이 `True`여야 합니다. 이번 실행은 사용자가 CPU 학습을 허용했으므로 새 CPU 가상환경을 사용하며, CUDA 인식 결과는 여전히 `False`입니다.
 
 ## 3. 데이터 검사
 
@@ -94,21 +109,21 @@ python scripts/check_dataset.py --min-per-class 0 --min-total 100
 
 ## 4. 학습
 
-YOLOv8 nano 사전 학습 가중치로 100 epoch 전이학습을 수행합니다.
+YOLOv8 nano 사전 학습 가중치로 100 epoch 전이학습을 수행합니다. CPU batch 16과 8의 실제 메모리 오류 후 재시도 중인 명령은 다음과 같습니다.
 
 ```powershell
-python scripts/train.py
+python scripts/train.py --device cpu --batch 4 --epochs 100
 ```
 
-GPU를 명시하거나 메모리에 맞게 batch 크기를 바꾸려면 다음처럼 실행합니다.
+NVIDIA GPU가 있는 다른 환경에서는 CUDA 인식 확인 후 다음 명령을 사용할 수 있습니다.
 
 ```powershell
 python scripts/train.py --device 0 --batch 16 --epochs 100
 ```
 
-설정은 YOLOv8n, imgsz 640, workers 4, seed 42, deterministic=True입니다. GPU 메모리 부족이 실제로 발생할 때만 batch를 8 또는 4로 낮추고 나머지 조건은 유지합니다.
+설정은 YOLOv8n, imgsz 640, workers 인자 4, seed 42, deterministic=True입니다. Ultralytics는 CPU 실행에서 실제 데이터 로더 worker 수를 0으로 설정했습니다. batch 16 실패 후 8로 낮췄고, batch 8도 첫 epoch의 11/63 배치에서 메모리 부족으로 실패해 4로 낮췄습니다. 앞선 두 시도에서 완료된 epoch는 없습니다. 실행 로그에서 `optimizer=auto`는 AdamW, 초기 학습률 0.001429를 선택했습니다. 정상 실행 중인 학습을 중단한 것이 아니라 오류로 종료된 시도를 보존하고 재실행했습니다.
 
-학습 결과는 `runs/train/` 아래에 저장되고 최적 가중치는 자동으로 `models/best.pt`에 복사됩니다. 보고서에는 다음 자료를 사용합니다.
+학습 결과는 `runs/train/` 아래에 저장되고 완료 후 최적 가중치는 자동으로 `models/best.pt`에 복사됩니다. 현재 PC의 `runs/`는 여유 공간이 있는 D:의 실행 폴더에 연결되어 있습니다. 보고서에는 다음 자료를 사용합니다.
 
 - `results.csv`: epoch별 loss와 성능
 - `results.png`: 학습 곡선
@@ -119,7 +134,7 @@ python scripts/train.py --device 0 --batch 16 --epochs 100
 ## 5. test 데이터 평가
 
 ```powershell
-python scripts/evaluate.py --device 0
+python scripts/evaluate.py --device cpu
 ```
 
 전체 Precision, Recall, mAP50, mAP75, mAP50-95와 클래스별 Precision, Recall, mAP50, mAP50-95, 정답 객체 수가 `outputs/test_metrics.json`에 저장됩니다. 평가되지 않은 클래스의 수치는 `null`로 기록합니다. 평가 그래프는 `runs/val/`에 저장됩니다.
@@ -129,7 +144,7 @@ python scripts/evaluate.py --device 0
 세 객체가 모두 보이고 천천히 이동하는 5초 이상의 원본 영상을 `inputs/source.mp4`에 둡니다.
 
 ```powershell
-python scripts/track_video.py --source inputs/source.mp4 --model models/best.pt --device 0
+python scripts/track_video.py --source inputs/source.mp4 --model models/best.pt --device cpu
 ```
 
 생성 결과:
@@ -151,7 +166,7 @@ ByteTrack은 프레임 사이의 객체 ID를 연결하는 추적기이며 별�
 
 ## 7. 보고서와 GitHub 제출
 
-[report/REPORT.md](report/REPORT.md)는 현재 데이터·환경 검증까지 기록한 진행 보고서입니다. 학습 후 실제 성능과 오류 사례를 추가해야 최종 결과보고서가 됩니다. 공개 저장소에는 최소한 다음 파일을 포함합니다.
+[report/REPORT.md](report/REPORT.md)는 데이터·환경 검증과 CPU 학습 시도까지 기록한 진행 보고서입니다. 학습 후 실제 성능과 오류 사례를 추가해야 최종 결과보고서가 됩니다. 공개 저장소에는 최소한 다음 파일을 포함합니다.
 
 ```text
 models/best.pt

@@ -1,4 +1,4 @@
-# GPU PC handoff
+# Training handoff
 
 ## Goal
 
@@ -61,7 +61,7 @@ data/test/
 
 Do not copy `.venv` to the GPU PC. Create a fresh virtual environment there.
 
-## Next steps on the GPU PC
+## GPU execution procedure (alternative; original plan)
 
 1. Confirm the GPU and driver with `nvidia-smi`.
 2. Create a fresh `.venv`.
@@ -102,22 +102,44 @@ This section is the latest state; the machine details above describe the previou
 - Existing system Python is 3.14.0 with PyTorch 2.9.0+cu126, but CUDA availability is `False` and CUDA device count is 0. The existing system installation is not the project environment.
 - A new project virtual environment was created. Installation initially failed because C: ran out of space. That newly created incomplete environment was preserved under `D:\CodexEnvironments\yolov8-stationery-tracking-20261119\.venv-incomplete`.
 - The project `.venv` is now a Windows junction pointing to a newly created environment at `D:\CodexEnvironments\yolov8-stationery-tracking-20261119\.venv`. This is local to this machine; do not copy it to another PC. Use `.venv\Scripts\python.exe` from the project as usual. Package cache and temporary installation files were placed on D:.
-- Installation of `requirements.txt` and `pip check` succeeded in the new environment: Python 3.14.0, Ultralytics 8.4.215, PyTorch 2.15.0+cpu, torchvision 0.29.2, OpenCV 4.14.0.94, PyYAML 6.0.3. New-environment CUDA availability is also `False`, with 0 devices. This is a code-validation environment, not a working CUDA training environment; no compatible NVIDIA device was available to select a CUDA wheel for. See `outputs/environment_check.json`.
-- `scripts/train.py` and `data/stationery.yaml` retain their original training configuration. No training was started and no CPU training fallback was authorized.
-- `inputs/source.mp4` is absent. No trained model, test metrics, final video, trajectory CSV, or training graphs exist yet.
+- Installation of `requirements.txt` and `pip check` succeeded in the new environment: Python 3.14.0, Ultralytics 8.4.215, PyTorch 2.15.0+cpu, torchvision 0.29.2, OpenCV 4.14.0.94, PyYAML 6.0.3. New-environment CUDA availability is also `False`, with 0 devices. The user subsequently explicitly authorized CPU training in this environment. See `outputs/environment_check.json` and `outputs/training_status.json`.
+- `scripts/train.py` and `data/stationery.yaml` retain their original configuration. The CPU command was `python scripts/train.py --device cpu --batch 16 --epochs 100`; device was the only requested-setting change. Other settings include imgsz 640, workers 4, seed 42, and deterministic=True. The log resolved `optimizer=auto` to AdamW with initial learning rate 0.001429.
+- The original dataset was intentionally kept unchanged for this run, including the known empty-label anomaly. It is a limitation of the training labels, not an unresolved authorization requirement.
+- `runs/` is a junction to `D:\CodexEnvironments\yolov8-stationery-tracking-20261119\runs` to avoid C: disk pressure. `outputs/training_status.json` records the latest phase. Do not start a duplicate run or terminate an active training process.
+- First CPU attempt: started 2026-11-19 19:17:51 KST; exited at 19:18:27 KST with code 1. The log reports `DefaultCPUAllocator: not enough memory` while trying to allocate 13,107,200 bytes. No epoch result was produced. Its launcher/logs and status snapshot are preserved under `runs/session_cpu_20261119/`; this attempt ended on error rather than being interrupted.
+- CPU batch-8 retry: started 2026-11-19 19:20:06 KST; exited at 19:21:02 KST with code 1. It failed at epoch 1, batch 11/63 with another CPU allocation error (16,384,000 bytes requested); no epoch completed. Its launcher/logs and `status.json` are preserved under `runs/session_cpu_20261119_b8/`, and the actual run directory is `runs/train/stationery-2/`.
+- CPU batch-4 retry: started 2026-11-19 19:22:27 KST using `python scripts/train.py --device cpu --batch 4 --epochs 100`; it is actively processing training batches. Its launcher/logs are under `runs/session_cpu_20261119_b4/`, and the actual run directory is `runs/train/stationery-3/`. Only batch was reduced after the observed CPU memory errors, applying the existing 8/4 memory fallback to the CPU execution authorized by the user. The log reports 0 dataloader workers because Ultralytics overrides the unchanged workers=4 argument for CPU execution. Other settings and original data remain unchanged.
+- The launcher is configured to run `python scripts/evaluate.py --device cpu` automatically only after training succeeds and `models/best.pt` exists. Evaluation has not run yet.
+- `inputs/source.mp4` is absent; the user said the source video will be prepared. Training and evaluation should continue while the video is pending. No completed trained model, test metrics, final video, or trajectory CSV exists yet. Setup plots are not completed learning curves.
 - Tracking now accepts `--device`, normalizes the output FPS for the requested duration, timestamps CSV rows in output-video time, and refuses to overwrite an existing output video or CSV.
 - Evaluation now reports class-specific precision, recall, mAP50, mAP50-95, and target counts, mapped through `ap_class_index`; unavailable class metrics are `null`.
 - All five `tests/test_pipeline.py` regression tests passed in the new environment (1.235 s test body, 11.846 s including imports). They use temporary synthetic video and mocked detections with real Ultralytics result rendering/OpenCV encoding. They verify 150 decoded frames at 30 FPS, matching CSV timestamps, IDs/trajectories/device forwarding, existing-output protection, and per-class metric mapping. They do not establish real detection or tracking accuracy.
 - `report/REPORT.md` is an evidence-based progress report, not a completed experiment report.
 
-### Required next inputs and execution
+### Earlier CPU execution plan (superseded by the pause and Colab direction below)
 
-1. Continue on an NVIDIA GPU PC (or obtain an explicit change of training device from the user). Confirm the actual GPU, driver, and `torch.cuda.is_available() == True`; installing a CUDA wheel does not supply missing GPU hardware.
-2. On another PC, copy the existing `data/train`, `data/valid`, and `data/test` folders or extract them from `data.zip` into the repository's `data` folder. Preserve source archives and do not regenerate the prepared split.
-3. Review the identified empty-label anomaly before the definitive training run. Any label correction must be recorded and reflected in refreshed data counts.
-4. Create a fresh environment on the GPU PC, install a compatible CUDA PyTorch build and `requirements.txt`, then run the dataset check.
-5. Run the original command: `python scripts/train.py --device 0 --batch 16 --epochs 100`. Lower only batch to 8 or 4 if GPU out-of-memory occurs. Keep other settings unchanged.
-6. Confirm `models/best.pt`, run `python scripts/evaluate.py --device 0`, inspect actual per-class metrics and failure cases, and copy selected training/evaluation graphs out of ignored `runs/`.
-7. Place a real video of at least five seconds at `C:\Users\Administrator\ml_HW\yolov8-stationery-tracking\inputs\source.mp4` on this PC, or at `inputs/source.mp4` in the GPU-PC checkout. Run `python scripts/track_video.py --source inputs/source.mp4 --model models/best.pt --device 0`.
-8. Validate five-second duration, class names, track IDs, trajectories, and CSV/video agreement. Complete README/report using measured outcomes and verify every staged file is below 100 MiB before committing and pushing final artifacts.
+1. Monitor the active batch-4 CPU run without stopping it. Preserve failed-run logs and existing files. Record any additional error and necessary memory-related adjustment; do not silently change the remaining training conditions.
+2. Keep the existing split and labels intact. Disclose the known empty-label anomaly and unverified scene-level leakage when interpreting results. Any later corrected-data experiment must be distinguished from this baseline run.
+3. Confirm successful training and `models/best.pt`, then complete `python scripts/evaluate.py --device cpu`. Inspect actual per-class metrics and failure cases, and copy selected training/evaluation graphs out of ignored `runs/`.
+4. Place a real video of at least five seconds at `C:\Users\Administrator\ml_HW\yolov8-stationery-tracking\inputs\source.mp4`. Run `python scripts/track_video.py --source inputs/source.mp4 --model models/best.pt --device cpu` after a trained model and input video exist.
+5. Validate five-second duration, class names, track IDs, trajectories, and CSV/video agreement. Complete README/report using measured outcomes and verify every staged file is below 100 MiB before committing and pushing final artifacts.
+6. If moving to another PC later, copy only the prepared data and project artifacts, create a fresh environment, and follow the GPU procedure above if NVIDIA hardware is available. Do not copy the local environment or junctions.
 
+
+## Paused by user - 2026-11-19 19:28 KST
+
+The user explicitly requested a temporary pause. The batch-4 CPU training subprocess tree is suspended at the OS level; CPU time stopped advancing and in-memory state is retained. No training process was terminated. The latest process IDs and creation times are stored in outputs/training_status.json (phase: paused). The launcher is waiting and will not evaluate until training resumes and finishes. The temporary keep-awake helper releases its request after seeing the paused state. Do not resume training without the user asking to resume.
+
+Completed epochs: 1. Last progress: 2/100         0G      1.037      1.502      1.179         28        640: 44% ━━━━━─────── 56/125 1.3s/it 1:32<1:31. Checkpoints under runs/train/stationery-3/weights/ remain intact. To resume, verify the saved process creation times match, resume only the saved suspended processes, restore phase to training, and re-enable the temporary keep-awake guard. Avoid launching a duplicate training run. Resuming from an on-disk checkpoint is only needed if the suspended processes no longer exist.
+
+## Latest direction: Colab GPU training - 2026-11-19
+
+The user confirmed the supplied course references are the professor's assignment instructions and explicitly requested training in Colab. Read docs/ASSIGNMENT_GUIDELINES.md and the new root AGENTS.md. The local CPU run remains paused; this Colab request does not resume it.
+
+- notebooks/train_colab.ipynb is the executable Colab workflow. scripts/colab_support.py calls the unchanged original train.main with GPU 0, batch 16, epochs 100, adding checkpoint backup and a version-guarded callback that disables Ultralytics 8.4.215 internal batch retries. Only the notebook may retry batch 8 or 4 after actual CUDA OOM; unexpected actual batch values stop execution. Model, augmentation, optimizer, and seed settings stay unchanged.
+- The prepared dataset archive is 2,451,554,279 bytes, SHA256 1ee9ad1ba42e00a2af6a04de79d44358373837db4448d4efb3d7be66e998acf8. It contains 687 image/label pairs, data/stationery.yaml, data/SOURCES.md, and a per-file SHA256 manifest. No raw-source ZIPs or virtual environment are included.
+- The transfer tool has a server-side 100 MiB limit, so transfer/chunks_100mb under the D: environment folder contains 25 raw parts (24 x 100,000,000 bytes and one x 51,554,279 bytes) plus stationery_dataset.parts.json. The original archive, earlier larger transfer parts, and dataset remain intact.
+- The Drive destination is MyDrive/yolov8-stationery-tracking. The notebook mounts Drive, reconstructs the archive on local /content storage, verifies all hashes, checks the original split, and refuses CPU fallback. Windows/Linux newline differences are tolerated only for the two metadata files after normalized-content equality verification; image/label mismatches stop extraction.
+- Each completed training epoch backs up weights and results.csv to colab_runs/<run-id> in the Drive project. GPU environment and dataset verification JSON are backed up separately for observation. A successful training result requires an actual CUDA trainer and 100 completed epochs.
+- Evaluation and failure analysis run after successful training. A missing real source video leaves tracking pending. The final artifact ZIP contains the model, measured metrics, plots, and analysis; report prose still requires reconciliation with actual outcomes before submission.
+- No actual Colab runtime has been verified yet. Browser input attempts failed with GetCursorPos access denied; reconnecting the browser controller reported that its access host was unavailable, even after the user confirmed the desktop was unlocked. File-transfer and notebook preparation are separate from actual GPU execution. Verify Drive transfer completeness and actual notebook execution before claiming training started.

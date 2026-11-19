@@ -1,6 +1,6 @@
 {
   "date": "2026-11-19",
-  "purpose": "Pre-training environment verification; no training or evaluation has run.",
+  "purpose": "Environment verification for explicitly authorized CPU training.",
   "python": "3.14.0",
   "os": "Windows-11-10.0.26200-SP0",
   "environment": "Fresh project venv on D: accessed through .venv junction",
@@ -20,7 +20,12 @@
     "Parsec Virtual Display Adapter"
   ],
   "nvidia_smi_found": false,
-  "training_started": false,
+  "training_started": true,
+  "training_state": "paused_by_user",
+  "current_training_plan": "Google Colab GPU; execution not yet verified",
   "source_video_exists": false,
-  "pip_check": "passed"
+  "pip_check": "passed",
+  "training_device": "cpu",
+  "cpu_training_authorized": true,
+  "training_status_file": "outputs/training_status.json"
 }
