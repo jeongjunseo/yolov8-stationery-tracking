@@ -1,0 +1,30 @@
+{
+  "checked_at_utc": "2026-11-19T15:33:49Z",
+  "colab_run_id": "20261119T124150Z_3c8dfaf4",
+  "archive_bytes": 17410670,
+  "archive_sha256": "71e290188099aa4ad4067da43ad32a2f210aab40f8a636ea96c1962eea0ae04d",
+  "archive_crc_and_selective_import": "passed",
+  "model": {
+    "path": "models/best.pt",
+    "bytes": 6500778,
+    "sha256": "72eec58f57a0decd694a98606e9759824cb7cb4d75af345e9ae8db735a4d66ea",
+    "matches_colab_training_record": true,
+    "local_cpu_load": "passed",
+    "parameters": 3138489,
+    "class_names": ["highlighter", "correction_tape", "eraser"],
+    "file_unchanged_by_loading": true
+  },
+  "training_record_and_100_csv_rows": "passed",
+  "training_device": "cuda:0",
+  "actual_batch": 16,
+  "elapsed_csv_seconds": 9834.78,
+  "test_metric_ranges_and_108_targets": "passed",
+  "plot_and_failure_image_integrity": {"passed": 42, "failed": 0},
+  "artifact_file_size_limit_bytes": 104857600,
+  "oversized_artifacts": [],
+  "training_and_test_evaluation_complete": true,
+  "real_source_video_present": false,
+  "tracking_video_and_csv_complete": false,
+  "submission_complete": false,
+  "note": "Checks verify saved Colab outputs and local model loading. They do not rerun training/evaluation or establish independent-scene generalization. Real-video tracking remains pending."
+}

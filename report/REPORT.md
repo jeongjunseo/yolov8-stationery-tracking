@@ -1,20 +1,20 @@
-# YOLOv8 문구류 객체 감지 및 추적 — 진행 보고서
+# YOLOv8 문구류 객체 감지 및 추적 — 학습·평가 결과보고서
 
 > 2026-11-19 19:28 KST: 사용자 요청으로 로컬 CPU 학습을 일시정지했다. 메모리와 체크포인트를 보존했으며 이후에도 재개하지 않았다.
 
 > 이후 사용자는 교수님 자료를 별도 기록하고 Colab에서 학습하도록 지시했다. [과제 지침 메모](../docs/ASSIGNMENT_GUIDELINES.md)와 [Colab 실행 노트북](../notebooks/train_colab.ipynb)을 사용하며, Colab의 실제 환경·데이터 검증 결과와 이전 CPU 시도를 구분해 기록한다.
 
-기록일: 2026-11-19 (Asia/Seoul)
+기록일: 2026-11-20 (Asia/Seoul)
 
 저장소: https://github.com/jeongjunseo/yolov8-stationery-tracking
 
-**현재 상태: Colab의 Tesla T4에서 CUDA를 사용해 batch 16으로 학습을 시작했다. 기존 데이터 687장의 전송·해시·라벨 검사가 통과했으며, 2026-11-19 확인 시점에 1/100 epoch 완료와 Drive 체크포인트 백업을 검증했다. 첫 epoch의 지표는 중간 validation 결과로 아래 최종 test 성능 표에 포함하지 않는다. 100 epoch 학습 완료와 test 지표는 아직 검증하지 않았으며 원본 영상도 준비되지 않았다. 로컬 CPU 학습은 일시정지 상태이고, 현재 문서는 진행 보고서이다.**
+**현재 상태: Colab Tesla T4의 CUDA 장치 0에서 batch 16으로 100 epoch 학습과 test 평가를 완료했다. Test 73장·108개 정답 객체에서 Precision 93.70%, Recall 88.77%, mAP50 93.58%, mAP50-95 76.68%를 얻었다. 모델 해시·CPU 로딩과 실제 그래프도 검증했다. 원본 영상이 없어 5초 추적 영상과 궤적 CSV는 미생성이며, 전체 과제는 아직 완료되지 않았다. 로컬 CPU 학습은 사용자 요청에 따른 일시정지 상태를 유지한다.**
 
 ## 1. 목적과 현재 결과
 
 YOLOv8n으로 형광펜(`highlighter`, ID 0), 수정테이프(`correction_tape`, ID 1), 지우개(`eraser`, ID 2)를 학습하고, 별도 test split에서 성능을 평가한 뒤 ByteTrack으로 클래스명·추적 ID·이동 궤적이 표시되는 5초 영상을 만드는 것이 목표이다.
 
-이전 컴퓨터의 `HANDOFF.md`를 기준으로 작업을 재개했다. 저장소를 복제하고 제공된 `data.zip`에서 기존 분할 데이터를 복원했다. 데이터와 라벨을 새로 만들거나 재분할하지 않았다. 로컬 PC에서는 NVIDIA GPU가 확인되지 않아 사용자의 승인으로 CPU 학습을 시도했으며, 이후 일시정지하고 사용자 지시에 따라 Colab GPU로 실행 환경을 전환했다. 사용자는 입력 영상을 준비할 예정이며, 현재 작업은 모델 학습과 평가를 우선한다.
+이전 컴퓨터의 `HANDOFF.md`를 기준으로 작업을 재개했다. 저장소를 복제하고 제공된 `data.zip`에서 기존 분할 데이터를 복원했다. 데이터와 라벨을 새로 만들거나 재분할하지 않았다. 로컬 PC에서는 NVIDIA GPU가 확인되지 않아 사용자의 승인으로 CPU 학습을 시도했으며, 이후 일시정지하고 사용자 지시에 따라 Colab GPU로 실행 환경을 전환했다. 이번 보고서는 완료된 학습·평가와 실제 실패 사례를 다루며, 입력 영상 제공 후 추적 결과를 추가한다.
 
 ## 2. 데이터 출처와 전처리
 
@@ -79,11 +79,11 @@ highlighter 원본 240장 중 21장의 라벨 파일이 비어 있어 해당 클
 
 별도로 [임계값 근처 6쌍](../outputs/dataset_audit/near_duplicate_threshold/near_duplicate_candidates_01.jpg)을 검토했을 때는 같은 배경에서도 물체 회전·시점 변화가 뚜렷한 사례가 있었다. 따라서 **494쌍은 자동 선별 후보 수이며 확정 중복 수가 아니다.** 해시 기반 방법은 단순한 배경 때문에 유사도를 높게 평가하거나, 반대로 잘림·회전·시점 변화가 있는 같은 장면을 놓칠 수 있다. 파일명 시각도 실제 촬영 메타데이터로 인증된 것은 아니다.
 
-18쌍의 개별 시각 판정과 원본 보존 검사는 [near_duplicate_visual_review.json](../outputs/dataset_audit/near_duplicate_visual_review.json)에 기록했다. 이미지·라벨 1,374개 파일의 SHA-256이 원본 ZIP 매니페스트와 모두 일치했으며, 진행 중인 학습의 데이터·라벨·설정은 변경하지 않았다.
+18쌍의 개별 시각 판정과 원본 보존 검사는 [near_duplicate_visual_review.json](../outputs/dataset_audit/near_duplicate_visual_review.json)에 기록했다. 이미지·라벨 1,374개 파일의 SHA-256이 원본 ZIP 매니페스트와 모두 일치했으며, 이번 학습의 데이터·라벨·설정은 변경하지 않았다.
 
 이 발견은 특히 eraser의 validation·test 성능이 새로운 장면에서의 성능보다 낙관적으로 나타날 수 있음을 의미한다. 그 영향의 크기나 성능 순위에 미친 원인은 아직 측정하지 않았으므로 확정하지 않는다. 현재 실행은 기존 분할을 유지한 기준 실험으로 보고하며, 이 한계를 성능과 함께 제시한다.
 
-후속 실험에서는 촬영 세션·장면 단위로 이미지를 묶고 같은 그룹을 하나의 split에만 배치해야 한다. 누락 라벨도 검토한 뒤 동일한 학습 설정으로 별도 실험을 수행해 현재 기준 실험과 비교하는 것이 필요하다. 현재 학습 도중 분할을 바꾸거나 데이터를 삭제하는 방식으로 보정하지 않는다.
+후속 실험에서는 촬영 세션·장면 단위로 이미지를 묶고 같은 그룹을 하나의 split에만 배치해야 한다. 누락 라벨도 검토한 뒤 동일한 학습 설정으로 별도 실험을 수행해 현재 기준 실험과 비교하는 것이 필요하다. 이번 기준 실험에서는 분할을 바꾸거나 데이터를 삭제하지 않았다.
 
 ## 4. 실행 환경과 학습 설정
 
@@ -97,16 +97,32 @@ highlighter 원본 240장 중 21장의 라벨 파일이 비어 있어 해당 클
 | CUDA 런타임 / 사용 가능 | 13.0 / True |
 | Ultralytics / OpenCV / PyYAML | 8.4.215 / 4.14.0.94 / 6.0.3 |
 | 모델 / epochs / imgsz | YOLOv8n / 100 / 640 |
-| 기본 batch / device | 16 / 0 |
+| 요청 batch / 실제 batch / device | 16 / 16 / cuda:0 |
 | workers 인자 / seed / deterministic | 4 / 42 / True |
+| optimizer 설정 / AMP / cache | auto / True / False |
+| 완료 epoch / 학습 CSV 누적 시간 | 100 / 9,834.78초 (2시간 43분 54.78초) |
 
-실제 환경은 [colab_environment.json](../outputs/colab_environment.json)에 저장했다. 기존 `scripts/train.py`의 설정을 유지하며, 실제 CUDA 메모리 부족이 발생한 경우에만 batch 8 또는 4로 재시도한다. 완료 epoch, 실제 batch, 선택된 optimizer·학습률과 최종 모델은 Colab 학습 기록을 확보한 뒤 검증한다.
+실제 환경은 [colab_environment.json](../outputs/colab_environment.json), 실행 설정은 [args.yaml](assets/train/args.yaml)에 저장했다. 기존 `scripts/train.py`의 설정을 유지했다. [학습 완료 기록](../outputs/colab_training_run.json)과 [시도 기록](../outputs/colab_training_attempts.json)은 batch 16의 단일 시도 성공과 CUDA 사용, 100 epoch 완료를 확인한다. GPU 메모리 부족이나 batch 축소는 없었고, [100회 백업 기록](../outputs/colab_backup_events.json)에 실패가 없다. 시간은 학습 CSV에 기록된 누적 값이며 환경 설치·데이터 전송·후속 평가 시간은 포함하지 않는다.
 
 ```text
 python scripts/train.py --device 0 --batch 16 --epochs 100
 ```
 
 첫 Drive 연결 시도는 `ValueError: mount failed`로 끝났으나 사용자가 정상 연결 절차로 다시 실행한 뒤 `Mounted at /content/drive`와 백업 폴더 생성을 확인했다. 최초 오류의 세부 원인은 확정하지 않았다. Colab의 `pip check`는 기존 IPython 7.34.0에서 `jedi`가 누락됐다는 경고를 출력했다. 이후 핵심 패키지 import와 CUDA 확인은 통과했으며, 전체 의존성 검사가 모두 통과했다고 기록하지 않는다.
+
+### 학습 곡선과 최종 모델 검증
+
+![100 epoch의 학습 손실과 validation 성능](assets/train/results.png)
+
+[results.csv](assets/train/results.csv)는 epoch 1부터 100까지 100행을 포함한다. 학습 box loss는 0.94820에서 0.37691로, validation box loss는 0.88072에서 0.53754로 감소했다. Validation mAP50-95는 첫 epoch 0.56468에서 마지막 epoch 0.82376으로 상승했으며, CSV 최고값은 epoch 88의 0.82416이다. 이 값은 validation 결과이며 아래 test 결과와 구분한다. CSV 최고값만으로 저장된 모델의 선택 epoch를 단정하지 않는다.
+
+[models/best.pt](../models/best.pt)는 6,500,778 bytes, 파라미터 3,138,489개이며 SHA-256은 다음과 같다.
+
+```text
+72eec58f57a0decd694a98606e9759824cb7cb4d75af345e9ae8db735a4d66ea
+```
+
+해시는 Colab 완료 기록과 일치했다. 이 PC의 새 가상환경에서 모델을 CPU로 불러와 클래스 ID 0·1·2와 이름을 확인했고, 읽기 전후 파일 해시가 같았다. 학습·평가·실패 분석 그림 42개의 이미지 무결성 검사도 통과했다. [artifact_verification.json](../outputs/artifact_verification.json)에 ZIP 검증, 모델 로딩, 100행 CSV, 지표 범위 및 파일 크기 검사 결과를 남겼다. 이는 저장된 결과 검증이며 로컬에서 학습이나 test 평가를 다시 실행한 결과는 아니다.
 
 ### 이전 로컬 CPU 시도 — 사용자 요청으로 일시정지
 
@@ -150,21 +166,69 @@ batch 8 재시도는 19:20:06 KST에 시작했으나 첫 epoch의 11/63 배치�
 
 batch 4 재시도는 19:22:27 KST에 시작해 1 epoch를 완료했다. 2번째 epoch 44%에서 19:28 KST 사용자 요청으로 프로세스를 일시정지했고, 메모리·체크포인트·로그를 보존했다. 상태는 로컬 전용 `outputs/training_status.json`에 기록되어 있으며, 로그는 `runs/session_cpu_20261119_b4/`, 결과 디렉터리는 `runs/train/stationery-3/`이다. 이 중간 결과를 완료된 Colab 모델이나 test 성능으로 사용하지 않는다.
 
-## 5. 성능 평가 상태와 분석 계획
+## 5. Test 성능과 실제 실패 사례
 
-Colab 학습 완료 후 `python scripts/evaluate.py --device 0`으로 test 73장, 정답 객체 108개를 평가한다. 노트북은 실제 CUDA 장치에서 100 epoch 완료와 `models/best.pt`를 확인한 뒤 평가를 실행하도록 구성되어 있다. 아직 검증된 test 결과는 확보하지 않았으며, 결과는 `outputs/test_metrics.json`에 저장한다.
+Colab에서 100 epoch 학습 완료 후 `python scripts/evaluate.py --device 0`으로 `models/best.pt`를 평가했다. Test split은 73장·정답 객체 108개이며, [test_metrics.json](../outputs/test_metrics.json)에 전체·클래스별 실측값을 저장했다. 아래 성능 수치는 %로 표시하고 소수 둘째 자리로 반올림했다.
 
-| 지표 | 현재 결과 |
-|---|---|
-| Precision | 미확인 |
-| Recall | 미확인 |
-| mAP50 | 미확인 |
-| mAP75 | 미확인 |
-| mAP50-95 | 미확인 |
+| 클래스 | 정답 객체 | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|---:|
+| 전체 (클래스 평균) | 108 | 93.70 | 88.77 | 93.58 | 76.68 |
+| highlighter | 23 | 89.07 | 91.30 | 93.68 | 87.09 |
+| correction_tape | 44 | 93.06 | 75.00 | 87.56 | 48.35 |
+| eraser | 41 | 98.98 | 100.00 | 99.50 | 94.60 |
 
-클래스별 Precision, Recall, mAP50, mAP50-95와 정답 객체 수도 저장하도록 평가 스크립트를 보완했다. `ap_class_index`를 기준으로 클래스와 평가 행을 대응시켜 순서가 달라도 올바르게 기록하며, 평가되지 않은 클래스는 평균값 대신 `null`로 기록한다.
+전체 mAP75는 **80.10%**이다. mAP50은 IoU 0.5에서의 AP를 클래스 평균한 값이며, mAP50-95는 IoU 0.50부터 0.95까지 0.05 간격의 10개 기준과 클래스를 평균한다. AP는 신뢰도에 따른 precision–recall 곡선으로 계산한다. 표의 precision·recall은 평활화한 클래스 평균 F1이 최대가 되는 공통 신뢰도 지점에서 구한 클래스 평균으로, confidence 0.25의 단일 임계값 결과가 아니다. 클래스 행은 `ap_class_index`로 대응시켜 저장했으며 세 클래스 모두 평가됐다.
 
-현재 데이터에는 클래스별 이미지 수 차이가 있지만 실제 성능 순위를 추정해 결과처럼 쓰지 않는다. 학습 후 test 예측과 정답을 비교해 오검출·미검출·위치 오차의 실제 사례를 선정하고, 각도·크기·배경·조명·가림과의 관계를 해당 이미지에서 확인해야 한다. test 결과를 보고 임계값을 조정한 경우에는 원래 평가와 탐색 결과를 구분해야 한다.
+### Test 그래프와 클래스별 차이
+
+![Test precision–recall 곡선](assets/test/BoxPR_curve.png)
+
+![Test 혼동 행렬](assets/test/confusion_matrix.png)
+
+혼동 행렬은 가로축이 정답, 세로축이 예측이다. 이 실행의 Ultralytics 8.4.215 혼동 행렬은 confidence > 0.001의 예측을 집계한 반면, 표의 precision·recall은 평활화한 클래스 평균 F1이 최대가 되는 공통 신뢰도 지점에서 계산한 클래스 평균이므로 행렬의 단순 비율과 일치하지 않는다. 또한 공식 평가의 NMS IoU 0.7과 아래 진단의 0.5는 다르다. [F1 곡선](assets/test/BoxF1_curve.png)과 [정규화 혼동 행렬](assets/test/confusion_matrix_normalized.png)도 함께 저장했다.
+
+- **수정테이프:** Recall 75.00%, mAP50-95 48.35%로 가장 낮다. mAP50에서 mAP50-95로 39.21%p 하락했고, 아래 그림에서는 이웃 객체를 묶은 박스·물체 일부만 잡은 박스가 확인됐다. 엄격한 IoU에서 위치 정확도가 주요 약점임을 시사한다. Train 포함 이미지가 89장으로 형광펜 177장·지우개 217장보다 적고, test는 14장에 44객체로 여러 물체가 함께 있는 장면이 많다. 이 차이는 설명 후보이며 데이터량 하나를 성능 차이의 원인으로 확정하지 않는다.
+- **형광펜:** mAP50-95 87.09%이나 검은 띠를 형광펜으로 검출한 배경 오검출과, 복잡한 배경 속 작은 정답 박스를 놓친 사례가 있다. 높은 전체 점수가 모든 장면의 검출을 보장하지 않는다.
+- **지우개:** mAP50-95 94.60%로 가장 높다. 그러나 3절에서 확인한 split 간 거의 같은 장면이 평가를 낙관적으로 만들 수 있다. 새로운 배경·배치에 대한 일반화 성능이나 다른 클래스보다 본질적으로 쉬운 문제라고 단정할 수 없다.
+
+### 고정 임계값에서의 오류 진단
+
+[failure_analysis.json](../outputs/failure_analysis.json)은 공식 AP와 별도로 confidence 0.25, NMS IoU 0.5, imgsz 640, rect=False에서 예측했다. 같은 클래스의 정답·예측 박스를 IoU ≥ 0.5 조건으로 IoU가 큰 순서대로 일대일 매칭했다. 이 기준에서 test 73장 중 10장에 하나 이상의 FP 또는 FN이 있었다.
+
+| 클래스 | TP | FP | FN |
+|---|---:|---:|---:|
+| highlighter | 21 | 3 | 2 |
+| correction_tape | 33 | 7 | 11 |
+| eraser | 41 | 0 | 0 |
+| 합계 | 95 | 10 | 13 |
+
+객체 수를 합산한 micro precision은 90.48%, recall은 87.96%이다. 평가 임계값·전처리·집계 방식이 달라 위 공식 지표와 직접 대체할 수 없다. 미매칭 박스 사이에서 정의된 다른 클래스 중첩 쌍은 0개였지만, 이는 배경을 다른 클래스로 잘못 검출한 FP가 없다는 뜻이 아니다. Test를 이용해 임계값을 재선택하거나 현재 모델을 재학습하지 않았다.
+
+오류가 있는 클래스별 대표 이미지와 오류 수가 많은 이미지를 우선해 총 9장을 저장하고 시각 검토했다. 이는 오류 사례 모음이며 test 전체의 무작위 표본이 아니다. 다음은 실제 관찰 결과다.
+
+| 그림 | 관찰한 현상 | 진단 결과 |
+|---|---|---|
+| [01](assets/failures/failure_01.jpg) | 수정테이프 3개는 검출했으나 위·아래 검은 띠를 형광펜으로 검출 (신뢰도 0.82 / 0.87) | TP 3, FP 2 |
+| [02](assets/failures/failure_02.jpg) | 손·텍스트가 있는 제품 합성 이미지에서 여러 물체와 배경을 묶은 큰 박스 | TP 1, FP 1, FN 3 |
+| [03](assets/failures/failure_03.jpg) | 인접한 수정테이프를 함께 덮는 큰 박스와 누락 | TP 3, FP 1, FN 3 |
+| [04](assets/failures/failure_04.jpg) | 길쭉한 수정테이프 하나를 두 부분으로 나눠 검출 | FP 2, FN 1 |
+| [05](assets/failures/failure_05.jpg) | 촘촘한 제품 배열에서 여러 개를 묶은 큰 박스와 좌하단 누락 | TP 9, FP 2, FN 1 |
+| [06](assets/failures/failure_06.jpg) | 포장 안 오른쪽 제품의 일부만 작은 박스로 검출해 IoU 기준 미달 | TP 1, FP 1, FN 1 |
+| [07](assets/failures/failure_07.jpg) | 나뭇가지·잎 주변 작은 정답 박스 2개 모두 미검출 | FN 2 |
+| [08](assets/failures/failure_08.jpg) | 손에 잡혀 일부가 가려진 오른쪽 제품 누락 | TP 3, FN 1 |
+| [09](assets/failures/failure_09.jpg) | 화면 왼쪽 아래 경계에서 잘린 부분 제품 누락 | TP 4, FN 1 |
+
+![배경의 검은 띠를 형광펜으로 검출한 사례](assets/failures/failure_01.jpg)
+
+그림 01은 배경 단서에 대한 취약성을 보여준다. 이 관찰만으로 특정 학습 이미지가 원인이라고 확정하지는 않는다.
+
+![여러 객체와 배경을 묶은 수정테이프 박스 및 미검출](assets/failures/failure_02.jpg)
+
+그림 02와 03·04·06은 분류 정답 여부뿐 아니라 객체별 박스 범위와 위치가 중요함을 보여준다. IoU가 기준에 못 미치는 박스는 FP와 FN으로 함께 집계될 수 있다.
+
+![복잡한 배경의 작은 정답 박스 미검출](assets/failures/failure_07.jpg)
+
+그림 07의 원본 해상도는 6,144 × 8,192이다. 긴 변을 640으로 축소하면 두 정답 박스는 대략 18 × 24, 47 × 28 픽셀 크기가 된다. 작은 입력상 크기와 주변 배경이 관찰되지만 각각의 원인 기여도는 별도 실험하지 않았다. 9개 실패 그림에서 추가 정답 라벨 오류를 확정하지 않았으며, 앞서 확인한 빈 train 라벨 문제와 구분한다.
 
 ## 6. 추적 구현과 영상 상태
 
@@ -172,7 +236,9 @@ Colab 학습 완료 후 `python scripts/evaluate.py --device 0`으로 test 73장
 
 `--device` 인자가 없던 문제를 보완해 CPU 또는 GPU 장치를 지정할 수 있도록 했다. Colab에서는 모델과 입력 영상 준비 후 `--device 0`으로 실행한다. 출력 프레임 수 `N=round(원본 FPS×5)`에 대해 출력 FPS를 `N/5`로 설정하고 CSV 시간을 같은 출력 시간축에 맞췄다. 예를 들어 29.97 FPS 입력은 150프레임 / 30 FPS로 출력하여 5초를 구성하며 재생 속도는 약 0.1% 달라진다. 기존 영상·CSV가 있으면 덮어쓰지 않는다.
 
-`inputs/source.mp4`가 아직 준비되지 않았고 학습 모델의 완료 검증도 남아 있어 실제 제출 영상은 생성되지 않았다. 코드 테스트에서 사용하는 합성 영상과 모의 검출 결과는 제출 영상이나 모델 성능의 근거가 아니다. 실제 생성 후 영상 재생 길이, 세 클래스의 표시, ID와 궤적, CSV 좌표의 움직임을 확인해야 한다.
+학습 모델의 검증은 완료했으나 `inputs/source.mp4`가 아직 준비되지 않아 실제 제출 영상은 생성되지 않았다. 원본을 제공받으면 검증된 모델로 `outputs/final_5s_render.mp4`를 만들고, [README의 FFmpeg 절차](../README.md#6-5초-추적-영상-제작)에 따라 별도 H.264 `outputs/final_5s.mp4`로 변환한다. 원래 렌더링 파일을 보존하고 기존 파일을 덮어쓰지 않는다. 최종 파일의 프레임 수·타임스탬프·정확히 5초의 재생 길이, 세 클래스의 표시, ID·궤적과 CSV 좌표 일치를 실제로 확인해야 한다. 아직 실제 영상에서 ID 유지·가림 후 연결·궤적 품질을 평가하지 않았다.
+
+코드 테스트에서 사용하는 합성 영상과 모의 검출 결과는 제출 영상이나 모델 성능의 근거가 아니다.
 
 로컬 새 환경에서 기존 `tests/test_pipeline.py`의 회귀 테스트 5개가 통과했다. 합성 29.97 FPS 입력에서 실제 OpenCV 출력·재디코딩을 통해 150프레임, 30 FPS, 5초를 확인했고 CSV의 마지막 시각 `149/30`과 ID별 궤적을 검사했다. 장치 인자 전달, 기존 출력 파일 보호, 클래스별 지표 순서·누락 처리도 확인했다. 해당 테스트 본체는 1.235초, import를 포함한 명령은 11.846초였다. 이후 실패 사례 매칭 테스트 6개와 Colab batch 정책 테스트 4개도 별도 실행에서 통과했다. 검출과 ByteTrack ID 연결 자체는 모의 결과를 사용하므로 성능 검증 대상이 아니다.
 
@@ -185,6 +251,8 @@ Colab 학습 완료 후 `python scripts/evaluate.py --device 0`으로 test 73장
 5. 소수 FPS 영상에서 프레임 수만 반올림하면 정확히 5초가 되지 않을 수 있다. 출력 시간축과 CSV 시간을 함께 맞춰야 한다.
 6. 감지는 프레임의 클래스·박스를 예측하고, 추적은 시간에 따라 ID를 연결한다. 검출 정확도와 추적 ID 유지 성능은 각각 실험해야 한다.
 7. 바이트 단위 완전 중복이 없어도 거의 같은 장면이 train·valid·test에 나뉠 수 있다. 추가 유사 장면 검사는 이 평가 한계를 드러냈으며, 자동 후보 수와 시각적으로 확인한 사례를 구분해 기록해야 한다.
+8. Colab에서는 T4의 실제 CUDA 사용과 학습 기록을 확인한 뒤 100 epoch를 완료할 수 있었다. Drive 연결은 첫 실패 후 정상 재시도로 복구됐고, epoch별 백업은 100회 모두 성공했다. 브라우저 표시가 갱신되지 않을 때도 실제 CSV와 완료 JSON으로 진행 상태를 검증할 수 있었다.
+9. mAP50이 높아도 수정테이프의 일부 박스·통합 박스 오류는 엄격한 IoU 평가에서 큰 차이를 만든다. 공식 AP/P/R, 저신뢰도 혼동 행렬, 고정 임계값 진단을 같은 지표로 읽지 않아야 한다.
 
 ## 8. 제출물 상태와 다음 단계
 
@@ -193,11 +261,16 @@ Colab 학습 완료 후 `python scripts/evaluate.py --device 0`으로 test 73장
 | 공개 GitHub 저장소 | 공개 상태 확인 |
 | 데이터 구성·검사 기록 | 작성 완료 |
 | Colab GPU 환경·전송·데이터 검사 | 실제 JSON 기록 확보, 검사 통과 |
-| models/best.pt | 100 epoch 학습 완료·최종 모델 검증 대기 |
-| outputs/test_metrics.json | 검증된 test 지표 확보 대기 |
-| 학습·평가 성능 그래프 | 완료된 실행의 그래프 확인 대기 |
-| outputs/final_5s.mp4 | 미생성 — 모델과 입력 영상 필요 |
-| outputs/trajectory.csv | 미생성 |
-| 최종 결과보고서 | 미완료 — 현재 문서는 진행 보고서 |
+| [models/best.pt](../models/best.pt) | 100 epoch 완료, SHA-256·CPU 로딩·세 클래스 검증 통과 |
+| [outputs/test_metrics.json](../outputs/test_metrics.json) | Test 73장·108객체 실측값 확보 |
+| 학습·평가 성능 그래프 | [train](assets/train/)·[test](assets/test/) 경로에 실제 그래프·CSV·설정 저장 |
+| 실패 분석 | [진단 JSON](../outputs/failure_analysis.json)과 [9개 시각 사례](assets/failures/) 검토 완료 |
+| outputs/final_5s.mp4 | 미생성 — 실제 입력 영상 대기 |
+| outputs/trajectory.csv | 미생성 — 실제 입력 영상 대기 |
+| 결과보고서 | 학습·평가·실패 분석 반영 완료, 실제 추적 결과 추가 필요 |
 
-Colab의 100 epoch 학습 완료와 test 평가를 검증한 뒤, 실제 원본 영상이 준비되면 추적 영상과 CSV를 제작해야 한다. 로컬 CPU 학습은 일시정지 상태로 유지한다. 기존 라벨의 알려진 문제는 이번 실행의 한계로 유지하며 후속 보정 실험과 구분한다. `runs/`는 Git에서 제외되므로 완료된 학습·평가 그래프는 `report/assets/` 등 공개 경로로 복사한다. 각 제출 파일이 GitHub 일반 push 제한 100 MiB 이내인지 확인하고 최종 산출물을 커밋·push해야 한다.
+Colab 결과 ZIP의 CRC·경로·해시를 확인하고 모델·지표·그래프만 선택적으로 가져왔다. ZIP에 들어 있던 이전 README·보고서 사본으로 현재 문서를 덮어쓰지 않았다. ZIP 수집 당시의 문서 보완 대기 표시는 원본 수집 기록으로 보존하며, 최신 결과 설명은 이 보고서와 README를 기준으로 한다.
+
+`runs/`가 Git에서 제외되므로 완료된 학습·평가·실패 그림을 `report/assets/`에 저장했다. 현재 결과 파일은 모두 GitHub 일반 push 제한 100 MiB 이내이며, 최대 파일은 6,500,778 bytes의 모델이다. 검증된 모델·지표·그래프·보고서를 공개 대상으로 준비했으며 원본 데이터와 로컬 환경은 Git에서 계속 제외한다.
+
+남은 필수 작업은 실제 원본 영상을 받아 5초 추적 영상과 CSV를 제작하고, 영상·ID·궤적·시간 일치를 검증한 뒤 보고서와 공개 저장소에 추가하는 것이다. 로컬 CPU 학습은 일시정지 상태로 유지한다. 기존 라벨·장면 독립성 문제는 이번 기준 실험의 한계로 공개하며, 이후 보정 실험과 구분한다.

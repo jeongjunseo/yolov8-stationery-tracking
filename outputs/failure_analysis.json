@@ -1,0 +1,3952 @@
+{
+  "purpose": "Fixed-threshold diagnostic; not official test AP metrics or threshold tuning.",
+  "split": "test",
+  "model": "models/best.pt",
+  "data": "data/stationery.yaml",
+  "settings": {
+    "confidence": 0.25,
+    "nms_iou": 0.5,
+    "matching_iou": 0.5,
+    "imgsz": 640,
+    "rect": false,
+    "agnostic_nms": false,
+    "max_det": 300,
+    "device": "0"
+  },
+  "matching": "Same-class candidate pairs at IoU >= 0.5, greedy descending IoU, one-to-one. Equal IoU ties use target then prediction index.",
+  "aggregation": "Overall precision and recall are micro averages from total TP/FP/FN at the fixed thresholds; they are not the class-mean confidence-sweep metrics from evaluate.py.",
+  "wrong_class_overlap_definition": "Greedy one-to-one different-class pairs among remaining FP/FN boxes at IoU >= 0.5. These remain FP and FN in all counts.",
+  "example_selection": "Worst error-count image for each class with errors, then remaining images ranked by FP+FN, wrong-class pairs, and filename; no image repeated.",
+  "limitations": [
+    "These fixed-threshold counts differ from Ultralytics AP/confidence-sweep evaluation in test_metrics.json.",
+    "Errors are relative to supplied labels; missing or inaccurate annotations can appear as model errors.",
+    "Images must be visually inspected before attributing errors to lighting, angle, occlusion, or background."
+  ],
+  "overall": {
+    "targets": 108,
+    "predictions": 105,
+    "TP": 95,
+    "FP": 10,
+    "FN": 13,
+    "precision": 0.9047619047619048,
+    "recall": 0.8796296296296297,
+    "images": 73,
+    "images_with_errors": 10,
+    "wrong_class_overlap_pairs": 0
+  },
+  "per_class": {
+    "highlighter": {
+      "class_id": 0,
+      "targets": 23,
+      "predictions": 24,
+      "TP": 21,
+      "FP": 3,
+      "FN": 2,
+      "precision": 0.875,
+      "recall": 0.9130434782608695
+    },
+    "correction_tape": {
+      "class_id": 1,
+      "targets": 44,
+      "predictions": 40,
+      "TP": 33,
+      "FP": 7,
+      "FN": 11,
+      "precision": 0.825,
+      "recall": 0.75
+    },
+    "eraser": {
+      "class_id": 2,
+      "targets": 41,
+      "predictions": 41,
+      "TP": 41,
+      "FP": 0,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  "examples": [
+    {
+      "image": "data/test/images/correction_tape_images - 2022-05-21T002653-270_jpg.rf.IapVtb4rPpcRjMlnmchg.jpg",
+      "annotated_image": "report/assets/failures/failure_01.jpg",
+      "error_count": 2
+    },
+    {
+      "image": "data/test/images/correction_tape_images (19)_jpg.rf.6OJ7pNt2qmqkq3aZZ6Xa.jpg",
+      "annotated_image": "report/assets/failures/failure_02.jpg",
+      "error_count": 4
+    },
+    {
+      "image": "data/test/images/correction_tape_images - 2022-05-21T002627-899_jpg.rf.gYl2FkH6t0Dck3gGU85y.jpg",
+      "annotated_image": "report/assets/failures/failure_03.jpg",
+      "error_count": 4
+    },
+    {
+      "image": "data/test/images/correction_tape_images (81)_jpg.rf.pgJetvCHeIVUm7UNYeTl.jpg",
+      "annotated_image": "report/assets/failures/failure_04.jpg",
+      "error_count": 3
+    },
+    {
+      "image": "data/test/images/correction_tape_images - 2022-05-21T002655-886_jpg.rf.Khq4g5cFwhZzLn5Q25al.jpg",
+      "annotated_image": "report/assets/failures/failure_05.jpg",
+      "error_count": 3
+    },
+    {
+      "image": "data/test/images/correction_tape_images (95)_jpg.rf.C2CQXB5DZa5cyF6gaOaM.jpg",
+      "annotated_image": "report/assets/failures/failure_06.jpg",
+      "error_count": 2
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162425442_HDR_jpg.rf.K1EmBMBomx3P9bIizT0x.jpg",
+      "annotated_image": "report/assets/failures/failure_07.jpg",
+      "error_count": 2
+    },
+    {
+      "image": "data/test/images/correction_tape_images (24)_jpg.rf.hcVT85AsHvWMn2l2IB5F.jpg",
+      "annotated_image": "report/assets/failures/failure_08.jpg",
+      "error_count": 1
+    },
+    {
+      "image": "data/test/images/correction_tape_images - 2022-05-21T002701-359_jpg.rf.aDp0hMSo6ttebGg5BHSy.jpg",
+      "annotated_image": "report/assets/failures/failure_09.jpg",
+      "error_count": 1
+    }
+  ],
+  "images": [
+    {
+      "image": "data/test/images/correction_tape_images (13)_jpg.rf.PQptQxsOsyTVertufEfv.jpg",
+      "width": 275,
+      "height": 183,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            47.39,
+            41.080000000000005,
+            224.35,
+            143.23999999999998
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.9119877219200134,
+          "xyxy": [
+            46.565120697021484,
+            43.23725891113281,
+            247.46701049804688,
+            140.8449249267578
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.8460705071876106
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/correction_tape_images (19)_jpg.rf.6OJ7pNt2qmqkq3aZZ6Xa.jpg",
+      "width": 275,
+      "height": 183,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            53.34000000000001,
+            65.14000000000001,
+            81.68,
+            138.38
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            10.095000000000002,
+            62.699999999999996,
+            35.745000000000005,
+            150.0
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            165.50500000000002,
+            87.295,
+            257.595,
+            142.705
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            85.23,
+            54.595,
+            152.75,
+            140.005
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7744377851486206,
+          "xyxy": [
+            43.07485580444336,
+            71.63213348388672,
+            89.18236541748047,
+            140.22706604003906
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.6819976568222046,
+          "xyxy": [
+            50.65467834472656,
+            0.0,
+            266.9647216796875,
+            148.84974670410156
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.5652189876107774
+        }
+      ],
+      "false_negative_target_indices": [
+        1,
+        2,
+        3
+      ],
+      "false_positive_prediction_indices": [
+        1
+      ],
+      "wrong_class_overlaps": [],
+      "error_count": 4
+    },
+    {
+      "image": "data/test/images/correction_tape_images (24)_jpg.rf.hcVT85AsHvWMn2l2IB5F.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            137.12000000000003,
+            20.330000000000005,
+            211.04000000000002,
+            186.33
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            5.115000000000002,
+            56.99999999999999,
+            48.405,
+            197.0
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            83.45,
+            63.665000000000006,
+            113.38999999999999,
+            200.33499999999998
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            50.115,
+            63.66999999999997,
+            81.065,
+            204.67
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8208460211753845,
+          "xyxy": [
+            48.86434555053711,
+            66.76448059082031,
+            77.17720794677734,
+            195.41592407226562
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7562838196754456,
+          "xyxy": [
+            3.9391283988952637,
+            67.41200256347656,
+            43.002723693847656,
+            196.9250030517578
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7014104723930359,
+          "xyxy": [
+            86.74424743652344,
+            67.76942443847656,
+            123.90771484375,
+            196.3513946533203
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 1,
+          "iou": 0.7898018887483627
+        },
+        {
+          "target_index": 3,
+          "prediction_index": 0,
+          "iou": 0.7694383836229547
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 2,
+          "iou": 0.62931336029788
+        }
+      ],
+      "false_negative_target_indices": [
+        0
+      ],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 1
+    },
+    {
+      "image": "data/test/images/correction_tape_images (33)_jpg.rf.YKONidsDSL12LDAeai3K.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            83.12,
+            56.334999999999994,
+            132.06,
+            170.00499999999997
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8644846677780151,
+          "xyxy": [
+            76.98505401611328,
+            64.95806121826172,
+            141.19314575195312,
+            164.8490753173828
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.6896951679066529
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/correction_tape_images (45)_jpg.rf.oF7nqtm6Sm0dRrkVd3C5.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            121.11999999999999,
+            103.66499999999999,
+            154.38,
+            205.33499999999998
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            71.115,
+            18.66499999999999,
+            111.72500000000001,
+            169.995
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8177435398101807,
+          "xyxy": [
+            79.52960968017578,
+            16.86475944519043,
+            109.81376647949219,
+            163.8361358642578
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.6295487880706787,
+          "xyxy": [
+            122.88682556152344,
+            102.47149658203125,
+            152.20938110351562,
+            205.70701599121094
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 1,
+          "iou": 0.8698084266310722
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.7090909872323112
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/correction_tape_images (54)_jpg.rf.9FWUtQQF03THXT3BuiKh.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            101.11500000000001,
+            63.335,
+            128.385,
+            185.665
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7059383988380432,
+          "xyxy": [
+            96.0722885131836,
+            76.72723388671875,
+            128.28819274902344,
+            186.72311401367188
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.7552713136850596
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/correction_tape_images (81)_jpg.rf.pgJetvCHeIVUm7UNYeTl.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            25.125000000000007,
+            8.330000000000002,
+            205.375,
+            182.32999999999998
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7061107158660889,
+          "xyxy": [
+            77.33490753173828,
+            0.5370211601257324,
+            216.07167053222656,
+            99.02197265625
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.44011253118515015,
+          "xyxy": [
+            18.388473510742188,
+            89.60385131835938,
+            184.90921020507812,
+            205.87831115722656
+          ]
+        }
+      ],
+      "true_positive_matches": [],
+      "false_negative_target_indices": [
+        0
+      ],
+      "false_positive_prediction_indices": [
+        0,
+        1
+      ],
+      "wrong_class_overlaps": [],
+      "error_count": 3
+    },
+    {
+      "image": "data/test/images/correction_tape_images (94)_jpg.rf.uvVShLJ6rZ0IniYDQuX7.jpg",
+      "width": 191,
+      "height": 264,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            14.369999999999997,
+            50.38999999999999,
+            73.15,
+            185.76999999999998
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            81.29500000000002,
+            114.23500000000003,
+            155.445,
+            236.925
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            115.13500000000002,
+            9.614999999999997,
+            185.04500000000002,
+            135.385
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.907044529914856,
+          "xyxy": [
+            113.28907012939453,
+            3.8145675659179688,
+            183.25408935546875,
+            136.60389709472656
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8781766891479492,
+          "xyxy": [
+            85.82035827636719,
+            116.29747772216797,
+            157.02313232421875,
+            243.980224609375
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8600497841835022,
+          "xyxy": [
+            11.37600326538086,
+            49.62682342529297,
+            75.48999786376953,
+            179.86996459960938
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 0,
+          "iou": 0.9003228429655686
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8750887301484063
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 1,
+          "iou": 0.8578644052800258
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/correction_tape_images (95)_jpg.rf.C2CQXB5DZa5cyF6gaOaM.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            123.45500000000003,
+            72.0,
+            201.705,
+            162.0
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            23.45,
+            75.33500000000001,
+            86.73,
+            160.005
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7824465036392212,
+          "xyxy": [
+            25.197250366210938,
+            80.91016387939453,
+            90.33265686035156,
+            160.7355194091797
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.2574152946472168,
+          "xyxy": [
+            129.5945281982422,
+            75.71739959716797,
+            181.41290283203125,
+            128.2955780029297
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.8552787883065819
+        }
+      ],
+      "false_negative_target_indices": [
+        0
+      ],
+      "false_positive_prediction_indices": [
+        1
+      ],
+      "wrong_class_overlaps": [],
+      "error_count": 2
+    },
+    {
+      "image": "data/test/images/correction_tape_images - 2022-05-21T002627-899_jpg.rf.gYl2FkH6t0Dck3gGU85y.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            130.12,
+            107.99500000000002,
+            224.70000000000002,
+            163.66500000000002
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            10.450000000000003,
+            120.66499999999998,
+            105.39,
+            163.335
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            109.455,
+            125.33500000000001,
+            153.38500000000002,
+            211.66500000000002
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            96.785,
+            41.995,
+            146.055,
+            124.665
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            28.45500000000001,
+            58.0,
+            107.725,
+            127.0
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            126.78500000000001,
+            66.335,
+            220.035,
+            124.665
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.6787861585617065,
+          "xyxy": [
+            26.6695613861084,
+            55.36648941040039,
+            106.96882629394531,
+            122.07323455810547
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.6145331859588623,
+          "xyxy": [
+            2.321087121963501,
+            116.77623748779297,
+            91.58765411376953,
+            171.8319854736328
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.35527560114860535,
+          "xyxy": [
+            121.22578430175781,
+            58.823097229003906,
+            216.6122589111328,
+            115.07614135742188
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.30732572078704834,
+          "xyxy": [
+            1.6770458221435547,
+            115.78480529785156,
+            188.1228485107422,
+            173.15309143066406
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 4,
+          "prediction_index": 0,
+          "iou": 0.8680246268930981
+        },
+        {
+          "target_index": 5,
+          "prediction_index": 2,
+          "iou": 0.6812572794278057
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 1,
+          "iou": 0.6290707801367775
+        }
+      ],
+      "false_negative_target_indices": [
+        0,
+        2,
+        3
+      ],
+      "false_positive_prediction_indices": [
+        3
+      ],
+      "wrong_class_overlaps": [],
+      "error_count": 4
+    },
+    {
+      "image": "data/test/images/correction_tape_images - 2022-05-21T002653-270_jpg.rf.IapVtb4rPpcRjMlnmchg.jpg",
+      "width": 224,
+      "height": 224,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            7.460000000000001,
+            49.67000000000001,
+            64.74000000000001,
+            175.67000000000002
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            80.78500000000001,
+            53.995000000000005,
+            144.715,
+            179.66500000000002
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            149.785,
+            54.67,
+            218.035,
+            179.67
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.8747743368148804,
+          "xyxy": [
+            0.0,
+            178.9646759033203,
+            224.0,
+            223.60484313964844
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8596063852310181,
+          "xyxy": [
+            4.479814052581787,
+            46.03647232055664,
+            74.19235229492188,
+            167.482666015625
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8502551317214966,
+          "xyxy": [
+            146.54669189453125,
+            46.39583969116211,
+            220.97633361816406,
+            170.60414123535156
+          ]
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.8194579482078552,
+          "xyxy": [
+            0.0,
+            0.0,
+            222.38246154785156,
+            43.267311096191406
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7681461572647095,
+          "xyxy": [
+            77.07526397705078,
+            48.22612762451172,
+            149.93878173828125,
+            168.54425048828125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 2,
+          "iou": 0.8021985797164503
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 4,
+          "iou": 0.7726657337052214
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 1,
+          "iou": 0.7552421140635066
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [
+        0,
+        3
+      ],
+      "wrong_class_overlaps": [],
+      "error_count": 2
+    },
+    {
+      "image": "data/test/images/correction_tape_images - 2022-05-21T002655-886_jpg.rf.Khq4g5cFwhZzLn5Q25al.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            28.79000000000001,
+            83.67,
+            119.73,
+            118.67
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            121.785,
+            96.99499999999999,
+            198.375,
+            139.665
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            36.115,
+            121.33000000000001,
+            116.725,
+            157.33
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            115.12,
+            137.67,
+            199.04000000000002,
+            181.67
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            36.125,
+            158.66500000000002,
+            118.395,
+            199.995
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            121.45499999999998,
+            182.995,
+            198.045,
+            218.66500000000002
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            40.115,
+            8.67,
+            116.725,
+            44.67
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            118.455,
+            23.0,
+            196.04500000000002,
+            57.00000000000001
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            38.449999999999996,
+            46.0,
+            111.39,
+            85.0
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            120.45500000000001,
+            58.665,
+            195.04500000000002,
+            96.33500000000001
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8401063680648804,
+          "xyxy": [
+            33.62956619262695,
+            6.254893779754639,
+            117.78962707519531,
+            44.754817962646484
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8331757187843323,
+          "xyxy": [
+            106.91010284423828,
+            178.32029724121094,
+            193.10304260253906,
+            215.9315185546875
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7764474749565125,
+          "xyxy": [
+            33.74095153808594,
+            80.9425048828125,
+            116.34732818603516,
+            121.39427185058594
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7636873722076416,
+          "xyxy": [
+            118.10242462158203,
+            19.625465393066406,
+            195.55715942382812,
+            56.568119049072266
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7605068683624268,
+          "xyxy": [
+            34.329185485839844,
+            121.28861236572266,
+            115.76053619384766,
+            160.27059936523438
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.7501236200332642,
+          "xyxy": [
+            110.08744812011719,
+            99.58601379394531,
+            194.14260864257812,
+            135.08119201660156
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.6645134091377258,
+          "xyxy": [
+            33.675357818603516,
+            42.392578125,
+            116.09768676757812,
+            82.10892486572266
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.6140759587287903,
+          "xyxy": [
+            106.95677185058594,
+            137.53598022460938,
+            193.4368438720703,
+            175.4304656982422
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.5521295070648193,
+          "xyxy": [
+            117.9963150024414,
+            60.224464416503906,
+            194.76492309570312,
+            96.42444610595703
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.39738228917121887,
+          "xyxy": [
+            39.1757926940918,
+            60.169124603271484,
+            195.32867431640625,
+            96.64043426513672
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.3037053048610687,
+          "xyxy": [
+            35.742774963378906,
+            139.8227996826172,
+            194.2163543701172,
+            216.3840789794922
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 9,
+          "prediction_index": 8,
+          "iou": 0.9235626925505621
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 4,
+          "iou": 0.8934780011661236
+        },
+        {
+          "target_index": 7,
+          "prediction_index": 3,
+          "iou": 0.8890193549290726
+        },
+        {
+          "target_index": 6,
+          "prediction_index": 0,
+          "iou": 0.851181249087385
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.7957675946541725
+        },
+        {
+          "target_index": 8,
+          "prediction_index": 6,
+          "iou": 0.755881481310144
+        },
+        {
+          "target_index": 3,
+          "prediction_index": 7,
+          "iou": 0.7370504994291973
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 5,
+          "iou": 0.6972944988983871
+        },
+        {
+          "target_index": 5,
+          "prediction_index": 1,
+          "iou": 0.6529800130963606
+        }
+      ],
+      "false_negative_target_indices": [
+        4
+      ],
+      "false_positive_prediction_indices": [
+        9,
+        10
+      ],
+      "wrong_class_overlaps": [],
+      "error_count": 3
+    },
+    {
+      "image": "data/test/images/correction_tape_images - 2022-05-21T002701-359_jpg.rf.aDp0hMSo6ttebGg5BHSy.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            125.45499999999998,
+            73.33000000000001,
+            225.0,
+            140.32999999999998
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            88.44999999999999,
+            141.33499999999998,
+            188.37,
+            200.005
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            3.1150000000000047,
+            169.67,
+            55.405,
+            214.66999999999996
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            38.449999999999996,
+            4.664999999999998,
+            148.05,
+            62.995
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            4.450000000000001,
+            68.66499999999999,
+            99.39,
+            129.995
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.858895480632782,
+          "xyxy": [
+            41.26579666137695,
+            0.19830107688903809,
+            149.86279296875,
+            61.81195831298828
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8340025544166565,
+          "xyxy": [
+            0.5647337436676025,
+            70.2910385131836,
+            103.8266372680664,
+            128.1389923095703
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.6732941269874573,
+          "xyxy": [
+            112.47420501708984,
+            70.54351043701172,
+            220.8698272705078,
+            132.4917755126953
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.6517346501350403,
+          "xyxy": [
+            78.73792266845703,
+            125.29705810546875,
+            182.710205078125,
+            198.69564819335938
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 3,
+          "prediction_index": 0,
+          "iou": 0.8740636772205721
+        },
+        {
+          "target_index": 4,
+          "prediction_index": 1,
+          "iou": 0.8711959296612264
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.729361360419881
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 3,
+          "iou": 0.66859083385542
+        }
+      ],
+      "false_negative_target_indices": [
+        2
+      ],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 1
+    },
+    {
+      "image": "data/test/images/correction_tape_다운로드 (13)_jpg.rf.bSibNYIRDEmxgIP6LQBP.jpg",
+      "width": 225,
+      "height": 225,
+      "targets": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            38.449999999999996,
+            66.66499999999999,
+            188.36999999999998,
+            134.99499999999998
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "confidence": 0.8756893873214722,
+          "xyxy": [
+            38.762168884277344,
+            65.7108154296875,
+            183.7567596435547,
+            137.21798706054688
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9255256621306752
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143546 (1)_jpg.rf.HPYKgonczWWfDXAiGQSA.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            508.3349999999999,
+            277.495,
+            599.165,
+            446.6649999999999
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9430673122406006,
+          "xyxy": [
+            515.710205078125,
+            276.5738525390625,
+            596.6869506835938,
+            444.711669921875
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.8769686755072112
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143552 (1)_jpg.rf.7dnkAzBfMwuf1zsvDomu.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            504.1650000000001,
+            244.16500000000002,
+            600.835,
+            390.83500000000004
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9461556077003479,
+          "xyxy": [
+            507.9959716796875,
+            242.159423828125,
+            602.574951171875,
+            389.49371337890625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.922785593726087
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143553_jpg.rf.Gg92lISUrCkzMLorGLN0.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            520.8349999999999,
+            211.67000000000002,
+            607.5049999999999,
+            369.17
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9509516358375549,
+          "xyxy": [
+            522.5977783203125,
+            212.05812072753906,
+            609.0196533203125,
+            364.3898010253906
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9317644579734924
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143732_jpg.rf.Raba1syRgH7rStS7mUbI.jpg",
+      "width": 610,
+      "height": 458,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            366.0,
+            167.99999999999997,
+            462.0,
+            343.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9399529099464417,
+          "xyxy": [
+            365.2289123535156,
+            167.9942626953125,
+            464.2254638671875,
+            346.4928894042969
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9507237345149466
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143736 (3)_jpg.rf.3pOxONcHEwDyPCKpAvIk.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            291.0,
+            286.0,
+            394.5,
+            451.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9483609199523926,
+          "xyxy": [
+            289.9319763183594,
+            284.57763671875,
+            395.2323913574219,
+            450.82696533203125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9734968830889644
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143737_jpg.rf.IRHijRV6GXR4xvN1u56p.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            295.005,
+            282.99499999999995,
+            400.33500000000004,
+            454.16499999999996
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9455385208129883,
+          "xyxy": [
+            294.7488708496094,
+            282.25640869140625,
+            399.546630859375,
+            451.6475830078125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9714203074321598
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143741_jpg.rf.TY2o1GOeSDFd67Y2UXMi.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            253.335,
+            217.5,
+            351.66499999999996,
+            389.99999999999994
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9442133903503418,
+          "xyxy": [
+            256.9971008300781,
+            216.28395080566406,
+            348.46966552734375,
+            390.56268310546875
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.921422373566205
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143743 (1)_jpg.rf.d9NXJceud7W7q4whW9fZ.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            261.0,
+            169.0,
+            372.0,
+            351.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9430792927742004,
+          "xyxy": [
+            261.98248291015625,
+            169.19781494140625,
+            373.3531188964844,
+            352.2103576660156
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.971754410375304
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143745 (1)_jpg.rf.9e4XgNnw24S0Zut8TsxC.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            225.0,
+            156.0,
+            344.00000000000006,
+            327.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9494128227233887,
+          "xyxy": [
+            225.2741241455078,
+            155.040283203125,
+            344.4015808105469,
+            327.5233459472656
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9858107137112129
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143751_jpg.rf.j0PQRvkehruf6HIlLRUx.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            295.0,
+            120.83,
+            395.0,
+            295.83
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9385830760002136,
+          "xyxy": [
+            298.4658508300781,
+            117.16796875,
+            387.1105651855469,
+            296.2022399902344
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.8686951437627621
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143752 (2)_jpg.rf.rwKeP5rPYLYwPvaprblz.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            296.0,
+            99.0,
+            397.0,
+            282.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.946201503276825,
+          "xyxy": [
+            295.6547546386719,
+            99.05094146728516,
+            397.39013671875,
+            282.36407470703125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9905266236104189
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143753 (1)_jpg.rf.NzosJdBFQQV8QztfrCOD.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            281.0,
+            122.99999999999999,
+            389.0,
+            298.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9480236172676086,
+          "xyxy": [
+            281.757080078125,
+            121.63330078125,
+            389.59674072265625,
+            299.1650390625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9735473104808668
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250903143753 (2)_jpg.rf.N5utlCtLtLiaXwBA9YHf.jpg",
+      "width": 800,
+      "height": 600,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            252.0,
+            115.00000000000001,
+            377.0,
+            298.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9571143984794617,
+          "xyxy": [
+            250.76820373535156,
+            114.77245330810547,
+            377.47039794921875,
+            299.177978515625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9790458646755285
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151735_jpg.rf.yP1RLk3yHRMO3SQ9yAyY.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            234.0,
+            193.0,
+            317.0,
+            349.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9380452036857605,
+          "xyxy": [
+            233.9738006591797,
+            193.01214599609375,
+            316.55523681640625,
+            351.27166748046875
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9800550677349769
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151736_jpg.rf.dXNNT9PiyQn8ikispXiX.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            235.0,
+            193.0,
+            317.0,
+            349.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9385789036750793,
+          "xyxy": [
+            233.97157287597656,
+            193.0115966796875,
+            317.2086181640625,
+            351.072509765625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9721507921895634
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151739 (1)_jpg.rf.peP5UccKCvmFXzO3ebNb.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            251.0,
+            190.00000000000003,
+            305.0,
+            342.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9401151537895203,
+          "xyxy": [
+            250.35964965820312,
+            188.94970703125,
+            306.2908630371094,
+            343.3414306640625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9505152542480583
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151740 (1)_jpg.rf.hUIBbU5RzYqpmWxbZ5ZF.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            245.99999999999997,
+            189.00000000000003,
+            302.0,
+            341.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9350036978721619,
+          "xyxy": [
+            247.07174682617188,
+            188.573974609375,
+            302.2787170410156,
+            342.258056640625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9655103602527162
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151744_jpg.rf.MI2iK2dxLTI7rwCwvfxf.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            235.0,
+            188.00000000000003,
+            310.0,
+            344.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9362969398498535,
+          "xyxy": [
+            236.2372283935547,
+            188.59805297851562,
+            310.37725830078125,
+            345.2029724121094
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9675098946957084
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151745_jpg.rf.KIZe8t9D5JlY2wmwoO7w.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            238.0,
+            190.0,
+            311.0,
+            343.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.934802770614624,
+          "xyxy": [
+            238.4105224609375,
+            190.2322998046875,
+            312.5147705078125,
+            345.5045166015625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9571313963691547
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151748 (1)_jpg.rf.tIAtuiKyU9VNsTKsmRze.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            229.00000000000003,
+            192.0,
+            302.0,
+            335.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9411678314208984,
+          "xyxy": [
+            231.06570434570312,
+            191.78375244140625,
+            300.7867736816406,
+            335.66485595703125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9494955454629507
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151753_jpg.rf.mPSkdpKZv7uoW0QdsMyl.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            230.0,
+            181.0,
+            309.0,
+            336.00000000000006
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9409500360488892,
+          "xyxy": [
+            230.35671997070312,
+            179.75128173828125,
+            307.9259948730469,
+            335.06103515625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9682819839544301
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151803 (1)_jpg.rf.ppqBEm2MUqiWKsNquXwt.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            258.66499999999996,
+            143.33499999999998,
+            325.995,
+            268.00499999999994
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9513092637062073,
+          "xyxy": [
+            260.04229736328125,
+            143.65835571289062,
+            327.49798583984375,
+            267.4782409667969
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9517636060326213
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151807_jpg.rf.8JeRJnWA4S4fAjvcgDJv.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            215.33499999999998,
+            152.66500000000002,
+            352.665,
+            269.995
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9581533670425415,
+          "xyxy": [
+            214.9980010986328,
+            153.5518798828125,
+            351.43463134765625,
+            271.98529052734375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9649377264583003
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151812_jpg.rf.oBv0uKauCy61slKIGZLb.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            218.665,
+            171.33,
+            369.3349999999999,
+            235.32999999999998
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9444584250450134,
+          "xyxy": [
+            223.5928955078125,
+            166.33425903320312,
+            366.793701171875,
+            238.36172485351562
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.8491934084461558
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151838_jpg.rf.vZ9xL5R3bOo7KXDJEYAU.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            271.0,
+            100.99999999999999,
+            348.0,
+            249.99999999999997
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9378962516784668,
+          "xyxy": [
+            271.45697021484375,
+            100.46270751953125,
+            347.5498046875,
+            250.34817504882812
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.98244898023461
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151851_jpg.rf.3adYUwIW41icY29zHsj3.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            274.0,
+            85.99999999999999,
+            347.0,
+            235.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9349886775016785,
+          "xyxy": [
+            273.77471923828125,
+            84.52719116210938,
+            347.13214111328125,
+            236.95401000976562
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9727554725999842
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151853_jpg.rf.VHYFFNr6J7QI63NUrv2I.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            289.0,
+            81.0,
+            347.0,
+            228.00000000000003
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9392907023429871,
+          "xyxy": [
+            288.7785949707031,
+            80.4476318359375,
+            347.1211242675781,
+            229.9072265625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.977769025086016
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151856 (1)_jpg.rf.uCkp0RZuCWCixaB06DqM.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            277.0,
+            77.0,
+            331.0,
+            228.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9342707991600037,
+          "xyxy": [
+            277.9620361328125,
+            77.73126220703125,
+            331.706298828125,
+            228.8719482421875
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9594258948816733
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151900_jpg.rf.pysuE7zgBBHrDX547QDf.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            302.0,
+            114.00000000000001,
+            367.0,
+            241.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9464320540428162,
+          "xyxy": [
+            302.67791748046875,
+            116.70549011230469,
+            365.76824951171875,
+            240.81597900390625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9485368810093167
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151907_jpg.rf.S6L8ODt2MUjLe3KEGrvK.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            237.00000000000003,
+            143.0,
+            364.0,
+            263.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9556421637535095,
+          "xyxy": [
+            237.95733642578125,
+            143.43997192382812,
+            362.63238525390625,
+            262.5209655761719
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9741751114243834
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151915_jpg.rf.liiZiGxxVk4808W5LfOL.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            232.0,
+            116.99999999999999,
+            358.0,
+            232.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9419521689414978,
+          "xyxy": [
+            232.65426635742188,
+            116.868408203125,
+            357.6259460449219,
+            233.64288330078125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9768881500594595
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904151957 (1)_jpg.rf.7meN46oEqmMuEHV3qp1r.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            218.0,
+            149.0,
+            383.0,
+            268.0
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            353.0,
+            93.0,
+            490.0,
+            205.00000000000003
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9466392993927002,
+          "xyxy": [
+            352.508544921875,
+            91.58599853515625,
+            490.13330078125,
+            206.17987060546875
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9433093070983887,
+          "xyxy": [
+            217.4173583984375,
+            149.3611297607422,
+            384.16754150390625,
+            268.22796630859375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 1,
+          "iou": 0.9846464008020159
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9729278472512498
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904152003_jpg.rf.8l0dpzetPZPvP0Z3Vzoe.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            224.0,
+            129.0,
+            295.0,
+            249.00000000000003
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            319.0,
+            214.0,
+            485.0,
+            346.00000000000006
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9357887506484985,
+          "xyxy": [
+            224.89114379882812,
+            129.8370361328125,
+            294.8490905761719,
+            249.57110595703125
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9357650876045227,
+          "xyxy": [
+            318.6961669921875,
+            216.71453857421875,
+            482.7724609375,
+            345.21417236328125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9738833722983639
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 1,
+          "iou": 0.9587107911656079
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904152011_jpg.rf.FTTEVPErEsGu3DYrVYj5.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            205.0,
+            135.0,
+            312.0,
+            306.0
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            152.0,
+            38.00000000000001,
+            215.0,
+            124.00000000000001
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9494366645812988,
+          "xyxy": [
+            206.82861328125,
+            135.33831787109375,
+            311.9910888671875,
+            306.3232421875
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9433542490005493,
+          "xyxy": [
+            152.7200164794922,
+            38.06146240234375,
+            215.30393981933594,
+            124.90133666992188
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9790634381132408
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 1,
+          "iou": 0.9730428447105192
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904152014_jpg.rf.kzTsIf8XShKCC6NRVPCm.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            197.99999999999997,
+            136.0,
+            306.0,
+            308.0
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            145.0,
+            40.0,
+            209.0,
+            127.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9518151879310608,
+          "xyxy": [
+            199.23446655273438,
+            136.53392028808594,
+            305.95050048828125,
+            307.9127197265625
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9421783089637756,
+          "xyxy": [
+            145.05516052246094,
+            41.559471130371094,
+            208.87110900878906,
+            128.06942749023438
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9845427313043575
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 1,
+          "iou": 0.9673935233897648
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/eraser_20250904152031 (1)_jpg.rf.EOPmaZ4De7G5JadOTZ2n.jpg",
+      "width": 640,
+      "height": 480,
+      "targets": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            351.99999999999994,
+            167.0,
+            429.0,
+            301.0
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            154.0,
+            132.99999999999997,
+            299.0,
+            203.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.9476861357688904,
+          "xyxy": [
+            352.39654541015625,
+            167.3260955810547,
+            428.1090087890625,
+            300.04791259765625
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "confidence": 0.938355028629303,
+          "xyxy": [
+            153.75967407226562,
+            133.50714111328125,
+            299.0358581542969,
+            202.74484252929688
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 1,
+          "iou": 0.9872500653242285
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9738995648818894
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_161704289_jpg.rf.t3pqV8nMC87qB1gkHiYE.jpg",
+      "width": 8192,
+      "height": 6144,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            1269.0,
+            1065.0000000000005,
+            3989.0,
+            5918.000000000001
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.8472291231155396,
+          "xyxy": [
+            1242.684814453125,
+            1026.323486328125,
+            3935.932861328125,
+            5906.9111328125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9613833147933659
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_161716795_jpg.rf.FSEx0waRe8X7DOHmhqRI.jpg",
+      "width": 8192,
+      "height": 6144,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            0.0,
+            2731.9999999999995,
+            5634.0,
+            4773.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9156941175460815,
+          "xyxy": [
+            0.0,
+            2716.706298828125,
+            5551.97998046875,
+            4856.79052734375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9404506513162675
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_161855602_jpg.rf.mVHa4hZl7wCyx7i1LtD8.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            2911.0000000000005,
+            3879.0,
+            3888.0,
+            6734.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.876941978931427,
+          "xyxy": [
+            2882.208740234375,
+            3880.626708984375,
+            3845.335205078125,
+            6730.91357421875
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9274656590868424
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162217069_HDR_jpg.rf.UmW1zxxYMPDWeqZBOh0w.jpg",
+      "width": 8192,
+      "height": 6144,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            1278.0,
+            85.99999999999989,
+            2636.0,
+            2278.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.933736264705658,
+          "xyxy": [
+            1288.5543212890625,
+            99.57958984375,
+            2582.36181640625,
+            2283.47900390625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9445784740928261
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162236690_HDR_jpg.rf.ubQCpdNhdWRVDO5HHJPF.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            1122.0,
+            3725.0,
+            4582.0,
+            4504.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9196387529373169,
+          "xyxy": [
+            1122.9364013671875,
+            3707.714599609375,
+            4559.28173828125,
+            4493.91162109375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9591639144348901
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162255529_HDR_jpg.rf.tfyfYfAF7Xbmhuk6lqAb.jpg",
+      "width": 8192,
+      "height": 6144,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            3875.0,
+            1311.9999999999998,
+            5185.0,
+            5614.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.8833805918693542,
+          "xyxy": [
+            3891.397705078125,
+            1288.6727294921875,
+            5178.18212890625,
+            5627.62890625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9740588577972781
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162404198_HDR_jpg.rf.o5KWpPOtDAtxJjT5SYeJ.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            1059.0,
+            3172.0,
+            3898.0,
+            3978.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9079856276512146,
+          "xyxy": [
+            840.009765625,
+            3155.36572265625,
+            3902.260498046875,
+            4014.93359375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.8693196832083016
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162422214_HDR_jpg.rf.xMjIreSougviSGzwMll8.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            2372.0,
+            2360.0,
+            4934.0,
+            3814.0
+          ]
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            595.0000000000001,
+            3446.0,
+            1591.0,
+            4603.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9060238003730774,
+          "xyxy": [
+            586.1360473632812,
+            3440.06494140625,
+            1606.2117919921875,
+            4590.70166015625
+          ]
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9004665017127991,
+          "xyxy": [
+            2408.747802734375,
+            2347.77783203125,
+            4940.43212890625,
+            3807.413818359375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 1,
+          "iou": 0.9707027991947786
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9613292988687907
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162425442_HDR_jpg.rf.K1EmBMBomx3P9bIizT0x.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            2301.101,
+            3310.376,
+            2530.419,
+            3619.2309999999998
+          ]
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            2695.3100000000004,
+            3021.165,
+            3299.1810000000005,
+            3384.5880000000006
+          ]
+        }
+      ],
+      "predictions": [],
+      "true_positive_matches": [],
+      "false_negative_target_indices": [
+        0,
+        1
+      ],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 2
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162431745_HDR_jpg.rf.BjZ61OL5Aj09BK4Swc2F.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            1263.9999999999998,
+            2626.0,
+            4816.0,
+            3428.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9315289258956909,
+          "xyxy": [
+            1241.6820068359375,
+            2648.0,
+            4892.5908203125,
+            3434.24853515625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9395978641501332
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162453485_HDR_jpg.rf.tgCOqeFEuDYOUotjExSE.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            1256.0000000000002,
+            1340.0,
+            3294.0,
+            4336.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9035196304321289,
+          "xyxy": [
+            1237.40234375,
+            1311.0687255859375,
+            3317.294677734375,
+            4356.45166015625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9639693483977605
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162732254_HDR_jpg.rf.UbmOQmyvH1iddgkCkZts.jpg",
+      "width": 8192,
+      "height": 6144,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            3796.0,
+            4936.0,
+            4559.0,
+            5944.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9297735095024109,
+          "xyxy": [
+            3798.779052734375,
+            4934.78271484375,
+            4537.74755859375,
+            5933.35693359375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9571584144090771
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162852095_HDR_jpg.rf.eQBh70a2u5Tr0yiPVG6u.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            2798.0,
+            2482.0,
+            5215.0,
+            4602.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9244450926780701,
+          "xyxy": [
+            2775.281982421875,
+            2495.232666015625,
+            5245.18701171875,
+            4577.1689453125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.961379867800303
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162905777_HDR_jpg.rf.T2QBXh9Pu0jU5jNDtIIM.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            1676.0,
+            3144.0,
+            2887.0,
+            4380.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.8678343296051025,
+          "xyxy": [
+            1673.1156005859375,
+            3136.221923828125,
+            2898.063232421875,
+            4369.82958984375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9744381109907239
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_162945145_HDR_jpg.rf.ykyMmoht4zOv4gldrKvH.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            2978.9999999999995,
+            3460.0,
+            5694.999999999999,
+            4792.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9341194033622742,
+          "xyxy": [
+            3001.883544921875,
+            3486.09228515625,
+            5680.55810546875,
+            4759.92822265625
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9431905912056098
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260713_163001392_jpg.rf.tHYMVbUjogwTzv4TXHxF.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            2460.0,
+            2159.0,
+            3960.0,
+            3965.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.923164427280426,
+          "xyxy": [
+            2472.13671875,
+            2165.322021484375,
+            3999.59765625,
+            4003.999267578125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9428987155683212
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260715_002335316_jpg.rf.txFnprUzKvgpR4omdKAd.jpg",
+      "width": 3072,
+      "height": 4096,
+      "targets": [],
+      "predictions": [],
+      "true_positive_matches": [],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260715_184513530_HDR_jpg.rf.aB2KlD2kBqq78AI5R7a6.jpg",
+      "width": 8192,
+      "height": 6144,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            6836.0,
+            3627.0,
+            8191.0,
+            4664.000000000001
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9427662491798401,
+          "xyxy": [
+            6831.25341796875,
+            3619.268798828125,
+            8192.0,
+            4656.6064453125
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9813901853065933
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260715_184614991_HDR_jpg.rf.CB5c05C5VaAfEngSwHFh.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            2413.0,
+            5574.0,
+            3101.0,
+            6623.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9427367448806763,
+          "xyxy": [
+            2420.158203125,
+            5582.38623046875,
+            3106.583251953125,
+            6615.05224609375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9664657059678164
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260715_184632730_HDR_jpg.rf.CewE1tTSbkhqeGg4hiWL.jpg",
+      "width": 8192,
+      "height": 6144,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            0.0,
+            1094.0000000000002,
+            1713.0,
+            2109.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.8763501048088074,
+          "xyxy": [
+            0.0,
+            1108.6038818359375,
+            1709.536376953125,
+            2192.160888671875
+          ]
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.2560957670211792,
+          "xyxy": [
+            6773.00341796875,
+            4459.3681640625,
+            7267.765625,
+            5069.84130859375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9092713614882865
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [
+        1
+      ],
+      "wrong_class_overlaps": [],
+      "error_count": 1
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260715_184803476_HDR_jpg.rf.l8G07crL5h2Ppk3lDPoI.jpg",
+      "width": 6144,
+      "height": 8192,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            4701.0,
+            5318.0,
+            6143.000000000001,
+            5821.0
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9198987483978271,
+          "xyxy": [
+            4706.3525390625,
+            5299.01708984375,
+            6144.0,
+            5816.47021484375
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9508850250847305
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_IMG_20260715_185010452_jpg.rf.7hWMUvwNPvrNyc4Un1yM.jpg",
+      "width": 8192,
+      "height": 6144,
+      "targets": [],
+      "predictions": [],
+      "true_positive_matches": [],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    },
+    {
+      "image": "data/test/images/highlighter_image-1783938829098_jpg.rf.9yGiiHc0KoqAwjCGNoIF.jpg",
+      "width": 4096,
+      "height": 3072,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            760.0,
+            702.481,
+            3551.0,
+            1446.051
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "confidence": 0.9058863520622253,
+          "xyxy": [
+            785.9472045898438,
+            691.9420166015625,
+            3578.212890625,
+            1422.201171875
+          ]
+        }
+      ],
+      "true_positive_matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 0,
+          "iou": 0.9368018550809651
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "error_count": 0
+    }
+  ]
+}

@@ -2,20 +2,24 @@
 
 형광펜(`highlighter`), 수정테이프(`correction_tape`), 지우개(`eraser`)의 공개 Roboflow 데이터셋을 병합·가공해 YOLOv8을 학습하고, ByteTrack으로 객체 ID와 이동 궤적을 표시하는 과제 프로젝트입니다. 데이터 출처와 CC BY 4.0 표기는 [data/SOURCES.md](data/SOURCES.md)를 따릅니다.
 
-## 현재 진행 상태 — 2026-11-19
+## 현재 진행 상태 — 2026-11-20
 
-교수님이 제공하신 자료는 [과제 지침 메모](docs/ASSIGNMENT_GUIDELINES.md)에 별도로 보존했습니다. **Colab의 Tesla T4에서 CUDA를 사용해 batch 16으로 학습을 시작했으며, 2026-11-19 확인 시점에 1/100 epoch 완료를 검증했습니다.** [Colab 실행 노트북](notebooks/train_colab.ipynb)에서 기존 데이터 687장의 전송·해시·라벨 검사가 통과했고, 첫 epoch의 학습 기록과 체크포인트가 Drive에 백업됐습니다. 이는 중간 validation 결과이며, 100 epoch 학습 완료와 최종 test 성능은 아직 검증하지 않았습니다.
+교수님이 제공하신 자료는 [과제 지침 메모](docs/ASSIGNMENT_GUIDELINES.md)에 별도로 보존했습니다. **Colab Tesla T4의 CUDA 장치 0에서 batch 16으로 100 epoch 학습과 test 평가를 완료했습니다.** 기존 데이터 687장의 분할·라벨·설정을 유지했으며, 학습 CSV의 누적 시간은 **2시간 43분 54.78초**입니다. GPU 메모리 부족이나 batch 축소 없이 한 번의 시도로 완료했고, 100회의 epoch 백업이 성공했습니다.
+
+Test 73장·정답 객체 108개에서 **Precision 93.70%, Recall 88.77%, mAP50 93.58%, mAP50-95 76.68%**를 얻었습니다. 이 수치는 아래의 빈 라벨과 eraser 유사 장면 한계를 포함한 기존 분할의 결과입니다. **실제 원본 영상이 없어 5초 추적 영상과 궤적 CSV는 아직 제작 전입니다.**
 
 로컬 CPU 학습은 batch 16·8의 메모리 오류 후 batch 4로 1 epoch를 완료했습니다. 2번째 epoch 44%에서 19:28 KST 사용자 요청으로 일시정지했으며 메모리 상태·체크포인트·로그를 보존했습니다. 이 중간 결과를 최종 모델 또는 test 성능으로 사용하지 않습니다. 원본 영상은 사용자가 준비할 예정입니다.
 
 - 인계 및 다음 실행 조건: [HANDOFF.md](HANDOFF.md)
 - 실제 데이터 감사 결과: [outputs/dataset_summary.json](outputs/dataset_summary.json)
 - 실제 Colab 환경과 데이터 검사: [colab_environment.json](outputs/colab_environment.json), [colab_dataset_check.json](outputs/colab_dataset_check.json)
+- 학습 완료·산출물 검증: [colab_training_run.json](outputs/colab_training_run.json), [artifact_verification.json](outputs/artifact_verification.json)
+- 학습 모델·test 지표: [best.pt](models/best.pt), [test_metrics.json](outputs/test_metrics.json)
 - 로컬 CPU 실행 상태: `outputs/training_status.json` (로컬 전용, Git 제외)
 - 확인된 사실과 미완료 항목: [report/REPORT.md](report/REPORT.md)
 - 공개 저장소: https://github.com/jeongjunseo/yolov8-stationery-tracking
 
-`models/best.pt`와 `outputs/test_metrics.json`의 완료·검증은 아직 확인하지 못했습니다. 원본 영상이 준비되지 않아 `outputs/final_5s.mp4`와 `outputs/trajectory.csv`도 제출 결과로 생성되지 않았습니다. 아래 학습·평가·추적 명령은 실행 절차이며 완료된 결과를 의미하지 않습니다.
+`models/best.pt`는 6,500,778 bytes이며 Colab 기록과 SHA-256이 일치합니다. 로컬 CPU에서 모델을 불러와 세 클래스와 파일 무변경을 확인했습니다. 아래 학습·평가 명령은 완료된 실험의 재현 절차이며, 영상 제작 명령은 원본 제공 후 실행할 절차입니다.
 
 ## Colab에서 실행
 
@@ -79,7 +83,7 @@ data/
 
 가장 유사한 후보 중 이미지가 서로 겹치지 않는 12쌍을 [연락시트 1](outputs/dataset_audit/near_duplicate_candidates_01.jpg)·[연락시트 2](outputs/dataset_audit/near_duplicate_candidates_02.jpg)에서 검토한 결과, 거의 같은 배경·물체 배치·시점이 split을 넘나드는 사례를 확인했습니다. 다만 [임계값 근처 6쌍](outputs/dataset_audit/near_duplicate_threshold/near_duplicate_candidates_01.jpg)에는 회전·시점 차이가 분명한 사례도 있어 **494쌍 전체를 확정 중복으로 해석하지 않습니다.** 상세 해시는 [이미지별 기록](outputs/dataset_audit/near_duplicate_image_hashes.json)에 있습니다. 이 결과는 특히 eraser의 validation·test 성능을 새로운 장면에 대한 일반화 성능으로 해석할 때의 한계입니다. 영향의 크기는 아직 측정하지 않았습니다.
 
-현재 학습은 기존 분할·라벨·설정을 유지한 기준 실험으로 계속하며, 이미지·라벨 1,374개 파일의 SHA-256이 원본 ZIP 매니페스트와 일치함을 확인했습니다. 개별 시각 판정과 원본 보존 검사는 [시각 검토 기록](outputs/dataset_audit/near_duplicate_visual_review.json)에 남겼습니다. 후속 실험에서는 촬영 세션·장면별로 이미지를 묶어 같은 그룹을 하나의 split에만 배치하고, 누락 라벨을 검토한 뒤 동일 학습 설정으로 결과를 비교하는 것이 필요합니다.
+이번 학습은 기존 분할·라벨·설정을 유지한 기준 실험으로 완료했으며, 이미지·라벨 1,374개 파일의 SHA-256이 원본 ZIP 매니페스트와 일치함을 확인했습니다. 개별 시각 판정과 원본 보존 검사는 [시각 검토 기록](outputs/dataset_audit/near_duplicate_visual_review.json)에 남겼습니다. 후속 실험에서는 촬영 세션·장면별로 이미지를 묶어 같은 그룹을 하나의 split에만 배치하고, 누락 라벨을 검토한 뒤 동일 학습 설정으로 결과를 비교하는 것이 필요합니다.
 
 ## 2. 설치
 
@@ -118,15 +122,16 @@ YOLOv8 nano 사전 학습 가중치로 100 epoch 전이학습을 수행합니다
 python scripts/train.py --device 0 --batch 16 --epochs 100
 ```
 
-설정은 YOLOv8n, imgsz 640, workers 인자 4, seed 42, deterministic=True입니다. 실제 CUDA 메모리 부족이 발생할 때만 batch를 16에서 8, 4 순서로 낮춥니다. 완료 epoch, 실제 batch, 선택된 optimizer와 학습률은 해당 Colab 실행 기록으로 검증합니다. 이전 로컬 CPU 시도는 batch 16·8의 메모리 오류 후 batch 4로 1 epoch를 완료했고, 사용자 요청으로 일시정지되어 있습니다.
+설정은 YOLOv8n, imgsz 640, workers 인자 4, seed 42, deterministic=True, optimizer=auto이며 [실제 args.yaml](report/assets/train/args.yaml)에 저장했습니다. [학습 완료 기록](outputs/colab_training_run.json)과 [100행 CSV](report/assets/train/results.csv)로 실제 batch 16과 100 epoch 완료를 검증했습니다. 실제 CUDA 메모리 부족이 발생할 때만 batch를 16에서 8, 4 순서로 낮추는 조건이지만 이번 GPU 실행에는 필요하지 않았습니다. 이전 로컬 CPU 시도는 batch 16·8의 메모리 오류 후 batch 4로 1 epoch를 완료했고, 사용자 요청으로 일시정지되어 있습니다.
 
 학습 결과는 `runs/train/` 아래에 저장되고 완료 후 최적 가중치는 자동으로 `models/best.pt`에 복사됩니다. Colab은 해당 런타임의 로컬 디스크를 사용하고 Drive에 체크포인트를 백업합니다. 이전 Windows 실행의 `runs/`는 D:에 연결되어 있으며 그대로 보존합니다. 보고서에는 다음 자료를 사용합니다.
 
-- `results.csv`: epoch별 loss와 성능
-- `results.png`: 학습 곡선
-- `confusion_matrix.png`: 혼동 행렬
-- `PR_curve.png`: 정밀도-재현율 곡선
-- `weights/best.pt`: 최적 학습 모델
+- [results.csv](report/assets/train/results.csv): epoch별 loss와 validation 성능
+- [results.png](report/assets/train/results.png): 학습 곡선
+- [test 혼동 행렬](report/assets/test/confusion_matrix.png), [test PR 곡선](report/assets/test/BoxPR_curve.png)
+- [models/best.pt](models/best.pt): 완료된 실행에서 선택된 학습 모델
+
+![100 epoch 학습 손실 및 validation 성능](report/assets/train/results.png)
 
 ## 5. test 데이터 평가
 
@@ -135,6 +140,19 @@ python scripts/evaluate.py --device 0
 ```
 
 전체 Precision, Recall, mAP50, mAP75, mAP50-95와 클래스별 Precision, Recall, mAP50, mAP50-95, 정답 객체 수가 `outputs/test_metrics.json`에 저장됩니다. 평가되지 않은 클래스의 수치는 `null`로 기록합니다. 평가 그래프는 `runs/val/`에 저장됩니다.
+
+완료된 GPU 평가의 실측값은 다음과 같습니다. 모든 성능 수치는 %이며, 전체 행은 클래스 평균입니다.
+
+| 클래스 | 정답 객체 | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|---:|
+| 전체 | 108 | 93.70 | 88.77 | 93.58 | 76.68 |
+| highlighter | 23 | 89.07 | 91.30 | 93.68 | 87.09 |
+| correction_tape | 44 | 93.06 | 75.00 | 87.56 | 48.35 |
+| eraser | 41 | 98.98 | 100.00 | 99.50 | 94.60 |
+
+전체 mAP75는 80.10%입니다. 수정테이프는 여러 객체를 묶거나 물체 일부만 잡는 위치 오류가 관찰됐고, 엄격한 IoU 기준에서 성능 하락이 컸습니다. 지우개의 높은 성능은 위 유사 장면 문제 때문에 새로운 장면에 대한 일반화 성능으로 그대로 해석할 수 없습니다. [보고서](report/REPORT.md)에 실제 실패 그림과 클래스별 분석을 정리했습니다.
+
+[고정 임계값 진단](outputs/failure_analysis.json)은 confidence 0.25, NMS IoU 0.5, 정답 매칭 IoU 0.5에서 TP 95 / FP 10 / FN 13을 기록했습니다. 이 진단의 전체 precision·recall은 객체 수를 합산한 값이므로 위 공식 평가의 클래스 평균·신뢰도 곡선 기반 값과 구분합니다.
 
 ## 6. 5초 추적 영상 제작
 
@@ -166,7 +184,7 @@ ByteTrack은 프레임 사이의 객체 ID를 연결하는 추적기이며 별�
 
 ## 7. 보고서와 GitHub 제출
 
-[report/REPORT.md](report/REPORT.md)는 Colab 환경·데이터 검증과 이전 CPU 시도를 구분한 진행 보고서입니다. 학습 후 실제 성능과 오류 사례, 원본 영상에 대한 추적 결과를 추가해야 최종 결과보고서가 됩니다. 공개 저장소에는 최소한 다음 파일을 포함합니다.
+[report/REPORT.md](report/REPORT.md)에 완료된 Colab 학습·test 성능·실패 사례와 이전 CPU 시도를 구분해 기록했습니다. 원본 영상에 대한 실제 추적 결과와 검증이 남아 있으므로 전체 과제는 아직 완료되지 않았습니다. 최종 제출 경로는 다음과 같습니다.
 
 ```text
 models/best.pt
@@ -181,7 +199,7 @@ data/stationery.yaml
 
 [GitHub 공식 제한](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)에 따라 파일 하나가 100 MiB를 넘으면 일반 push가 거부되므로, 그런 경우에만 Git LFS를 사용합니다. 원본 데이터 이미지와 라벨은 기본적으로 `.gitignore`에 포함되어 있습니다.
 
-`runs/`도 Git에서 제외되므로 학습 완료 후 실제 생성된 `results.csv`, `results.png`, 혼동 행렬, PR 곡선을 `report/assets/` 등에 복사해 공개해야 합니다. 데이터 감사 그림은 학습 성능 그래프를 대신하지 않습니다.
+`runs/`는 Git에서 제외되므로 실제 생성된 CSV·설정·학습 곡선은 [report/assets/train/](report/assets/train/), test 그래프는 [report/assets/test/](report/assets/test/), 실패 그림은 [report/assets/failures/](report/assets/failures/)로 복사했습니다. 42개 그림의 무결성과 모델 로딩을 확인했으며, 현재 결과 파일은 모두 100 MiB 미만입니다. 가장 큰 결과 파일은 6,500,778 bytes의 모델입니다. [검증 기록](outputs/artifact_verification.json)은 영상·CSV가 미완료임도 명시합니다.
 
 코드 회귀 검증은 `python -m unittest discover -s tests -v`로 실행합니다. 이 테스트의 영상은 임시 합성 데이터와 모의 검출 결과를 사용하며 실제 학습·검출 성능이나 ByteTrack의 ID 유지 성능을 입증하지 않습니다.
 

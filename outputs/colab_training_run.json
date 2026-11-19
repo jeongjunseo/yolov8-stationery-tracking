@@ -1,0 +1,14 @@
+{
+  "requested_device": "0",
+  "device": "cuda:0",
+  "requested_batch": 16,
+  "actual_batch": 16,
+  "epochs_requested": 100,
+  "epochs_completed": 100,
+  "run_directory": "/content/yolov8-stationery-tracking/runs/train/stationery",
+  "best_source": "/content/yolov8-stationery-tracking/runs/train/stationery/weights/best.pt",
+  "published_model": "models/best.pt",
+  "model_sha256": "72eec58f57a0decd694a98606e9759824cb7cb4d75af345e9ae8db735a4d66ea",
+  "backup_root": "/content/drive/MyDrive/yolov8-stationery-tracking/colab_runs/20261119T124150Z_3c8dfaf4",
+  "backup_failures": 0
+}
