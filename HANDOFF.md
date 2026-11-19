@@ -152,3 +152,20 @@ The user confirmed the supplied course references are the professor's assignment
 - Ten additional pure unit tests passed (six failure-matching tests and four explicit batch-policy tests). All eight notebook code cells passed AST parsing. These are preparation checks, not evidence of completed model training.
 - A final browser-controller retry still reported "The browser access host is unavailable". Actual GPU allocation and training have not started through the agent. The remaining handoff is to open the prepared Colab notebook, choose a GPU runtime, run all cells, and complete the normal Drive connection prompt. Then inspect the new Drive colab_runs folder and its environment/results evidence before updating training status.
 - The saved local CPU processes were checked by creation time and remained stopped. Keep them paused while proceeding with Colab.
+
+## Colab runtime and data verified - 2026-11-19 (KST)
+
+- The first Colab attempt stopped in drive.mount with ValueError: mount failed before cloning or training. Its exact underlying cause was not established. A normal user retry succeeded; no data deletion or runtime reset was needed.
+- Active Colab run ID: 20261119T124150Z_3c8dfaf4. Run backup folder: https://drive.google.com/drive/folders/120AIdt3Wj6mRk84Hm5tY9WxWRaBLqs-v under MyDrive/yolov8-stationery-tracking/colab_runs.
+- Downloaded raw outputs/colab_environment.json verifies Tesla T4 (15,637,086,208 bytes GPU memory), CUDA available=True, CUDA 13.0, Python 3.13.16, torch 2.14.1+cu130, torchvision 0.29.1+cu130, Ultralytics 8.4.215, and executed Git commit f81977c78490fc59e0905e1cdcc0493765a7b4cd.
+- Colab pip check reported a pre-existing IPython dependency warning: ipython 7.34.0 requires jedi, which is not installed. The separate core CUDA/import check passed. Do not describe the entire Colab pip check as clean.
+- Downloaded raw outputs/colab_dataset_check.json verifies all 25 parts, the complete archive SHA256, 1,376 manifest files, and check_dataset.py success. Split counts remain train=498, valid=116, test=73. No image or label content was changed.
+- At this update, a first completed training epoch and final test metrics have not yet been verified. Monitor the run folder for stationery/results.csv, weights, colab_training_run.json, and the final result ZIP. Do not start another training run or equate successful setup with completed training.
+- Browser accessibility output became stale and screenshots were black, while Drive API reads continued to show new files. Prefer the actual Drive backup records for progress. Local CPU training remains paused.
+
+### First GPU epoch verified
+
+- Drive backup stationery/results.csv confirms epoch 1/100 completed, elapsed training time 125.905 seconds. This is an intermediate validation record, not test evaluation: precision=0.70129, recall=0.70148, mAP50=0.74282, mAP50-95=0.56468.
+- The backup args.yaml verifies YOLOv8n, GPU device 0, batch 16, epochs 100, imgsz 640, workers 4, seed 42, deterministic=True, with original train.py settings. There is no observed GPU OOM or batch reduction.
+- Both Drive weights/best.pt and weights/last.pt exist at 31,775,527 bytes. They are intermediate checkpoints, not a verified completed models/best.pt.
+- Local monitoring snapshots are under ignored runs/colab_monitor/20261119T124150Z_3c8dfaf4. Training continues on Colab; do not interrupt it or resume the local CPU process. Wait for all 100 epochs and the completed training record before importing final artifacts.

@@ -22,7 +22,7 @@
   "nvidia_smi_found": false,
   "training_started": true,
   "training_state": "paused_by_user",
-  "current_training_plan": "Google Colab GPU; execution not yet verified",
+  "current_training_plan": "Google Colab GPU; CUDA and dataset checks verified in separate colab_environment.json and colab_dataset_check.json",
   "source_video_exists": false,
   "pip_check": "passed",
   "training_device": "cpu",

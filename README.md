@@ -4,17 +4,18 @@
 
 ## 현재 진행 상태 — 2026-11-19
 
-교수님이 제공하신 자료는 [과제 지침 메모](docs/ASSIGNMENT_GUIDELINES.md)에 별도로 보존했습니다. **사용자의 최신 지시에 따라 Colab GPU 학습으로 전환합니다.** [Colab 실행 노트북](notebooks/train_colab.ipynb)을 준비했으며, 아직 실제 Colab GPU 학습을 시작했다는 뜻은 아닙니다.
+교수님이 제공하신 자료는 [과제 지침 메모](docs/ASSIGNMENT_GUIDELINES.md)에 별도로 보존했습니다. **Colab의 Tesla T4에서 CUDA를 사용해 batch 16으로 학습을 시작했으며, 2026-11-19 확인 시점에 1/100 epoch 완료를 검증했습니다.** [Colab 실행 노트북](notebooks/train_colab.ipynb)에서 기존 데이터 687장의 전송·해시·라벨 검사가 통과했고, 첫 epoch의 학습 기록과 체크포인트가 Drive에 백업됐습니다. 이는 중간 validation 결과이며, 100 epoch 학습 완료와 최종 test 성능은 아직 검증하지 않았습니다.
 
 로컬 CPU 학습은 batch 16·8의 메모리 오류 후 batch 4로 1 epoch를 완료했습니다. 2번째 epoch 44%에서 19:28 KST 사용자 요청으로 일시정지했으며 메모리 상태·체크포인트·로그를 보존했습니다. 이 중간 결과를 최종 모델 또는 test 성능으로 사용하지 않습니다. 원본 영상은 사용자가 준비할 예정입니다.
 
 - 인계 및 다음 실행 조건: [HANDOFF.md](HANDOFF.md)
 - 실제 데이터 감사 결과: [outputs/dataset_summary.json](outputs/dataset_summary.json)
+- 실제 Colab 환경과 데이터 검사: [colab_environment.json](outputs/colab_environment.json), [colab_dataset_check.json](outputs/colab_dataset_check.json)
 - 로컬 CPU 실행 상태: `outputs/training_status.json` (로컬 전용, Git 제외)
 - 확인된 사실과 미완료 항목: [report/REPORT.md](report/REPORT.md)
 - 공개 저장소: https://github.com/jeongjunseo/yolov8-stationery-tracking
 
-`models/best.pt`, `outputs/test_metrics.json`, `outputs/final_5s.mp4`, `outputs/trajectory.csv`는 아직 생성되지 않았습니다. 아래 학습·평가·추적 명령은 실행 절차이며 완료된 결과를 의미하지 않습니다.
+`models/best.pt`와 `outputs/test_metrics.json`의 완료·검증은 아직 확인하지 못했습니다. 원본 영상이 준비되지 않아 `outputs/final_5s.mp4`와 `outputs/trajectory.csv`도 제출 결과로 생성되지 않았습니다. 아래 학습·평가·추적 명령은 실행 절차이며 완료된 결과를 의미하지 않습니다.
 
 ## Colab에서 실행
 
@@ -30,7 +31,7 @@ Colab은 로컬 `.venv`나 Windows junction을 사용하지 않습니다. 노트
 
 ## 1. 데이터 기준
 
-- 안전 기준: 클래스별 100장 이상, 총 300장 이상
+- 프로젝트 자체 검사 기준: 클래스별 100장 이상, 총 300장 이상
 - 권장 분할: train 70%, valid 20%, test 10%
 - 같은 장면에서 연속 촬영한 사진은 반드시 같은 split에 배치
 - 클래스 번호는 변경하지 않음
@@ -76,7 +77,7 @@ data/
 
 ## 2. 설치
 
-PowerShell에서 프로젝트 루트로 이동한 뒤 실행합니다.
+로컬 Windows 환경을 새로 구성할 때는 PowerShell에서 프로젝트 루트로 이동한 뒤 실행합니다. 현재 Colab 실행은 위 노트북의 설치 절차를 사용합니다.
 
 ```powershell
 python -m venv .venv
@@ -91,7 +92,7 @@ GPU 학습 PC에서는 `nvidia-smi`로 NVIDIA GPU와 드라이버를 확인한 �
 python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU')"
 ```
 
-GPU 실행은 `torch.cuda.is_available()`이 `True`여야 합니다. 이번 실행은 사용자가 CPU 학습을 허용했으므로 새 CPU 가상환경을 사용하며, CUDA 인식 결과는 여전히 `False`입니다.
+GPU 실행은 `torch.cuda.is_available()`이 `True`여야 합니다. 실제 Colab에서는 Tesla T4, Python 3.13.16, PyTorch 2.14.1+cu130, CUDA 13.0, Ultralytics 8.4.215와 CUDA 인식 `True`를 확인했습니다. Colab의 `pip check`는 기존 IPython의 `jedi` 누락을 경고했으며, 이후 핵심 패키지 import와 CUDA 검사는 통과했습니다. 로컬 CPU 환경의 설치·검사 이력은 [보고서](report/REPORT.md)에 별도로 기록합니다.
 
 ## 3. 데이터 검사
 
@@ -101,29 +102,19 @@ GPU 실행은 `torch.cuda.is_available()`이 `True`여야 합니다. 이번 실�
 python scripts/check_dataset.py
 ```
 
-수업에서 요구한 100장이 전체 합계라는 것이 확인되면 다음처럼 기준을 낮출 수 있습니다.
-
-```powershell
-python scripts/check_dataset.py --min-per-class 0 --min-total 100
-```
+위 수량 기준은 기존 프로젝트 검사 설정이며, 제공된 교수님 자료에 명시된 최소 수량으로 단정하지 않습니다. 현재 데이터는 기본 검사 조건을 유지해 확인했습니다.
 
 ## 4. 학습
 
-YOLOv8 nano 사전 학습 가중치로 100 epoch 전이학습을 수행합니다. CPU batch 16과 8의 실제 메모리 오류 후 재시도 중인 명령은 다음과 같습니다.
-
-```powershell
-python scripts/train.py --device cpu --batch 4 --epochs 100
-```
-
-NVIDIA GPU가 있는 다른 환경에서는 CUDA 인식 확인 후 다음 명령을 사용할 수 있습니다.
+YOLOv8 nano 사전 학습 가중치로 100 epoch 전이학습을 수행합니다. 현재 Colab GPU 실행의 기본 명령은 다음과 같습니다.
 
 ```powershell
 python scripts/train.py --device 0 --batch 16 --epochs 100
 ```
 
-설정은 YOLOv8n, imgsz 640, workers 인자 4, seed 42, deterministic=True입니다. Ultralytics는 CPU 실행에서 실제 데이터 로더 worker 수를 0으로 설정했습니다. batch 16 실패 후 8로 낮췄고, batch 8도 첫 epoch의 11/63 배치에서 메모리 부족으로 실패해 4로 낮췄습니다. 앞선 두 시도에서 완료된 epoch는 없습니다. 실행 로그에서 `optimizer=auto`는 AdamW, 초기 학습률 0.001429를 선택했습니다. 정상 실행 중인 학습을 중단한 것이 아니라 오류로 종료된 시도를 보존하고 재실행했습니다.
+설정은 YOLOv8n, imgsz 640, workers 인자 4, seed 42, deterministic=True입니다. 실제 CUDA 메모리 부족이 발생할 때만 batch를 16에서 8, 4 순서로 낮춥니다. 완료 epoch, 실제 batch, 선택된 optimizer와 학습률은 해당 Colab 실행 기록으로 검증합니다. 이전 로컬 CPU 시도는 batch 16·8의 메모리 오류 후 batch 4로 1 epoch를 완료했고, 사용자 요청으로 일시정지되어 있습니다.
 
-학습 결과는 `runs/train/` 아래에 저장되고 완료 후 최적 가중치는 자동으로 `models/best.pt`에 복사됩니다. 현재 PC의 `runs/`는 여유 공간이 있는 D:의 실행 폴더에 연결되어 있습니다. 보고서에는 다음 자료를 사용합니다.
+학습 결과는 `runs/train/` 아래에 저장되고 완료 후 최적 가중치는 자동으로 `models/best.pt`에 복사됩니다. Colab은 해당 런타임의 로컬 디스크를 사용하고 Drive에 체크포인트를 백업합니다. 이전 Windows 실행의 `runs/`는 D:에 연결되어 있으며 그대로 보존합니다. 보고서에는 다음 자료를 사용합니다.
 
 - `results.csv`: epoch별 loss와 성능
 - `results.png`: 학습 곡선
@@ -134,7 +125,7 @@ python scripts/train.py --device 0 --batch 16 --epochs 100
 ## 5. test 데이터 평가
 
 ```powershell
-python scripts/evaluate.py --device cpu
+python scripts/evaluate.py --device 0
 ```
 
 전체 Precision, Recall, mAP50, mAP75, mAP50-95와 클래스별 Precision, Recall, mAP50, mAP50-95, 정답 객체 수가 `outputs/test_metrics.json`에 저장됩니다. 평가되지 않은 클래스의 수치는 `null`로 기록합니다. 평가 그래프는 `runs/val/`에 저장됩니다.
@@ -144,7 +135,7 @@ python scripts/evaluate.py --device cpu
 세 객체가 모두 보이고 천천히 이동하는 5초 이상의 원본 영상을 `inputs/source.mp4`에 둡니다.
 
 ```powershell
-python scripts/track_video.py --source inputs/source.mp4 --model models/best.pt --device cpu
+python scripts/track_video.py --source inputs/source.mp4 --model models/best.pt --device 0
 ```
 
 생성 결과:
@@ -166,7 +157,7 @@ ByteTrack은 프레임 사이의 객체 ID를 연결하는 추적기이며 별�
 
 ## 7. 보고서와 GitHub 제출
 
-[report/REPORT.md](report/REPORT.md)는 데이터·환경 검증과 CPU 학습 시도까지 기록한 진행 보고서입니다. 학습 후 실제 성능과 오류 사례를 추가해야 최종 결과보고서가 됩니다. 공개 저장소에는 최소한 다음 파일을 포함합니다.
+[report/REPORT.md](report/REPORT.md)는 Colab 환경·데이터 검증과 이전 CPU 시도를 구분한 진행 보고서입니다. 학습 후 실제 성능과 오류 사례, 원본 영상에 대한 추적 결과를 추가해야 최종 결과보고서가 됩니다. 공개 저장소에는 최소한 다음 파일을 포함합니다.
 
 ```text
 models/best.pt

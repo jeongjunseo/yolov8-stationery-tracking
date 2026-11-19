@@ -1,0 +1,24 @@
+{
+  "counts": {
+    "train": 498,
+    "valid": 116,
+    "test": 73
+  },
+  "transfer": {
+    "archive": "/content/stationery_dataset.zip",
+    "bytes": 2451554279,
+    "sha256": "1ee9ad1ba42e00a2af6a04de79d44358373837db4448d4efb3d7be66e998acf8",
+    "parts_manifest_verified": true
+  },
+  "extraction": {
+    "restored": 1374,
+    "identical_existing": 2,
+    "skipped": 1,
+    "manifest_verified_files": 1376,
+    "newline_equivalent_metadata": [
+      "data/stationery.yaml",
+      "data/SOURCES.md"
+    ]
+  },
+  "dataset_check": "passed"
+}

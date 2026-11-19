@@ -1,0 +1,17 @@
+{
+  "runtime": "Google Colab",
+  "python": "3.13.16",
+  "packages": {
+    "torch": "2.14.1+cu130",
+    "torchvision": "0.29.1+cu130",
+    "ultralytics": "8.4.215",
+    "opencv-python": "4.14.0.94",
+    "PyYAML": "6.0.3"
+  },
+  "cuda_available": true,
+  "cuda_runtime": "13.0",
+  "gpu": "Tesla T4",
+  "gpu_memory_bytes": 15637086208,
+  "git_commit": "f81977c78490fc59e0905e1cdcc0493765a7b4cd",
+  "device": "0"
+}
