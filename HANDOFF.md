@@ -144,7 +144,7 @@ The user confirmed the supplied course references are the professor's assignment
 - Evaluation and failure analysis run after successful training. A missing real source video leaves tracking pending. The final artifact ZIP contains the model, measured metrics, plots, and analysis; report prose still requires reconciliation with actual outcomes before submission.
 - No actual Colab runtime has been verified yet. Browser input attempts failed with GetCursorPos access denied; reconnecting the browser controller reported that its access host was unavailable, even after the user confirmed the desktop was unlocked. File-transfer and notebook preparation are separate from actual GPU execution. Verify Drive transfer completeness and actual notebook execution before claiming training started.
 
-### Colab preparation verified - 2026-11-19 20:42 KST
+### Colab preparation verified - 2026-11-19 (KST)
 
 - Code and assignment guidance were published in commit 139abc33ad09d5148bb1ccd9fa9f4c1168c0570a. The repository Colab link in README is ready to open.
 - Drive listing verified exactly 25 uniquely named dataset parts with expected sizes totaling 2,451,554,279 bytes. The parts manifest and executable train_colab.ipynb were uploaded into MyDrive/yolov8-stationery-tracking, with metadata readback. Per-part and complete SHA256 validation occurs again when the notebook reconstructs the archive in Colab.
