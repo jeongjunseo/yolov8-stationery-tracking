@@ -22,6 +22,18 @@ Test 73장·정답 객체 108개에서 **Precision 93.70%, Recall 88.77%, mAP50 
 
 `models/best.pt`는 6,500,778 bytes이며 Colab 기록과 SHA-256이 일치합니다. 로컬 CPU에서 모델을 불러와 세 클래스와 파일 무변경을 확인했습니다. 아래 명령은 완료된 학습·평가와 실제 영상 처리의 재현 절차입니다.
 
+## 영상 프레임을 추가한 보완 학습
+
+사용자는 실제 영상의 물체를 이미지로 추출해 추가 학습하도록 요청했습니다. 이 후속 실험은 완료된 `models/best.pt`에서 시작하며, 기존 학습 이미지 498장에 영상에서 0.2초 간격으로 추출한 48장과 검토한 세 물체의 정답 박스를 추가합니다. 원래 validation 116장·test 73장은 유지합니다.
+
+보완 학습은 Colab GPU에서 batch 16, epochs 100, imgsz 640 및 기존 설정으로 실행하며, 실제 CUDA 메모리 부족일 때만 batch를 8/4로 낮춥니다. 모델은 `models/video_finetune/best.pt`, 측정 기록은 `outputs/video_finetune/`에 저장해 기존 결과를 보존합니다. 현재 추가 데이터 준비·검증·Drive 업로드를 완료했으며 실제 학습 시작·완료 여부는 실행 기록으로 확인해야 합니다.
+
+[보완 학습 Colab 노트북 열기](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/finetune_video_colab.ipynb) → GPU 런타임 선택 → 모두 실행 → Drive 연결을 진행합니다. 기존 기본 학습 노트북과 구분합니다. 노트북은 새 checkout에서 추가 데이터 ZIP의 SHA-256을 검사하고, 매 epoch 체크포인트 백업·원래 test 평가·추가 프레임의 학습 전후 재검사·결과 ZIP 저장을 수행합니다.
+
+추가 자료는 [데이터 검증 기록](outputs/video_finetune_dataset.json), [프레임별 정답 좌표와 작성 방법](outputs/video_finetune_annotations.json), [라벨 미리보기](report/assets/video_finetune/annotation_preview.jpg)에 기록했습니다. 실제 학습 이미지는 Git에서 제외된 별도 폴더와 개인 Drive의 `yolov8-stationery-tracking/video_finetune/video_training_addition_v2.zip`에 보존합니다. v2는 화면 끝에 걸친 박스의 소수 반올림 오류를 바로잡은 검증본이며, 이전 ZIP도 보존했습니다.
+
+영상 전체가 새 학습 자료이므로, 보완 모델로 같은 영상을 다시 처리한 결과는 **학습 장면 재검사**입니다. 기존 test 성능 비교와 별도로 보고하며 새로운 영상에 대한 일반화 성능으로 해석하지 않습니다.
+
 ## Colab에서 실행
 
 [Colab에서 노트북 열기](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/train_colab.ipynb)

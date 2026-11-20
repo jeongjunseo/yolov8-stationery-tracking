@@ -2,3 +2,6 @@
 models/best.pt -text
 outputs/final_5s.mp4 -text
 outputs/trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
+models/video_finetune/*.pt -text
+outputs/video_finetune/*.mp4 -text
+outputs/video_finetune/trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol

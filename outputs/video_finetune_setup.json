@@ -1,0 +1,57 @@
+{
+  "phase": "prepared_awaiting_colab_execution",
+  "recorded_at_utc": "2026-11-20T09:09:01.423438+00:00",
+  "fine_tuning_started": false,
+  "fine_tuning_completed": false,
+  "runtime_gpu_verified": false,
+  "baseline_model_sha256": "72eec58f57a0decd694a98606e9759824cb7cb4d75af345e9ae8db735a4d66ea",
+  "addition": {
+    "images": 48,
+    "boxes": 144,
+    "boxes_per_class": 48,
+    "split": "train",
+    "bytes": 17783081,
+    "archive_sha256": "22a7de84e451f3ad9c120773b74f42111c3955864ed21013d7614e83a980f4c9",
+    "local_archive": "runs/video_finetune_20261120_v2/video_training_addition_v2.zip",
+    "drive_path": "MyDrive/yolov8-stationery-tracking/video_finetune/video_training_addition_v2.zip",
+    "drive_upload_completed": true,
+    "drive_metadata_name_size_parent_verified": true,
+    "colab_archive_hash_verification": "required before training; not yet executed"
+  },
+  "dataset_counts": {
+    "train": 546,
+    "valid": 116,
+    "test": 73
+  },
+  "training_plan": {
+    "initial_model": "models/best.pt",
+    "device": "0",
+    "epochs": 100,
+    "batch": 16,
+    "imgsz": 640,
+    "workers": 4,
+    "seed": 42,
+    "deterministic": true,
+    "batch_fallback": "8 then 4 only after actual CUDA OOM"
+  },
+  "notebook": "notebooks/finetune_video_colab.ipynb",
+  "local_notebook_sha256": "42c2553deff0b2a2edebd9624cc1abc521eca3d28250a141bc5a423992ee5f61",
+  "checks": {
+    "original_check_dataset_passed": true,
+    "video_addition_strict_labels_passed": true,
+    "actual_archive_preparation_passed": true,
+    "all_original_baseline_hashes_preserved": true,
+    "new_tests_passed": 6,
+    "existing_batch_policy_tests_passed": 4,
+    "notebook_code_cells_ast_passed": 8,
+    "embedded_environment_code_ast_passed": true,
+    "independent_preparation_review_completed": true
+  },
+  "execution_blocker": "Browser access host unavailable; Windows Chrome activation fails with GetCursorPos access denied (0x80070005). User execution click required unless control recovers.",
+  "evaluation_scope": {
+    "original_test": "Unchanged original 73 images, retaining previously documented limitations.",
+    "source_video": "Training-scene recheck after adaptation, not independent video evaluation."
+  },
+  "new_model_path": "models/video_finetune/best.pt",
+  "new_metrics_path": "outputs/video_finetune/test_metrics.json"
+}

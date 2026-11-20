@@ -1,0 +1,1354 @@
+{
+  "schema_version": 1,
+  "classes": {
+    "0": "highlighter",
+    "1": "correction_tape",
+    "2": "eraser"
+  },
+  "split": "train",
+  "source_video": "1000030242.mp4",
+  "source_video_sha256": "c284b4cc16c9d19368e8c427e81b143c40e5bd4e754cc63b8dfebe22638531a2",
+  "decoded_video": "runs/tracking_20261120_1000030242/source_sdr.mp4",
+  "decoded_video_sha256": "5e2484cb1b0e8f34aa5f63de28ae4342e2619220cfbc76320953b0c934380e7e",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30.0,
+  "source_frame_count": 287,
+  "selected_stride": 6,
+  "annotation_method": "AI-assisted annotation: HSV threshold and connected-component box proposals, visually inspected by Codex on all 48 full-frame contact-sheet views; enlarged inspection of uncertain boundaries. No baseline model predictions used as labels. Pixel coordinates explicitly recorded here.",
+  "proposal_details": {
+    "highlighter": "HSV hue 20..44, saturation >110, value >160; largest connected component",
+    "other_objects": "Spatial region around visually identified eraser/correction tape; value >210 or blue hue 90..150 with saturation >90 and value >100; 5x5 closing, largest component; two-pixel edge padding",
+    "coordinate_convention": "xyxy with exclusive upper/right bounds; visible extent for image-boundary truncation"
+  },
+  "manual_adjustments": [
+    {
+      "frame": 216,
+      "class_id": 1,
+      "field": "x1",
+      "old": 137,
+      "new": 112,
+      "reason": "Include the visible blue cap outside the proposal search region; inspected at native resolution."
+    }
+  ],
+  "reviewer": "Codex visual inspection; not independently human-verified",
+  "reviewed": true,
+  "limitations": [
+    "All images are correlated frames of one approximately 9.57-second video, not 48 independent scenes.",
+    "All selected frames go to training only; this video must not be reported as held-out evaluation after fine-tuning.",
+    "The object-class assignments are based on the video appearance and task context; no independent human annotation audit has been performed.",
+    "Some late frames contain motion blur or a partially truncated highlighter; boxes cover visible objects only."
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "boxes": {
+        "0": [
+          130,
+          504,
+          946,
+          574
+        ],
+        "1": [
+          212,
+          1217,
+          815,
+          1388
+        ],
+        "2": [
+          374,
+          802,
+          662,
+          943
+        ]
+      },
+      "time_sec": 0.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 6,
+      "boxes": {
+        "0": [
+          132,
+          501,
+          948,
+          571
+        ],
+        "1": [
+          214,
+          1216,
+          817,
+          1387
+        ],
+        "2": [
+          378,
+          800,
+          664,
+          941
+        ]
+      },
+      "time_sec": 0.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 12,
+      "boxes": {
+        "0": [
+          140,
+          496,
+          956,
+          566
+        ],
+        "1": [
+          220,
+          1211,
+          823,
+          1381
+        ],
+        "2": [
+          382,
+          795,
+          670,
+          937
+        ]
+      },
+      "time_sec": 0.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 18,
+      "boxes": {
+        "0": [
+          144,
+          492,
+          964,
+          562
+        ],
+        "1": [
+          226,
+          1207,
+          829,
+          1378
+        ],
+        "2": [
+          390,
+          790,
+          676,
+          932
+        ]
+      },
+      "time_sec": 0.6,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 24,
+      "boxes": {
+        "0": [
+          144,
+          490,
+          972,
+          560
+        ],
+        "1": [
+          228,
+          1211,
+          835,
+          1383
+        ],
+        "2": [
+          392,
+          791,
+          681,
+          934
+        ]
+      },
+      "time_sec": 0.8,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 30,
+      "boxes": {
+        "0": [
+          138,
+          490,
+          970,
+          569
+        ],
+        "1": [
+          232,
+          1217,
+          841,
+          1392
+        ],
+        "2": [
+          392,
+          795,
+          682,
+          941
+        ]
+      },
+      "time_sec": 1.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 36,
+      "boxes": {
+        "0": [
+          142,
+          494,
+          980,
+          573
+        ],
+        "1": [
+          236,
+          1224,
+          847,
+          1399
+        ],
+        "2": [
+          396,
+          801,
+          689,
+          947
+        ]
+      },
+      "time_sec": 1.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 42,
+      "boxes": {
+        "0": [
+          126,
+          492,
+          971,
+          582
+        ],
+        "1": [
+          230,
+          1231,
+          844,
+          1409
+        ],
+        "2": [
+          384,
+          805,
+          682,
+          955
+        ]
+      },
+      "time_sec": 1.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 48,
+      "boxes": {
+        "0": [
+          118,
+          473,
+          962,
+          571
+        ],
+        "1": [
+          230,
+          1214,
+          840,
+          1394
+        ],
+        "2": [
+          380,
+          790,
+          676,
+          941
+        ]
+      },
+      "time_sec": 1.6,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 54,
+      "boxes": {
+        "0": [
+          102,
+          397,
+          970,
+          498
+        ],
+        "1": [
+          220,
+          1152,
+          836,
+          1335
+        ],
+        "2": [
+          374,
+          726,
+          673,
+          879
+        ]
+      },
+      "time_sec": 1.8,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 60,
+      "boxes": {
+        "0": [
+          90,
+          309,
+          992,
+          401
+        ],
+        "1": [
+          212,
+          1080,
+          834,
+          1259
+        ],
+        "2": [
+          368,
+          649,
+          676,
+          800
+        ]
+      },
+      "time_sec": 2.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 66,
+      "boxes": {
+        "0": [
+          92,
+          274,
+          1007,
+          360
+        ],
+        "1": [
+          208,
+          1051,
+          833,
+          1228
+        ],
+        "2": [
+          370,
+          614,
+          680,
+          769
+        ]
+      },
+      "time_sec": 2.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 72,
+      "boxes": {
+        "0": [
+          94,
+          259,
+          1012,
+          342
+        ],
+        "1": [
+          208,
+          1036,
+          831,
+          1211
+        ],
+        "2": [
+          372,
+          600,
+          682,
+          754
+        ]
+      },
+      "time_sec": 2.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 78,
+      "boxes": {
+        "0": [
+          88,
+          260,
+          1006,
+          342
+        ],
+        "1": [
+          198,
+          1035,
+          820,
+          1209
+        ],
+        "2": [
+          366,
+          602,
+          674,
+          755
+        ]
+      },
+      "time_sec": 2.6,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 84,
+      "boxes": {
+        "0": [
+          92,
+          252,
+          1009,
+          333
+        ],
+        "1": [
+          196,
+          1028,
+          816,
+          1202
+        ],
+        "2": [
+          364,
+          596,
+          674,
+          749
+        ]
+      },
+      "time_sec": 2.8,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 90,
+      "boxes": {
+        "0": [
+          86,
+          249,
+          1006,
+          331
+        ],
+        "1": [
+          190,
+          1029,
+          810,
+          1202
+        ],
+        "2": [
+          360,
+          597,
+          670,
+          749
+        ]
+      },
+      "time_sec": 3.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 96,
+      "boxes": {
+        "0": [
+          86,
+          238,
+          1010,
+          322
+        ],
+        "1": [
+          186,
+          1022,
+          809,
+          1194
+        ],
+        "2": [
+          358,
+          588,
+          670,
+          740
+        ]
+      },
+      "time_sec": 3.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 102,
+      "boxes": {
+        "0": [
+          90,
+          242,
+          1010,
+          329
+        ],
+        "1": [
+          184,
+          1026,
+          808,
+          1198
+        ],
+        "2": [
+          360,
+          593,
+          670,
+          744
+        ]
+      },
+      "time_sec": 3.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 108,
+      "boxes": {
+        "0": [
+          98,
+          266,
+          1006,
+          360
+        ],
+        "1": [
+          188,
+          1043,
+          806,
+          1217
+        ],
+        "2": [
+          364,
+          616,
+          670,
+          766
+        ]
+      },
+      "time_sec": 3.6,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 114,
+      "boxes": {
+        "0": [
+          110,
+          294,
+          998,
+          386
+        ],
+        "1": [
+          193,
+          1060,
+          806,
+          1231
+        ],
+        "2": [
+          368,
+          635,
+          670,
+          782
+        ]
+      },
+      "time_sec": 3.8,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 120,
+      "boxes": {
+        "0": [
+          136,
+          384,
+          974,
+          472
+        ],
+        "1": [
+          202,
+          1117,
+          799,
+          1282
+        ],
+        "2": [
+          376,
+          703,
+          665,
+          844
+        ]
+      },
+      "time_sec": 4.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 126,
+      "boxes": {
+        "0": [
+          154,
+          496,
+          960,
+          594
+        ],
+        "1": [
+          202,
+          1215,
+          801,
+          1388
+        ],
+        "2": [
+          382,
+          805,
+          664,
+          947
+        ]
+      },
+      "time_sec": 4.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 132,
+      "boxes": {
+        "0": [
+          170,
+          576,
+          964,
+          669
+        ],
+        "1": [
+          208,
+          1296,
+          816,
+          1466
+        ],
+        "2": [
+          392,
+          877,
+          676,
+          1016
+        ]
+      },
+      "time_sec": 4.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 138,
+      "boxes": {
+        "0": [
+          184,
+          582,
+          974,
+          677
+        ],
+        "1": [
+          220,
+          1305,
+          832,
+          1475
+        ],
+        "2": [
+          406,
+          881,
+          688,
+          1020
+        ]
+      },
+      "time_sec": 4.6,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 144,
+      "boxes": {
+        "0": [
+          188,
+          562,
+          978,
+          662
+        ],
+        "1": [
+          228,
+          1293,
+          850,
+          1464
+        ],
+        "2": [
+          414,
+          861,
+          698,
+          1001
+        ]
+      },
+      "time_sec": 4.8,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 150,
+      "boxes": {
+        "0": [
+          198,
+          570,
+          982,
+          678
+        ],
+        "1": [
+          238,
+          1305,
+          870,
+          1480
+        ],
+        "2": [
+          426,
+          866,
+          710,
+          1007
+        ]
+      },
+      "time_sec": 5.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 156,
+      "boxes": {
+        "0": [
+          202,
+          586,
+          974,
+          703
+        ],
+        "1": [
+          236,
+          1321,
+          879,
+          1497
+        ],
+        "2": [
+          426,
+          879,
+          711,
+          1025
+        ]
+      },
+      "time_sec": 5.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 162,
+      "boxes": {
+        "0": [
+          196,
+          524,
+          980,
+          652
+        ],
+        "1": [
+          228,
+          1268,
+          896,
+          1446
+        ],
+        "2": [
+          426,
+          816,
+          718,
+          972
+        ]
+      },
+      "time_sec": 5.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 168,
+      "boxes": {
+        "0": [
+          200,
+          476,
+          980,
+          616
+        ],
+        "1": [
+          232,
+          1212,
+          910,
+          1394
+        ],
+        "2": [
+          428,
+          763,
+          724,
+          924
+        ]
+      },
+      "time_sec": 5.6,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 174,
+      "boxes": {
+        "0": [
+          186,
+          452,
+          964,
+          600
+        ],
+        "1": [
+          218,
+          1174,
+          912,
+          1363
+        ],
+        "2": [
+          416,
+          733,
+          715,
+          897
+        ]
+      },
+      "time_sec": 5.8,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 180,
+      "boxes": {
+        "0": [
+          172,
+          435,
+          948,
+          586
+        ],
+        "1": [
+          208,
+          1137,
+          915,
+          1332
+        ],
+        "2": [
+          408,
+          706,
+          707,
+          871
+        ]
+      },
+      "time_sec": 6.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 186,
+      "boxes": {
+        "0": [
+          162,
+          410,
+          946,
+          570
+        ],
+        "1": [
+          196,
+          1104,
+          926,
+          1309
+        ],
+        "2": [
+          400,
+          676,
+          706,
+          847
+        ]
+      },
+      "time_sec": 6.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 192,
+      "boxes": {
+        "0": [
+          170,
+          400,
+          952,
+          558
+        ],
+        "1": [
+          208,
+          1085,
+          938,
+          1287
+        ],
+        "2": [
+          410,
+          664,
+          716,
+          830
+        ]
+      },
+      "time_sec": 6.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 198,
+      "boxes": {
+        "0": [
+          158,
+          392,
+          944,
+          553
+        ],
+        "1": [
+          196,
+          1081,
+          930,
+          1285
+        ],
+        "2": [
+          400,
+          659,
+          708,
+          825
+        ]
+      },
+      "time_sec": 6.6,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 204,
+      "boxes": {
+        "0": [
+          124,
+          186,
+          958,
+          376
+        ],
+        "1": [
+          180,
+          917,
+          935,
+          1144
+        ],
+        "2": [
+          386,
+          479,
+          705,
+          670
+        ]
+      },
+      "time_sec": 6.8,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": true
+    },
+    {
+      "frame": 210,
+      "boxes": {
+        "0": [
+          102,
+          0,
+          1014,
+          94
+        ],
+        "1": [
+          142,
+          787,
+          943,
+          1003
+        ],
+        "2": [
+          354,
+          263,
+          714,
+          464
+        ]
+      },
+      "time_sec": 7.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [
+        0
+      ],
+      "motion_blur_visible": true
+    },
+    {
+      "frame": 216,
+      "boxes": {
+        "0": [
+          158,
+          0,
+          1080,
+          78
+        ],
+        "1": [
+          112,
+          907,
+          939,
+          1135
+        ],
+        "2": [
+          358,
+          322,
+          740,
+          523
+        ]
+      },
+      "time_sec": 7.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [
+        0
+      ],
+      "motion_blur_visible": true
+    },
+    {
+      "frame": 222,
+      "boxes": {
+        "0": [
+          38,
+          208,
+          1080,
+          396
+        ],
+        "1": [
+          74,
+          1202,
+          865,
+          1429
+        ],
+        "2": [
+          340,
+          657,
+          725,
+          852
+        ]
+      },
+      "time_sec": 7.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [
+        0
+      ],
+      "motion_blur_visible": true
+    },
+    {
+      "frame": 228,
+      "boxes": {
+        "0": [
+          18,
+          376,
+          1080,
+          554
+        ],
+        "1": [
+          46,
+          1332,
+          814,
+          1544
+        ],
+        "2": [
+          316,
+          828,
+          707,
+          1016
+        ]
+      },
+      "time_sec": 7.6,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [
+        0
+      ],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 234,
+      "boxes": {
+        "0": [
+          16,
+          484,
+          1080,
+          636
+        ],
+        "1": [
+          62,
+          1368,
+          787,
+          1568
+        ],
+        "2": [
+          312,
+          902,
+          690,
+          1083
+        ]
+      },
+      "time_sec": 7.8,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [
+        0
+      ],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 240,
+      "boxes": {
+        "0": [
+          50,
+          518,
+          1080,
+          647
+        ],
+        "1": [
+          98,
+          1320,
+          765,
+          1500
+        ],
+        "2": [
+          326,
+          902,
+          678,
+          1063
+        ]
+      },
+      "time_sec": 8.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [
+        0
+      ],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 246,
+      "boxes": {
+        "0": [
+          118,
+          605,
+          1080,
+          705
+        ],
+        "1": [
+          162,
+          1330,
+          776,
+          1498
+        ],
+        "2": [
+          370,
+          943,
+          692,
+          1095
+        ]
+      },
+      "time_sec": 8.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [
+        0
+      ],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 252,
+      "boxes": {
+        "0": [
+          184,
+          652,
+          1078,
+          737
+        ],
+        "1": [
+          222,
+          1329,
+          801,
+          1491
+        ],
+        "2": [
+          418,
+          960,
+          719,
+          1108
+        ]
+      },
+      "time_sec": 8.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 258,
+      "boxes": {
+        "0": [
+          200,
+          706,
+          1038,
+          783
+        ],
+        "1": [
+          226,
+          1349,
+          780,
+          1506
+        ],
+        "2": [
+          416,
+          995,
+          702,
+          1137
+        ]
+      },
+      "time_sec": 8.6,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 264,
+      "boxes": {
+        "0": [
+          218,
+          706,
+          1030,
+          783
+        ],
+        "1": [
+          240,
+          1341,
+          782,
+          1497
+        ],
+        "2": [
+          426,
+          991,
+          705,
+          1130
+        ]
+      },
+      "time_sec": 8.8,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 270,
+      "boxes": {
+        "0": [
+          214,
+          692,
+          988,
+          766
+        ],
+        "1": [
+          234,
+          1304,
+          756,
+          1453
+        ],
+        "2": [
+          412,
+          966,
+          684,
+          1100
+        ]
+      },
+      "time_sec": 9.0,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 276,
+      "boxes": {
+        "0": [
+          210,
+          685,
+          968,
+          760
+        ],
+        "1": [
+          228,
+          1290,
+          743,
+          1437
+        ],
+        "2": [
+          404,
+          956,
+          672,
+          1091
+        ]
+      },
+      "time_sec": 9.2,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    },
+    {
+      "frame": 282,
+      "boxes": {
+        "0": [
+          182,
+          672,
+          946,
+          748
+        ],
+        "1": [
+          202,
+          1282,
+          721,
+          1429
+        ],
+        "2": [
+          380,
+          946,
+          647,
+          1076
+        ]
+      },
+      "time_sec": 9.4,
+      "visual_review": "accepted after visual inspection of all 48 frames",
+      "truncated_classes": [],
+      "motion_blur_visible": false
+    }
+  ]
+}

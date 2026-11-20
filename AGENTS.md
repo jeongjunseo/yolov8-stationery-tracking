@@ -8,6 +8,8 @@
 - 사용자가 2026-11-19 **Colab에서 학습하라**고 명시했다. 이후 학습은 Colab GPU에서 수행한다. 최신 문서의 모델명이 달라도 이 과제는 YOLOv8n(`yolov8n.pt`)을 사용한다.
 - 기본 학습은 epochs 100, batch 16, imgsz 640, seed 42 및 기존 `scripts/train.py` 설정을 유지한다. GPU 메모리 부족이 실제로 발생하면 batch만 8 또는 4로 낮추고 원인을 기록한다.
 - 클래스 ID는 `0: highlighter`, `1: correction_tape`, `2: eraser`로 유지한다.
+- 사용자가 2026-11-20 업로드 영상의 이미지를 추출해 추가 학습하라고 명시했다. 이 후속 실험은 기존 `models/best.pt`에서 시작하며 원래 train 데이터와 새 영상의 검토된 라벨을 함께 사용한다. 새 영상은 train 전용이고 기존 valid/test 분할을 유지한다. 같은 영상의 재추론 결과는 학습 장면 재검사이며 독립적인 일반화 평가로 보고하지 않는다.
+- 보완 모델·지표·영상은 `models/video_finetune/`, `outputs/video_finetune/` 등 별도 경로에 저장한다. 현재 기준 모델과 기존 공개 결과는 덮어쓰지 않는다. 추가 학습 역시 Colab GPU, batch 16, epochs 100, imgsz 640 및 기존 학습 설정을 사용한다.
 
 ## 기존 작업 보존
 
