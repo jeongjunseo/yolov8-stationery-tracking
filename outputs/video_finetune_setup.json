@@ -1,5 +1,5 @@
 {
-  "phase": "training",
+  "phase": "awaiting_runtime_status",
   "recorded_at_utc": "2026-11-20T09:09:01.423438+00:00",
   "fine_tuning_started": true,
   "fine_tuning_completed": false,
@@ -35,7 +35,8 @@
     "batch_fallback": "8 then 4 only after actual CUDA OOM"
   },
   "notebook": "notebooks/finetune_video_colab.ipynb",
-  "local_notebook_sha256": "42c2553deff0b2a2edebd9624cc1abc521eca3d28250a141bc5a423992ee5f61",
+  "executed_notebook_sha256": "42c2553deff0b2a2edebd9624cc1abc521eca3d28250a141bc5a423992ee5f61",
+  "notebook_revision_note": "The active Colab run uses commit 009f16b7b3ffa0968eb0b604ff87183bf59e9719. Local snapshot-preservation changes prepared after startup apply only to future fresh runs.",
   "checks": {
     "original_check_dataset_passed": true,
     "video_addition_strict_labels_passed": true,
@@ -47,7 +48,7 @@
     "embedded_environment_code_ast_passed": true,
     "independent_preparation_review_completed": true
   },
-  "execution_blocker": null,
+  "execution_blocker": "Drive backups have not advanced beyond verified epoch 97 since 2026-11-20T15:19:29Z. The browser accessibility view is stale; the current Colab state is unverified. The user has been asked for the latest displayed epoch/status. Do not restart training or claim completion from this observation alone.",
   "evaluation_scope": {
     "original_test": "Unchanged original 73 images, retaining previously documented limitations.",
     "source_video": "Training-scene recheck after adaptation, not independent video evaluation."
@@ -55,18 +56,26 @@
   "new_model_path": "models/video_finetune/best.pt",
   "new_metrics_path": "outputs/video_finetune/test_metrics.json",
   "latest_observation": {
-    "recorded_at_utc": "2026-11-20T12:46:02.925643+00:00",
+    "recorded_at_utc": "2026-11-20T15:31:30Z",
     "run_id": "20261120T123735Z_2e0735a1",
     "gpu": "Tesla T4",
     "cuda_available": true,
     "cuda_runtime": "13.0",
     "git_commit": "009f16b7b3ffa0968eb0b604ff87183bf59e9719",
-    "epochs_completed": 1,
+    "epochs_completed": 97,
     "actual_batch": 16,
     "first_epoch_seconds": 125.547,
-    "backup_events_observed": 1,
+    "cumulative_training_seconds": 9447.17,
+    "estimated_remaining_training_minutes": null,
+    "backup_events_observed": 97,
     "backup_failures_observed": 0,
-    "completed": false
+    "completed": false,
+    "current_runtime_state": "unverified",
+    "recovery_snapshot": "runs/video_finetune_monitor/20261120T123735Z_2e0735a1/recovery_snapshot_20261120T1528Z",
+    "recovery_checkpoint_metadata_verified": true,
+    "last_checkpoint_completed_epochs": 97,
+    "best_checkpoint_selected_epoch": 82,
+    "best_validation_mAP50-95": 0.83085
   },
   "ui_control_limitation": "Windows UI input remains unavailable; user started Run all. Monitoring uses actual Drive backup files."
 }
