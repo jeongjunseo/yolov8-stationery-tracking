@@ -1,9 +1,9 @@
 {
-  "phase": "prepared_awaiting_colab_execution",
+  "phase": "training",
   "recorded_at_utc": "2026-11-20T09:09:01.423438+00:00",
-  "fine_tuning_started": false,
+  "fine_tuning_started": true,
   "fine_tuning_completed": false,
-  "runtime_gpu_verified": false,
+  "runtime_gpu_verified": true,
   "baseline_model_sha256": "72eec58f57a0decd694a98606e9759824cb7cb4d75af345e9ae8db735a4d66ea",
   "addition": {
     "images": 48,
@@ -16,7 +16,7 @@
     "drive_path": "MyDrive/yolov8-stationery-tracking/video_finetune/video_training_addition_v2.zip",
     "drive_upload_completed": true,
     "drive_metadata_name_size_parent_verified": true,
-    "colab_archive_hash_verification": "required before training; not yet executed"
+    "colab_archive_hash_verification": "passed: actual Colab dataset_check.json matches the pinned v2 archive SHA-256"
   },
   "dataset_counts": {
     "train": 546,
@@ -47,11 +47,26 @@
     "embedded_environment_code_ast_passed": true,
     "independent_preparation_review_completed": true
   },
-  "execution_blocker": "Browser access host unavailable; Windows Chrome activation fails with GetCursorPos access denied (0x80070005). User execution click required unless control recovers.",
+  "execution_blocker": null,
   "evaluation_scope": {
     "original_test": "Unchanged original 73 images, retaining previously documented limitations.",
     "source_video": "Training-scene recheck after adaptation, not independent video evaluation."
   },
   "new_model_path": "models/video_finetune/best.pt",
-  "new_metrics_path": "outputs/video_finetune/test_metrics.json"
+  "new_metrics_path": "outputs/video_finetune/test_metrics.json",
+  "latest_observation": {
+    "recorded_at_utc": "2026-11-20T12:46:02.925643+00:00",
+    "run_id": "20261120T123735Z_2e0735a1",
+    "gpu": "Tesla T4",
+    "cuda_available": true,
+    "cuda_runtime": "13.0",
+    "git_commit": "009f16b7b3ffa0968eb0b604ff87183bf59e9719",
+    "epochs_completed": 1,
+    "actual_batch": 16,
+    "first_epoch_seconds": 125.547,
+    "backup_events_observed": 1,
+    "backup_failures_observed": 0,
+    "completed": false
+  },
+  "ui_control_limitation": "Windows UI input remains unavailable; user started Run all. Monitoring uses actual Drive backup files."
 }

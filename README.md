@@ -26,7 +26,7 @@ Test 73장·정답 객체 108개에서 **Precision 93.70%, Recall 88.77%, mAP50 
 
 사용자는 실제 영상의 물체를 이미지로 추출해 추가 학습하도록 요청했습니다. 이 후속 실험은 완료된 `models/best.pt`에서 시작하며, 기존 학습 이미지 498장에 영상에서 0.2초 간격으로 추출한 48장과 검토한 세 물체의 정답 박스를 추가합니다. 원래 validation 116장·test 73장은 유지합니다.
 
-보완 학습은 Colab GPU에서 batch 16, epochs 100, imgsz 640 및 기존 설정으로 실행하며, 실제 CUDA 메모리 부족일 때만 batch를 8/4로 낮춥니다. 모델은 `models/video_finetune/best.pt`, 측정 기록은 `outputs/video_finetune/`에 저장해 기존 결과를 보존합니다. 현재 추가 데이터 준비·검증·Drive 업로드를 완료했으며 실제 학습 시작·완료 여부는 실행 기록으로 확인해야 합니다.
+보완 학습은 Colab GPU에서 batch 16, epochs 100, imgsz 640 및 기존 설정으로 실행하며, 실제 CUDA 메모리 부족일 때만 batch를 8/4로 낮춥니다. 모델은 `models/video_finetune/best.pt`, 측정 기록은 `outputs/video_finetune/`에 저장해 기존 결과를 보존합니다. 사용자가 노트북을 실행했고 run `20261120T123735Z_2e0735a1`의 T4·CUDA와 첫 epoch 및 Drive 백업을 확인했습니다. **추가 학습은 진행 중이며 완료된 보완 성능은 아직 없습니다.** 확인 시점과 최신 관찰은 [진행 기록](outputs/video_finetune_setup.json)을 따릅니다.
 
 [보완 학습 Colab 노트북 열기](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/finetune_video_colab.ipynb) → GPU 런타임 선택 → 모두 실행 → Drive 연결을 진행합니다. 기존 기본 학습 노트북과 구분합니다. 노트북은 새 checkout에서 추가 데이터 ZIP의 SHA-256을 검사하고, 매 epoch 체크포인트 백업·원래 test 평가·추가 프레임의 학습 전후 재검사·결과 ZIP 저장을 수행합니다.
 
