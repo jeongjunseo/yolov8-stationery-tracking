@@ -28,7 +28,9 @@ Test 73장·정답 객체 108개에서 **Precision 93.70%, Recall 88.77%, mAP50 
 
 보완 학습은 Colab GPU에서 batch 16, epochs 100, imgsz 640 및 기존 설정으로 실행하며, 실제 CUDA 메모리 부족일 때만 batch를 8/4로 낮춥니다. 모델은 `models/video_finetune/best.pt`, 측정 기록은 `outputs/video_finetune/`에 저장해 기존 결과를 보존합니다. run `20261120T123735Z_2e0735a1`의 T4·CUDA와 **97 epoch·97회 성공한 Drive 백업**을 확인했습니다. 2026-11-21 00:31 KST 확인 시점에는 이후 백업과 완료 기록이 보이지 않아 현재 Colab 상태를 확인 중입니다. **100 epoch 완료·최종 test 평가·보완 영상은 아직 확인되지 않았습니다.** 재개 가능한 체크포인트와 기록을 별도 보존했으며, 실행 상태 확인 전에는 노트북을 처음부터 다시 실행하지 않습니다. 확인 시점과 최신 관찰은 [진행 기록](outputs/video_finetune_setup.json)을 따릅니다.
 
-[보완 학습 Colab 노트북 열기](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/finetune_video_colab.ipynb) → GPU 런타임 선택 → 모두 실행 → Drive 연결을 진행합니다. 기존 기본 학습 노트북과 구분합니다. 노트북은 새 checkout에서 추가 데이터 ZIP의 SHA-256을 검사하고, 매 epoch 체크포인트 백업·원래 test 평가·추가 프레임의 학습 전후 재검사·결과 ZIP 저장을 수행합니다.
+**97 epoch에서 연결이 끊긴 현재 실행의 복구:** 2026-11-21 Colab 화면의 `다시 연결` 표시를 확인했습니다. 먼저 기존 노트북에서 다시 연결해 학습이 계속되는지 확인합니다. 기존 학습이 멈췄다면 [97 epoch 복구 노트북](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/resume_video_finetune_colab.ipynb)에서 GPU 런타임을 선택하고 모두 실행합니다. 이 경로는 검증된 `last.pt`에서 **98–100 epoch만** 이어 학습합니다. 원래 97행의 CSV·이전 best·optimizer 상태를 보존하고 새 Drive 폴더에 기록합니다. 원래 백업이 갱신되거나 같은 런타임의 학습 프로세스가 살아 있으면 재개를 거부합니다. 다른 런타임의 실행 여부까지 자동으로 확인하지는 못하므로 기존 실행 상태를 먼저 확인해야 합니다. 준비된 복구 절차이며 실제 재개·완료를 뜻하지 않습니다.
+
+[보완 학습 Colab 노트북](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/finetune_video_colab.ipynb)은 **처음부터 별도 실험을 재현할 때** 사용합니다. 중단된 현재 실행의 재개용이 아니므로 이를 다시 모두 실행하지 않습니다. 두 노트북 모두 데이터 SHA-256을 검사하고, 매 epoch 체크포인트 백업·원래 test 평가·추가 프레임의 학습 전후 재검사·결과 ZIP 저장을 수행합니다.
 
 추가 자료는 [데이터 검증 기록](outputs/video_finetune_dataset.json), [프레임별 정답 좌표와 작성 방법](outputs/video_finetune_annotations.json), [라벨 미리보기](report/assets/video_finetune/annotation_preview.jpg)에 기록했습니다. 실제 학습 이미지는 Git에서 제외된 별도 폴더와 개인 Drive의 `yolov8-stationery-tracking/video_finetune/video_training_addition_v2.zip`에 보존합니다. v2는 화면 끝에 걸친 박스의 소수 반올림 오류를 바로잡은 검증본이며, 이전 ZIP도 보존했습니다.
 
