@@ -285,7 +285,7 @@ def collect_artifacts(destination: Path, backup_root: Path | None = None) -> dic
     files = [ROOT / "models" / "best.pt"]
     for folder in (ROOT / "outputs", ROOT / "report"):
         files.extend(path for path in folder.rglob("*") if path.is_file() and path.name != ".gitkeep")
-    files.extend(ROOT / name for name in ("README.md", "HANDOFF.md", "requirements.txt"))
+    files.extend(ROOT / name for name in ("README.md", "requirements.txt"))
     files.extend((ROOT / "scripts").glob("*.py"))
     files = sorted({path for path in files if path.relative_to(ROOT).as_posix() not in excluded})
     oversized = [path.relative_to(ROOT).as_posix() for path in files if path.stat().st_size > 100 * 1024 * 1024]

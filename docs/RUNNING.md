@@ -6,7 +6,7 @@
 
 [학습 노트북](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/train_colab.ipynb)에서 GPU 런타임을 선택하고 Drive를 연결한 뒤 셀을 순서대로 실행한다. 데이터는 Drive의 `MyDrive/yolov8-stationery-tracking/`에 둔다. 노트북이 데이터 해시와 CUDA를 확인하고 학습·평가 및 체크포인트 백업을 수행한다.
 
-중단된 추가 학습의 98–100 epoch는 [복구 노트북](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/resume_video_finetune_colab.ipynb)을 사용한다. 실행 상태와 백업 위치는 [HANDOFF.md](../HANDOFF.md)에 있다.
+중단된 추가 학습의 98–100 epoch는 [복구 노트북](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/resume_video_finetune_colab.ipynb)을 사용한다. 실행 상태와 백업 위치는 [보완 학습 진행 기록](../outputs/video_finetune_setup.json)에 있다.
 
 ## 로컬 환경
 
