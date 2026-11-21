@@ -1,0 +1,262 @@
+{
+  "status": "interim_training_scene_preview",
+  "source_run_id": "20261120T123735Z_2e0735a1",
+  "training_completed_epochs": 97,
+  "planned_epochs": 100,
+  "checkpoint_selected_epoch": 82,
+  "model_sha256": "61e35e27335a72841e5ded5075d1e05d76460a0aa4b03590c0c656b6f9121976",
+  "source_sdr_sha256": "5e2484cb1b0e8f34aa5f63de28ae4342e2619220cfbc76320953b0c934380e7e",
+  "source_and_checkpoint_unchanged": true,
+  "cpu_training_performed": false,
+  "final_100_epoch_completion": false,
+  "final_test_evaluation_pending": true,
+  "independent_video_test": false,
+  "inference": {
+    "device": "cpu",
+    "imgsz": 640,
+    "rotate_inference": 0,
+    "conf": 0.25,
+    "iou": 0.5,
+    "agnostic_nms": false,
+    "tracker": "bytetrack.yaml",
+    "trail_length": 60
+  },
+  "video": {
+    "frames": 150,
+    "fps": 30,
+    "seconds": 5,
+    "width": 1080,
+    "height": 1920
+  },
+  "file_checks": {
+    "single_video_stream_no_audio": {
+      "passed": true
+    },
+    "h264_yuv420p": {
+      "passed": true
+    },
+    "portrait_1080x1920": {
+      "passed": true
+    },
+    "fps_30": {
+      "passed": true
+    },
+    "ffprobe_150_decoded_frames": {
+      "passed": true
+    },
+    "stream_and_container_duration_5": {
+      "passed": true,
+      "detail": {
+        "stream_seconds": 5.0,
+        "container_seconds": 5.0,
+        "stream_tick": 6.510416666666667e-05
+      }
+    },
+    "stream_start_zero": {
+      "passed": true
+    },
+    "150_presentation_timestamps": {
+      "passed": true
+    },
+    "presentation_timeline_matches_csv": {
+      "passed": true,
+      "detail": {
+        "first_pts": 0.0,
+        "last_pts": 4.966667,
+        "max_seconds_error": 3.33333333379926e-07
+      }
+    },
+    "last_frame_ends_at_5": {
+      "passed": true,
+      "detail": {
+        "last_frame_duration": "0.033333",
+        "end_seconds": 5.0
+      }
+    },
+    "csv_schema": {
+      "passed": true,
+      "detail": [
+        "frame",
+        "time_sec",
+        "track_id",
+        "class_id",
+        "class_name",
+        "confidence",
+        "center_x",
+        "center_y"
+      ]
+    },
+    "csv_values_and_unique_frame_id": {
+      "passed": true,
+      "detail": []
+    },
+    "csv_nonempty": {
+      "passed": true
+    },
+    "csv_frame_order": {
+      "passed": true
+    },
+    "render_decodes_150_at_30fps": {
+      "passed": true,
+      "detail": {
+        "frames": 150,
+        "fps": 30.0
+      }
+    },
+    "render_original_orientation": {
+      "passed": true,
+      "detail": [
+        [
+          1920,
+          1080
+        ]
+      ]
+    },
+    "final_decodes_150_at_30fps": {
+      "passed": true,
+      "detail": {
+        "frames": 150,
+        "fps": 30.0
+      }
+    },
+    "final_original_orientation": {
+      "passed": true,
+      "detail": [
+        [
+          1920,
+          1080
+        ]
+      ]
+    },
+    "render_and_final_frame_counts_match": {
+      "passed": true
+    },
+    "input_files_unchanged": {
+      "passed": true
+    }
+  },
+  "trajectory": {
+    "rows": 450,
+    "unique_ids": 3,
+    "class_row_counts": {
+      "highlighter": 150,
+      "correction_tape": 150,
+      "eraser": 150
+    },
+    "class_frame_counts": {
+      "highlighter": 150,
+      "correction_tape": 150,
+      "eraser": 150
+    },
+    "frames_without_tracked_rows": [],
+    "tracks": {
+      "1": {
+        "rows": 150,
+        "first_frame": 0,
+        "last_frame": 149,
+        "classes": [
+          "correction_tape"
+        ],
+        "class_changes": [],
+        "gaps": []
+      },
+      "2": {
+        "rows": 150,
+        "first_frame": 0,
+        "last_frame": 149,
+        "classes": [
+          "eraser"
+        ],
+        "class_changes": [],
+        "gaps": []
+      },
+      "3": {
+        "rows": 150,
+        "first_frame": 0,
+        "last_frame": 149,
+        "classes": [
+          "highlighter"
+        ],
+        "class_changes": [],
+        "gaps": []
+      }
+    }
+  },
+  "training_frame_center_check": {
+    "frames_checked": 25,
+    "points_checked": 75,
+    "points_inside_correct_class_gt": 75,
+    "class_counts": {
+      "highlighter": 25,
+      "correction_tape": 25,
+      "eraser": 25
+    },
+    "limitation": "This is a centers-only consistency check on training frames; not bounding-box IoU, an independent test, or formal IDF1/MOTA tracking accuracy."
+  },
+  "visual_review": {
+    "reviewer": "Codex visual review, including a second review of the contact sheet",
+    "independent_human_validation": false,
+    "sampled_frames": [
+      0,
+      30,
+      60,
+      90,
+      120,
+      149
+    ],
+    "observed": {
+      "highlighter": "Top long yellow object is enclosed by blue highlighter box, ID 3.",
+      "eraser": "Middle Faber-Castell blue-case eraser is enclosed by light/white eraser box, ID 2.",
+      "correction_tape": "Bottom correction tape is enclosed by cyan correction_tape box, ID 1.",
+      "trails": "Yellow center-history trails visible in later frames; initial frame has no history.",
+      "labels": "Class names, IDs and confidence visible and legible.",
+      "class_or_identity_swaps_in_reviewed_samples": false
+    }
+  },
+  "runtime": {
+    "torch_version": "2.15.0+cpu",
+    "after_initial_settings": {
+      "recorded_utc": "2026-11-21T09:38:43.601037+00:00",
+      "torch_available": true,
+      "torch_num_threads": 1,
+      "torch_num_interop_threads": 6,
+      "mkldnn_enabled": false
+    },
+    "after_first_inference": {
+      "recorded_utc": "2026-11-21T09:38:49.133549+00:00",
+      "torch_available": true,
+      "torch_num_threads": 8,
+      "torch_num_interop_threads": 6,
+      "mkldnn_enabled": false
+    },
+    "at_exit": {
+      "recorded_utc": "2026-11-21T09:39:03.676615+00:00",
+      "torch_available": true,
+      "torch_num_threads": 8,
+      "torch_num_interop_threads": 6,
+      "mkldnn_enabled": false
+    },
+    "successful_predict_calls": 150,
+    "status": "completed"
+  },
+  "files": {
+    "outputs/video_finetune/interim_best82_5s.mp4": {
+      "bytes": 8597224,
+      "sha256": "c0c125466a4accbc12c46950edf78e207207062d539a4366a20057cf33330d3b"
+    },
+    "outputs/video_finetune/interim_best82_trajectory.csv": {
+      "bytes": 19488,
+      "sha256": "721bd9bf4641b16703e5cb9850174f0373f3bf32134c8d711674ff0b6cf96b75"
+    },
+    "report/assets/video_finetune/interim_best82_preview.jpg": {
+      "bytes": 538788,
+      "sha256": "346b24fe0203747949ef67bae63bc2ee61fe02274014e9ff69f48c707e815489"
+    }
+  },
+  "limitations": [
+    "Same video frames were used in the training addition; this is training-scene resubstitution.",
+    "Center checks and sampled visual inspection are not bounding-box IoU or formal IDF1/MOTA.",
+    "Screen-space trajectories include camera movement.",
+    "GPU quota blocks remaining epochs; no 100-epoch fine-tuning completion or final test result is claimed."
+  ]
+}

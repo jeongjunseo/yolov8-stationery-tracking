@@ -1,5 +1,5 @@
 {
-  "phase": "recovery_prepared_awaiting_runtime_reconnect",
+  "phase": "gpu_quota_unavailable_awaiting_training_decision",
   "recorded_at_utc": "2026-11-20T09:09:01.423438+00:00",
   "fine_tuning_started": true,
   "fine_tuning_completed": false,
@@ -48,7 +48,7 @@
     "embedded_environment_code_ast_passed": true,
     "independent_preparation_review_completed": true
   },
-  "execution_blocker": "Colab displayed Reconnect GPU on 2026-11-21; Windows input fails with GetCursorPos access denied. Drive still has the verified 97-epoch backup, with no completion or final evaluation. A separate 98-100 epoch recovery notebook is prepared. Reconnect the original runtime first; do not run recovery concurrently with a still-running training process.",
+  "execution_blocker": "The user reconnected Colab and confirmed training remains stopped, then reported GPU allocation refused because usage quota is exhausted. The original 97-epoch backup remains unchanged. No GPU recovery was started. Awaiting the user choice between retaining the 100-epoch target and explicitly ending the adaptation run at 97 completed epochs.",
   "evaluation_scope": {
     "original_test": "Unchanged original 73 images, retaining previously documented limitations.",
     "source_video": "Training-scene recheck after adaptation, not independent video evaluation."
@@ -56,7 +56,7 @@
   "new_model_path": "models/video_finetune/best.pt",
   "new_metrics_path": "outputs/video_finetune/test_metrics.json",
   "latest_observation": {
-    "recorded_at_utc": "2026-11-21T04:23:46.472482+00:00",
+    "recorded_at_utc": "2026-11-21T09:38:31.652911+00:00",
     "run_id": "20261120T123735Z_2e0735a1",
     "gpu": "Tesla T4",
     "cuda_available": true,
@@ -70,7 +70,7 @@
     "backup_events_observed": 97,
     "backup_failures_observed": 0,
     "completed": false,
-    "current_runtime_state": "browser_disconnected_reconnect_status_pending",
+    "current_runtime_state": "user_confirmed_stopped_gpu_allocation_unavailable",
     "recovery_snapshot": "runs/video_finetune_monitor/20261120T123735Z_2e0735a1/recovery_snapshot_20261120T1528Z",
     "recovery_checkpoint_metadata_verified": true,
     "last_checkpoint_completed_epochs": 97,
@@ -108,6 +108,26 @@
       "cli_prepare_train_arguments_checked": true,
       "gpu_resume_executed": false,
       "note": "Local fixture, syntax, mocked notebook and checkpoint-state checks only; no actual GPU recovery completion is implied."
-    }
+    },
+    "gpu_available": false,
+    "gpu_unavailable_evidence": "User report: GPU usage quota exhausted; allocation unavailable.",
+    "original_interruption_cause": "Unknown; the reported quota blocks current allocation and does not by itself prove the cause of the original interruption."
+  },
+  "interim_preview": {
+    "phase": "completed",
+    "purpose": "CPU-only inference on saved epoch-82 best while GPU training is unavailable.",
+    "training_epochs_completed": 97,
+    "checkpoint_selected_epoch": 82,
+    "model_sha256": "61e35e27335a72841e5ded5075d1e05d76460a0aa4b03590c0c656b6f9121976",
+    "scope": "Training-scene preview, not a completed 100-epoch experiment or independent video test.",
+    "local_cpu_training_resumed": false,
+    "video": "outputs/video_finetune/interim_best82_5s.mp4",
+    "verification": "outputs/video_finetune/interim_best82_preview.json",
+    "frames": 150,
+    "seconds": 5,
+    "trajectory_rows": 450,
+    "unique_ids": 3,
+    "file_checks_passed": 20,
+    "checked_class_matched_centers_inside_gt": 75
   }
 }

@@ -5,3 +5,4 @@ outputs/trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eo
 models/video_finetune/*.pt -text
 outputs/video_finetune/*.mp4 -text
 outputs/video_finetune/trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
+outputs/video_finetune/interim_best82_trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol

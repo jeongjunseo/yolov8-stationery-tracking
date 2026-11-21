@@ -347,6 +347,14 @@ Colab 결과 ZIP의 CRC·경로·해시를 확인하고 모델·지표·그래�
 
 기존 학습이 중단된 경우를 위해 [별도 복구 노트북](../notebooks/resume_video_finetune_colab.ipynb)을 준비했다. 검증된 97 epoch 상태를 새 경로에 복사하고 총 목표 `epochs=100`으로 98–100 epoch만 이어 학습한다. 기존 CSV·이전 최고 모델을 보존하고 학습 시간을 누적으로 연결한다. 재개는 무중단 실행과 난수 상태까지 동일하다는 뜻은 아니며 중단·재개 이력을 별도로 기록한다. 아직 복구 실행 결과는 없으므로 이후 성능은 실제 완료·평가 기록을 확보한 뒤 추가한다.
 
+같은 날 18:38 KST경 사용자는 재연결 후 학습이 멈춰 있음을 확인했고, 현재 GPU 사용 한도로 재할당을 받지 못한다고 알렸다. 이에 GPU 복구는 미실행 상태로 보존했다. 이 보고만으로 최초 중단의 원인까지 확정하지는 않는다. Colab은 자원 한도와 가용성이 변동하며 구체적 한도를 공개하지 않는다고 설명하므로, 고정된 재할당 시각을 가정하지 않는다([공식 FAQ](https://research.google.com/colaboratory/faq.html#resource-limits)).
+
+GPU 대기 중에는 보존된 epoch 82 best를 사용해 CPU에서 [예비 5초 영상](../outputs/video_finetune/interim_best82_5s.mp4)을 생성했다. H.264·150프레임·30 FPS·5.000000초를 검증했다. 수정테이프 ID 1, 지우개 ID 2, 형광펜 ID 3이 각각 150프레임에 이어져 [CSV](../outputs/video_finetune/interim_best82_trajectory.csv)는 450행이며 기록상 클래스 변경·ID 공백은 없다. Codex가 0·30·60·90·120·149번 프레임을 시각 검토해 실제 세 물체에 대응하는 클래스명·ID·박스·궤적을 확인했다. 정답이 있는 25프레임의 중심 75점도 대응 클래스 박스 안에 있었다. 이는 박스 IoU나 정식 IDF1/MOTA 평가가 아니며, 독립적인 사람의 검증도 아니다. 실제 CPU 추론 후 스레드 수는 8, interop은 6, mkldnn은 False로 기록했다.
+
+![97/100 epoch 상태의 학습 장면 예비 영상](assets/video_finetune/interim_best82_preview.jpg)
+
+예비 영상에서는 앞선 형광펜 미검출·지우개 오분류가 재현되지 않았다. 다만 같은 영상의 프레임을 학습 자료로 추가했으므로 새 장면 일반화로 해석하지 않는다. 원래 test 73장에 대한 보완 모델 평가와 100 epoch 완료는 아직 대기 상태이며, 중간 모델·기존 모델·원본 영상은 바꾸지 않았다. [예비 결과 검증 JSON](../outputs/video_finetune/interim_best82_preview.json)에 모델 해시·추론 설정·검사 결과·제약을 남겼다.
+
 [추가 데이터 검증 기록](../outputs/video_finetune_dataset.json)에 48장·144박스(각 클래스 48개), 원본 프레임 번호와 파일 해시를 저장했다. [정답 좌표 기록](../outputs/video_finetune_annotations.json)은 색상·연결 영역을 이용한 박스 제안과 전체 48프레임의 Codex 시각 검토를 명시하며, 독립적인 사람의 라벨 검증으로 표현하지 않는다. 216번 프레임은 수정테이프의 파란 뚜껑을 포함하도록 경계를 바로잡았다. 이미지 경계의 박스를 8자리 소수로 저장했을 때 생긴 미세한 범위 초과도 검증에서 발견해 v2의 정규화 좌표 저장 방식으로 수정했으며, 이전 ZIP·라벨은 보존했다. v2는 원래 라벨 검사와 새 혼합 데이터 검사를 통과했다.
 
 ![추가 학습용 정답 박스 — 모델의 예측 결과가 아님](assets/video_finetune/annotation_preview.jpg)
