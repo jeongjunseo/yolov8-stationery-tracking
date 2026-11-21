@@ -4,6 +4,8 @@
 
 **최신 영상 재검증 — 2026-11-21:** 현재까지 추가 학습한 모델로 원본 전체 287프레임을 새로 추론했습니다. [5초 결과](outputs/video_finetune/recheck_5s.mp4)는 세 물체의 클래스·ID가 유지됩니다. [전체 약 9.57초 결과](outputs/video_finetune/recheck_full.mp4)에는 후반 형광펜 ID 변경과 바닥을 수정테이프로 잡는 오탐이 남아 있습니다. [검증 기록](outputs/video_finetune/video_recheck.json)은 97 epoch까지 완료된 실행의 best82를 사용한 학습 장면 재검사이며, 최종 test 평가와 구분합니다.
 
+**제출 점검 — 2026-11-21:** 기본 100 epoch 실험의 모델·test 지표·5초 영상·궤적 CSV·그래프·보고서는 모두 공개돼 있습니다. 위 최신 개선 영상의 모델은 공개된 `models/best.pt`와 다릅니다. 보완 실험은 97/100 epoch 상태로, 최종 `models/video_finetune/best.pt`와 `outputs/video_finetune/test_metrics.json`은 아직 없습니다. 따라서 기존 test 수치를 최신 개선 영상 모델의 성능으로 제출하면 안 됩니다. GitHub 공개는 확인했으며 학교 제출 시스템의 제출 여부는 확인할 기록이 없습니다.
+
 ## 기준 모델의 완료된 실험
 
 교수님이 제공하신 자료는 [과제 지침 메모](docs/ASSIGNMENT_GUIDELINES.md)에 별도로 보존했습니다. **Colab Tesla T4의 CUDA 장치 0에서 batch 16으로 100 epoch 학습과 test 평가를 완료했습니다.** 기존 데이터 687장의 분할·라벨·설정을 유지했으며, 학습 CSV의 누적 시간은 **2시간 43분 54.78초**입니다. GPU 메모리 부족이나 batch 축소 없이 한 번의 시도로 완료했고, 100회의 epoch 백업이 성공했습니다.
@@ -211,7 +213,7 @@ CSV의 세 클래스 이름은 **실제 물체 3개를 모두 추적했다는 �
 
 ## 7. 보고서와 GitHub 제출
 
-[report/REPORT.md](report/REPORT.md)에 Colab 학습·test 성능·실패 사례와 실제 영상의 추적 결과를 기록했습니다. 모델·지표·영상·CSV는 생성했으나 세 물체를 모두 정확히 감지·추적하는 성능 목표는 미달성입니다. 실제 형광펜·지우개와 여러 촬영 조건의 라벨 데이터를 추가한 별도 보완 실험이 필요하며, 이번 결과를 위해 재학습하지 않았습니다. 최종 제출 경로는 다음과 같습니다.
+[report/REPORT.md](report/REPORT.md)에 Colab 학습·test 성능·실패 사례와 실제 영상의 추적 결과를 기록했습니다. 기준 실험의 모델·지표·영상·CSV는 생성했으나 기준 영상에서 세 물체를 모두 정확히 감지·추적하는 목표는 미달성입니다. 이후 별도 보완 학습과 현재 모델의 영상 재검증을 수행했으며, 그 완료 범위는 위 보완 학습 절과 보고서 9–10절에 구분했습니다. 기준 실험의 제출 경로는 다음과 같습니다.
 
 ```text
 models/best.pt
@@ -226,7 +228,7 @@ data/stationery.yaml
 
 [GitHub 공식 제한](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)에 따라 파일 하나가 100 MiB를 넘으면 일반 push가 거부되므로, 그런 경우에만 Git LFS를 사용합니다. 원본 데이터 이미지와 라벨은 기본적으로 `.gitignore`에 포함되어 있습니다.
 
-`runs/`는 Git에서 제외되므로 실제 생성된 CSV·설정·학습 곡선은 [report/assets/train/](report/assets/train/), test 그래프는 [report/assets/test/](report/assets/test/), 실패 그림은 [report/assets/failures/](report/assets/failures/)로 복사했습니다. 기존 42개 학습·평가·실패 그림의 무결성과 모델 로딩을 확인했습니다. 현재 결과 파일은 모두 100 MiB 미만이며, 가장 큰 공개 결과물은 8,644,494 bytes의 최종 영상입니다. 모델·평가는 [artifact_verification.json](outputs/artifact_verification.json), 실제 영상·CSV와 추적 한계는 [tracking_verification.json](outputs/tracking_verification.json)을 함께 확인합니다.
+`runs/`는 Git에서 제외되므로 실제 생성된 CSV·설정·학습 곡선은 [report/assets/train/](report/assets/train/), test 그래프는 [report/assets/test/](report/assets/test/), 실패 그림은 [report/assets/failures/](report/assets/failures/)로 복사했습니다. 기존 42개 학습·평가·실패 그림의 무결성과 모델 로딩을 확인했습니다. 2026-11-21 제출 점검에서 Git 추적 파일 129개가 모두 100 MiB 미만임을 확인했으며, 가장 큰 파일은 17,522,497 bytes의 `outputs/video_finetune/recheck_full.mp4`입니다. 기준 모델·평가는 [artifact_verification.json](outputs/artifact_verification.json), 기준 영상·CSV와 추적 한계는 [tracking_verification.json](outputs/tracking_verification.json), 보완 영상은 [video_recheck.json](outputs/video_finetune/video_recheck.json)을 함께 확인합니다.
 
 코드 회귀 검증은 `python -m unittest discover -s tests -v`로 실행합니다. 이 테스트의 영상은 임시 합성 데이터와 모의 검출 결과를 사용하며 실제 학습·검출 성능이나 ByteTrack의 ID 유지 성능을 입증하지 않습니다.
 
