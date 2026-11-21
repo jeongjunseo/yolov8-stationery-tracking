@@ -244,7 +244,7 @@ c284b4cc16c9d19368e8c427e81b143c40e5bd4e754cc63b8dfebe22638531a2
 
 원본은 HEVC 10-bit, PQ 전송함수·BT.2020 색상 정보가 있는 HDR 영상이다. 회전 메타데이터는 -90도이며 표시 방향은 1080 × 1920, 길이는 9.566089초, 프레임 수는 287이다. 원본을 바꾸지 않고 FFmpeg 9.0.2 gyan 빌드의 `zscale`·`tonemap=mobius`로 SDR BT.709 입력을 별도 생성했다. 변환은 선형 RGB 처리 후 BT.709로 저장하며, 방법은 [FFmpeg tonemap 문서](https://ffmpeg.org/ffmpeg-filters.html#tonemap), Windows 빌드 출처는 [공식 다운로드 페이지](https://ffmpeg.org/download.html)에 연결된 gyan.dev이다. 원본 방향 메타데이터 처리와 아래의 추가 추론 회전은 별개의 단계다.
 
-정확한 전처리·추론·H.264 재인코딩 명령은 [README 6절](../README.md#6-5초-추적-영상-제작)에 기록했다. 중간 SDR 입력, OpenCV 렌더링, 이전 시도의 영상·CSV는 로컬에 보존했고 원본 영상은 Git에서 제외했다.
+정확한 전처리·추론·H.264 재인코딩 명령은 [실행 안내](../docs/RUNNING.md)에 기록했다. 중간 SDR 입력, OpenCV 렌더링, 이전 시도의 영상·CSV는 로컬에 보존했고 원본 영상은 Git에서 제외했다.
 
 ### 추론 설정 선택과 추적 구현
 
