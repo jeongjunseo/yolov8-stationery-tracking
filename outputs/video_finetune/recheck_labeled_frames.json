@@ -1,0 +1,5464 @@
+{
+  "scope": "training_scene_resubstitution_fixed_threshold_post_tracking_boxes",
+  "created_utc": "2026-11-21T10:54:32.762995+00:00",
+  "model_training_completed_epochs": 97,
+  "model_selected_epoch": 82,
+  "planned_training_epochs": 100,
+  "independent_test_or_video_evaluation": false,
+  "inputs": {
+    "annotations": "C:\\Users\\Administrator\\ml_HW\\yolov8-stationery-tracking\\outputs\\video_finetune_annotations.json",
+    "runtime": "D:\\CodexEnvironments\\yolov8-stationery-tracking-20261119\\runs\\video_finetune_20261121_recheck_104933Z\\runtime_and_boxes.json",
+    "provenance": "D:\\CodexEnvironments\\yolov8-stationery-tracking-20261119\\runs\\video_finetune_20261121_recheck_104933Z\\recheck_initial.json",
+    "model": "D:\\CodexEnvironments\\yolov8-stationery-tracking-20261119\\runs\\video_finetune_monitor\\20261120T123735Z_2e0735a1\\recovery_snapshot_20261120T1528Z\\best.pt",
+    "decoded_video": "D:\\CodexEnvironments\\yolov8-stationery-tracking-20261119\\runs\\tracking_20261120_1000030242\\source_sdr.mp4"
+  },
+  "input_sha256": {
+    "annotations": "a6e26564e548e28b470d7bba24e30f92d3455ae969a94fed80457bc7e415b988",
+    "runtime": "b9c6747a7eb4b3ae5433896555a8886325006ba1ecc71826b52a4c96f2e61084",
+    "provenance": "44ecdc3b73589edb255ccead1b9d651ac5f75bcc4c8bba8ddabb81f9cc24ac49",
+    "model": "61e35e27335a72841e5ded5075d1e05d76460a0aa4b03590c0c656b6f9121976",
+    "decoded_video": "5e2484cb1b0e8f34aa5f63de28ae4342e2619220cfbc76320953b0c934380e7e"
+  },
+  "inputs_unchanged_after_audit": true,
+  "inference_or_training_run_by_auditor": false,
+  "matching": "Class-aware IoU>=0.5, descending-IoU one-to-one matching. One GT per class per selected frame; duplicates remain FP. xyxy uses exclusive upper/right bounds.",
+  "settings": {
+    "confidence": 0.25,
+    "matching_iou": 0.5,
+    "nms_iou": 0.5,
+    "imgsz": 640,
+    "rotation": 0,
+    "class_agnostic_nms": false,
+    "tracker": "ByteTrack"
+  },
+  "reviewed_frames": 48,
+  "frame_indices": [
+    0,
+    6,
+    12,
+    18,
+    24,
+    30,
+    36,
+    42,
+    48,
+    54,
+    60,
+    66,
+    72,
+    78,
+    84,
+    90,
+    96,
+    102,
+    108,
+    114,
+    120,
+    126,
+    132,
+    138,
+    144,
+    150,
+    156,
+    162,
+    168,
+    174,
+    180,
+    186,
+    192,
+    198,
+    204,
+    210,
+    216,
+    222,
+    228,
+    234,
+    240,
+    246,
+    252,
+    258,
+    264,
+    270,
+    276,
+    282
+  ],
+  "targets": 144,
+  "tp": 144,
+  "fp": 1,
+  "fn": 0,
+  "precision_micro": 0.993103448275862,
+  "recall_micro": 1.0,
+  "per_class": {
+    "highlighter": {
+      "targets": 48,
+      "predictions": 48,
+      "tp": 48,
+      "fp": 0,
+      "fn": 0,
+      "matched_track_ids": [
+        3,
+        10,
+        11
+      ],
+      "failure_frames": [],
+      "precision": 1.0,
+      "recall": 1.0,
+      "minimum_matched_iou": 0.6318088373879764,
+      "mean_matched_iou": 0.8742439787699279,
+      "minimum_matched_confidence": 0.6802825927734375
+    },
+    "correction_tape": {
+      "targets": 48,
+      "predictions": 49,
+      "tp": 48,
+      "fp": 1,
+      "fn": 0,
+      "matched_track_ids": [
+        1
+      ],
+      "failure_frames": [
+        276
+      ],
+      "precision": 0.9795918367346939,
+      "recall": 1.0,
+      "minimum_matched_iou": 0.7902291988002926,
+      "mean_matched_iou": 0.9580214276107536,
+      "minimum_matched_confidence": 0.9392044544219971
+    },
+    "eraser": {
+      "targets": 48,
+      "predictions": 48,
+      "tp": 48,
+      "fp": 0,
+      "fn": 0,
+      "matched_track_ids": [
+        2
+      ],
+      "failure_frames": [],
+      "precision": 1.0,
+      "recall": 1.0,
+      "minimum_matched_iou": 0.754055662226403,
+      "mean_matched_iou": 0.9439290077859464,
+      "minimum_matched_confidence": 0.9373005032539368
+    }
+  },
+  "existing_project_matcher_agrees_on_all_48_frames": true,
+  "reviewed_failure_frames": [
+    276
+  ],
+  "full_video_observed_frames": 287,
+  "full_video_prediction_class_counts": {
+    "correction_tape": 290,
+    "eraser": 287,
+    "highlighter": 282
+  },
+  "full_video_track_id_class_counts": {
+    "1": {
+      "correction_tape": 287
+    },
+    "2": {
+      "eraser": 287
+    },
+    "3": {
+      "highlighter": 212
+    },
+    "10": {
+      "highlighter": 3
+    },
+    "11": {
+      "highlighter": 67
+    },
+    "12": {
+      "correction_tape": 3
+    }
+  },
+  "full_video_count_anomalies": [
+    {
+      "frame": 212,
+      "time_sec": 7.066666666666666,
+      "class_counts": {
+        "highlighter": 0,
+        "correction_tape": 1,
+        "eraser": 1
+      },
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            150.85079956054688,
+            776.7861938476562,
+            926.2130126953125,
+            992.2565307617188
+          ],
+          "confidence": 0.9604839086532593,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            356.5423583984375,
+            222.54360961914062,
+            715.791748046875,
+            425.7276306152344
+          ],
+          "confidence": 0.95174241065979,
+          "track_id": 2
+        }
+      ]
+    },
+    {
+      "frame": 213,
+      "time_sec": 7.1,
+      "class_counts": {
+        "highlighter": 0,
+        "correction_tape": 1,
+        "eraser": 1
+      },
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            142.5723419189453,
+            784.6156616210938,
+            931.5034790039062,
+            1002.920166015625
+          ],
+          "confidence": 0.9618481993675232,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            357.0758056640625,
+            216.70062255859375,
+            721.3695068359375,
+            421.83673095703125
+          ],
+          "confidence": 0.9500342607498169,
+          "track_id": 2
+        }
+      ]
+    },
+    {
+      "frame": 214,
+      "time_sec": 7.133333333333334,
+      "class_counts": {
+        "highlighter": 0,
+        "correction_tape": 1,
+        "eraser": 1
+      },
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            132.8072509765625,
+            805.4036865234375,
+            943.2903442382812,
+            1029.4669189453125
+          ],
+          "confidence": 0.9569748640060425,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            359.6315612792969,
+            227.0861053466797,
+            729.8109130859375,
+            434.9428405761719
+          ],
+          "confidence": 0.9443070292472839,
+          "track_id": 2
+        }
+      ]
+    },
+    {
+      "frame": 215,
+      "time_sec": 7.166666666666667,
+      "class_counts": {
+        "highlighter": 0,
+        "correction_tape": 1,
+        "eraser": 1
+      },
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            121.37217712402344,
+            836.8133544921875,
+            948.559326171875,
+            1065.6011962890625
+          ],
+          "confidence": 0.9656718373298645,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            358.1977233886719,
+            251.39393615722656,
+            734.5565185546875,
+            462.53131103515625
+          ],
+          "confidence": 0.9455329775810242,
+          "track_id": 2
+        }
+      ]
+    },
+    {
+      "frame": 219,
+      "time_sec": 7.3,
+      "class_counts": {
+        "highlighter": 0,
+        "correction_tape": 1,
+        "eraser": 1
+      },
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            86.27755737304688,
+            1034.7440185546875,
+            918.5689086914062,
+            1266.2088623046875
+          ],
+          "confidence": 0.9694031476974487,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            361.5653991699219,
+            462.1787414550781,
+            725.4620971679688,
+            662.419921875
+          ],
+          "confidence": 0.950312614440918,
+          "track_id": 2
+        }
+      ]
+    },
+    {
+      "frame": 276,
+      "time_sec": 9.2,
+      "class_counts": {
+        "highlighter": 1,
+        "correction_tape": 2,
+        "eraser": 1
+      },
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            232.4638671875,
+            1290.8609619140625,
+            741.0677490234375,
+            1435.925537109375
+          ],
+          "confidence": 0.946993350982666,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            405.6069030761719,
+            956.4000244140625,
+            667.6705932617188,
+            1085.49072265625
+          ],
+          "confidence": 0.9373005032539368,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            205.026611328125,
+            686.8883056640625,
+            979.6222534179688,
+            764.3259887695312
+          ],
+          "confidence": 0.922055184841156,
+          "track_id": 11
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            673.2615966796875,
+            1805.842529296875,
+            1077.5736083984375,
+            1919.9949951171875
+          ],
+          "confidence": 0.35055235028266907,
+          "track_id": 12
+        }
+      ]
+    },
+    {
+      "frame": 277,
+      "time_sec": 9.233333333333333,
+      "class_counts": {
+        "highlighter": 1,
+        "correction_tape": 2,
+        "eraser": 1
+      },
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            229.57012939453125,
+            1289.517578125,
+            738.91552734375,
+            1434.755126953125
+          ],
+          "confidence": 0.9482771158218384,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            402.7624816894531,
+            954.6553344726562,
+            665.5469360351562,
+            1084.2093505859375
+          ],
+          "confidence": 0.9406604766845703,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            199.31887817382812,
+            685.1696166992188,
+            978.7284545898438,
+            763.3277587890625
+          ],
+          "confidence": 0.9195278286933899,
+          "track_id": 11
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            666.2824096679688,
+            1803.4940185546875,
+            1078.806396484375,
+            1919.998779296875
+          ],
+          "confidence": 0.2982138991355896,
+          "track_id": 12
+        }
+      ]
+    },
+    {
+      "frame": 279,
+      "time_sec": 9.3,
+      "class_counts": {
+        "highlighter": 1,
+        "correction_tape": 2,
+        "eraser": 1
+      },
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            224.2718963623047,
+            1287.2484130859375,
+            732.3087768554688,
+            1431.9674072265625
+          ],
+          "confidence": 0.9508416056632996,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            397.5540466308594,
+            952.7086791992188,
+            657.7059326171875,
+            1080.66064453125
+          ],
+          "confidence": 0.9445651769638062,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            191.3035125732422,
+            682.2941284179688,
+            974.3211059570312,
+            761.3583984375
+          ],
+          "confidence": 0.9163213968276978,
+          "track_id": 11
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            656.6555786132812,
+            1800.0107421875,
+            1080.0,
+            1919.9388427734375
+          ],
+          "confidence": 0.2624890208244324,
+          "track_id": 12
+        }
+      ]
+    }
+  ],
+  "returned_predictions_below_confidence_excluded": 0,
+  "frames": [
+    {
+      "frame": 0,
+      "time_sec": 0.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            130,
+            504,
+            946,
+            574
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            212,
+            1217,
+            815,
+            1388
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            374,
+            802,
+            662,
+            943
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            211.99868774414062,
+            1218.86865234375,
+            813.6868286132812,
+            1389.4169921875
+          ],
+          "confidence": 0.9456244707107544,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            373.29150390625,
+            803.2084350585938,
+            659.4483642578125,
+            942.9113159179688
+          ],
+          "confidence": 0.9430643320083618,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            130.1286163330078,
+            504.1796875,
+            948.7461547851562,
+            576.6634521484375
+          ],
+          "confidence": 0.9257673025131226,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9796344473738935,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9788227960504156,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9575121460989618,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 6,
+      "time_sec": 0.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            132,
+            501,
+            948,
+            571
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            214,
+            1216,
+            817,
+            1387
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            378,
+            800,
+            664,
+            941
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            213.2598876953125,
+            1215.703369140625,
+            818.7322998046875,
+            1387.220703125
+          ],
+          "confidence": 0.9438199996948242,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            373.7276611328125,
+            799.248291015625,
+            663.813232421875,
+            941.374755859375
+          ],
+          "confidence": 0.943570613861084,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            132.96324157714844,
+            502.67315673828125,
+            950.7039794921875,
+            574.98681640625
+          ],
+          "confidence": 0.9238634705543518,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.992912653685738,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9768391407943833,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9194905831073453,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 12,
+      "time_sec": 0.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            140,
+            496,
+            956,
+            566
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            220,
+            1211,
+            823,
+            1381
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            382,
+            795,
+            670,
+            937
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            220.30772399902344,
+            1211.293701171875,
+            824.2579956054688,
+            1382.7437744140625
+          ],
+          "confidence": 0.9510403871536255,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            382.4027404785156,
+            795.12060546875,
+            669.7789916992188,
+            936.2591552734375
+          ],
+          "confidence": 0.9530465602874756,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            146.16311645507812,
+            497.8260192871094,
+            947.1918334960938,
+            568.1605224609375
+          ],
+          "confidence": 0.9156449437141418,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9917807938575312,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9855847397235007,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9279307040596567,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 18,
+      "time_sec": 0.6,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            144,
+            492,
+            964,
+            562
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            226,
+            1207,
+            829,
+            1378
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            390,
+            790,
+            676,
+            932
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            224.40560913085938,
+            1206.1634521484375,
+            827.3724975585938,
+            1377.8306884765625
+          ],
+          "confidence": 0.9488800168037415,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            389.1065673828125,
+            792.0200805664062,
+            675.1851196289062,
+            932.45556640625
+          ],
+          "confidence": 0.9498612880706787,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            146.67910766601562,
+            491.4548034667969,
+            955.6016235351562,
+            561.609130859375
+          ],
+          "confidence": 0.8983263969421387,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9888641236997066,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9768225882530348,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.973502741780007,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 24,
+      "time_sec": 0.8,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            144,
+            490,
+            972,
+            560
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            228,
+            1211,
+            835,
+            1383
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            392,
+            791,
+            681,
+            934
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            226.79534912109375,
+            1209.45751953125,
+            832.8294067382812,
+            1382.3543701171875
+          ],
+          "confidence": 0.9490982890129089,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            391.5904846191406,
+            791.7511596679688,
+            680.4547119140625,
+            933.7032470703125
+          ],
+          "confidence": 0.9475350975990295,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            144.83056640625,
+            488.40484619140625,
+            963.1729125976562,
+            559.097900390625
+          ],
+          "confidence": 0.8928495645523071,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9894072322755655,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9819503345775843,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9541107489729049,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 30,
+      "time_sec": 1.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            138,
+            490,
+            970,
+            569
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            232,
+            1217,
+            841,
+            1392
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            392,
+            795,
+            682,
+            941
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            231.37269592285156,
+            1217.9390869140625,
+            841.194580078125,
+            1392.364013671875
+          ],
+          "confidence": 0.9447982907295227,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            389.01177978515625,
+            794.766357421875,
+            684.26513671875,
+            940.8884887695312
+          ],
+          "confidence": 0.9381171464920044,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            109.32508087158203,
+            489.942138671875,
+            1000.029541015625,
+            569.181396484375
+          ],
+          "confidence": 0.9128298759460449,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9912385919430043,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9799022925940442,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9312716697219052,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 36,
+      "time_sec": 1.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            142,
+            494,
+            980,
+            573
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            236,
+            1224,
+            847,
+            1399
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            396,
+            801,
+            689,
+            947
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            233.44668579101562,
+            1223.2257080078125,
+            848.6688842773438,
+            1399.6397705078125
+          ],
+          "confidence": 0.9554572701454163,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            394.17462158203125,
+            800.39501953125,
+            688.0712280273438,
+            946.7026977539062
+          ],
+          "confidence": 0.9390324354171753,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            125.29209899902344,
+            494.5772399902344,
+            996.4252319335938,
+            573.989501953125
+          ],
+          "confidence": 0.9155938625335693,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9851765378813726,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9845865059403683,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9433825430665934,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 42,
+      "time_sec": 1.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            126,
+            492,
+            971,
+            582
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            230,
+            1231,
+            844,
+            1409
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            384,
+            805,
+            682,
+            955
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            227.78099060058594,
+            1230.405517578125,
+            846.9810180664062,
+            1408.7469482421875
+          ],
+          "confidence": 0.9598058462142944,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            385.79144287109375,
+            808.6891479492188,
+            680.3993530273438,
+            955.73779296875
+          ],
+          "confidence": 0.9388864636421204,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            97.75249481201172,
+            495.1004333496094,
+            1011.5648803710938,
+            580.3717651367188
+          ],
+          "confidence": 0.9214193224906921,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9869080410828436,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9596364233531622,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8795932315105259,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 48,
+      "time_sec": 1.6,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            118,
+            473,
+            962,
+            571
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            230,
+            1214,
+            840,
+            1394
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            380,
+            790,
+            676,
+            941
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            226.14382934570312,
+            1218.0828857421875,
+            845.0084228515625,
+            1397.564208984375
+          ],
+          "confidence": 0.9480611085891724,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            378.3948059082031,
+            795.353759765625,
+            675.2435913085938,
+            943.77587890625
+          ],
+          "confidence": 0.9454726576805115,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            51.17817306518555,
+            476.2093505859375,
+            1030.7608642578125,
+            574.1528930664062
+          ],
+          "confidence": 0.9131202101707458,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9449148423017687,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9398369680420416,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8109608529745475,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 54,
+      "time_sec": 1.8,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            102,
+            397,
+            970,
+            498
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            220,
+            1152,
+            836,
+            1335
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            374,
+            726,
+            673,
+            879
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            215.9036407470703,
+            1157.0250244140625,
+            838.9595947265625,
+            1339.136474609375
+          ],
+          "confidence": 0.9485381841659546,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            371.124267578125,
+            731.4473266601562,
+            672.8363647460938,
+            883.1576538085938
+          ],
+          "confidence": 0.9492931962013245,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            66.03274536132812,
+            402.5478515625,
+            1004.787353515625,
+            501.8172302246094
+          ],
+          "confidence": 0.9237077832221985,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9405594398696389,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9297505490472938,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.845389131729329,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 60,
+      "time_sec": 2.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            90,
+            309,
+            992,
+            401
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            212,
+            1080,
+            834,
+            1259
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            368,
+            649,
+            676,
+            800
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            214.56825256347656,
+            1080.2142333984375,
+            829.68798828125,
+            1259.144775390625
+          ],
+          "confidence": 0.9564009308815002,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            368.4987487792969,
+            647.1273193359375,
+            674.749755859375,
+            800.7919921875
+          ],
+          "confidence": 0.945343554019928,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            115.04994201660156,
+            309.138671875,
+            969.34814453125,
+            399.1015625
+          ],
+          "confidence": 0.9197472333908081,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9869654572814976,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9771753162366367,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9261440247994724,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 66,
+      "time_sec": 2.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            92,
+            274,
+            1007,
+            360
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            208,
+            1051,
+            833,
+            1228
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            370,
+            614,
+            680,
+            769
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            211.89413452148438,
+            1048.52392578125,
+            826.6842651367188,
+            1226.1878662109375
+          ],
+          "confidence": 0.9550600051879883,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            372.1635437011719,
+            614.314208984375,
+            677.0850219726562,
+            766.6082153320312
+          ],
+          "confidence": 0.9435710310935974,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            121.67835998535156,
+            268.5100402832031,
+            974.3137817382812,
+            354.3950500488281
+          ],
+          "confidence": 0.9050297737121582,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9664456513509713,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.960378036833866,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8222010240135806,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 72,
+      "time_sec": 2.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            94,
+            259,
+            1012,
+            342
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            208,
+            1036,
+            831,
+            1211
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            372,
+            600,
+            682,
+            754
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            214.3043212890625,
+            1033.8720703125,
+            828.50390625,
+            1209.8516845703125
+          ],
+          "confidence": 0.9582011103630066,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            373.8636474609375,
+            599.466064453125,
+            681.6578369140625,
+            752.55419921875
+          ],
+          "confidence": 0.9507447481155396,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            127.24124145507812,
+            257.3924865722656,
+            976.7980346679688,
+            338.9287414550781
+          ],
+          "confidence": 0.9204660058021545,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9801887236539784,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9678031588726338,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8755065850008442,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 78,
+      "time_sec": 2.6,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            88,
+            260,
+            1006,
+            342
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            198,
+            1035,
+            820,
+            1209
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            366,
+            602,
+            674,
+            755
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            207.6127471923828,
+            1033.5738525390625,
+            821.2828979492188,
+            1208.650146484375
+          ],
+          "confidence": 0.9593660235404968,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            366.80279541015625,
+            600.9586181640625,
+            674.027587890625,
+            753.6228637695312
+          ],
+          "confidence": 0.9459372162818909,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            115.30142211914062,
+            261.0310974121094,
+            980.5669555664062,
+            340.8135070800781
+          ],
+          "confidence": 0.9225790500640869,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9816641555415724,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9726979447388346,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9170647917140027,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 84,
+      "time_sec": 2.8,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            92,
+            252,
+            1009,
+            333
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            196,
+            1028,
+            816,
+            1202
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            364,
+            596,
+            674,
+            749
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            207.53070068359375,
+            1028.603515625,
+            816.7511596679688,
+            1201.5267333984375
+          ],
+          "confidence": 0.9525008201599121,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            368.1449890136719,
+            597.946533203125,
+            672.0278930664062,
+            747.9649658203125
+          ],
+          "confidence": 0.9423100352287292,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            87.53919219970703,
+            252.72161865234375,
+            1009.5396118164062,
+            336.3722229003906
+          ],
+          "confidence": 0.9171074032783508,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9741558507600907,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9611645997290825,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9463624030040398,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 90,
+      "time_sec": 3.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            86,
+            249,
+            1006,
+            331
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            190,
+            1029,
+            810,
+            1202
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            360,
+            597,
+            670,
+            749
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            196.4545135498047,
+            1028.984619140625,
+            808.9187622070312,
+            1201.95556640625
+          ],
+          "confidence": 0.9515121579170227,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            362.50604248046875,
+            598.3726196289062,
+            667.6605834960938,
+            748.4779663085938
+          ],
+          "confidence": 0.9440670609474182,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            75.69820404052734,
+            250.3126983642578,
+            1015.989990234375,
+            336.76226806640625
+          ],
+          "confidence": 0.9154319167137146,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9875051138193718,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9720994942706135,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8998347180138396,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 96,
+      "time_sec": 3.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            86,
+            238,
+            1010,
+            322
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            186,
+            1022,
+            809,
+            1194
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            358,
+            588,
+            670,
+            740
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            188.00315856933594,
+            1022.3272094726562,
+            801.3832397460938,
+            1194.25390625
+          ],
+          "confidence": 0.9392044544219971,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            361.40740966796875,
+            590.486572265625,
+            666.7105102539062,
+            739.8595581054688
+          ],
+          "confidence": 0.9542732834815979,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            65.84614562988281,
+            235.29295349121094,
+            1033.7362060546875,
+            326.4960632324219
+          ],
+          "confidence": 0.923189640045166,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9812595450664195,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9616235602370874,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8792564859779346,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 102,
+      "time_sec": 3.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            90,
+            242,
+            1010,
+            329
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            184,
+            1026,
+            808,
+            1198
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            360,
+            593,
+            670,
+            744
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            190.95758056640625,
+            1026.289794921875,
+            804.6107788085938,
+            1197.6072998046875
+          ],
+          "confidence": 0.9484310746192932,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            361.4855041503906,
+            592.2513427734375,
+            669.1629028320312,
+            742.6210327148438
+          ],
+          "confidence": 0.948982298374176,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            65.3799819946289,
+            239.21157836914062,
+            1031.638427734375,
+            332.9578857421875
+          ],
+          "confidence": 0.9205683469772339,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9795163870211824,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9786282439855413,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8836079343012732,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 108,
+      "time_sec": 3.6,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            98,
+            266,
+            1006,
+            360
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            188,
+            1043,
+            806,
+            1217
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            364,
+            616,
+            670,
+            766
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            185.53488159179688,
+            1041.8212890625,
+            808.5613403320312,
+            1215.4495849609375
+          ],
+          "confidence": 0.9584051966667175,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            363.8103942871094,
+            612.5283813476562,
+            669.4526977539062,
+            762.3280639648438
+          ],
+          "confidence": 0.9499143362045288,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            75.38163757324219,
+            263.01800537109375,
+            1032.497314453125,
+            357.5546875
+          ],
+          "confidence": 0.9136675000190735,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.976548513050335,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9512114508681244,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8967537193408414,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 114,
+      "time_sec": 3.8,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            110,
+            294,
+            998,
+            386
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            193,
+            1060,
+            806,
+            1231
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            368,
+            635,
+            670,
+            782
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            196.5122833251953,
+            1059.7486572265625,
+            806.1497802734375,
+            1229.4564208984375
+          ],
+          "confidence": 0.9414191842079163,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            368.9243469238281,
+            634.6982421875,
+            668.1004028320312,
+            780.5553588867188
+          ],
+          "confidence": 0.9558330774307251,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            93.89049530029297,
+            295.49560546875,
+            1012.8881225585938,
+            387.8232116699219
+          ],
+          "confidence": 0.9204691052436829,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.983619278104144,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9789228790193937,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9325916450928052,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 120,
+      "time_sec": 4.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            136,
+            384,
+            974,
+            472
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            202,
+            1117,
+            799,
+            1282
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            376,
+            703,
+            665,
+            844
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            207.64039611816406,
+            1113.563720703125,
+            797.09912109375,
+            1278.498291015625
+          ],
+          "confidence": 0.9431358575820923,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            375.28814697265625,
+            698.9335327148438,
+            664.6387329101562,
+            840.4901123046875
+          ],
+          "confidence": 0.9469594359397888,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            104.25627899169922,
+            377.51129150390625,
+            998.7985229492188,
+            471.0746154785156
+          ],
+          "confidence": 0.9099504947662354,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9469418163891223,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9443517263729725,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8638209700056113,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 126,
+      "time_sec": 4.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            154,
+            496,
+            960,
+            594
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            202,
+            1215,
+            801,
+            1388
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            382,
+            805,
+            664,
+            947
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            199.7281494140625,
+            1210.3935546875,
+            807.295166015625,
+            1381.5863037109375
+          ],
+          "confidence": 0.9485735893249512,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            378.06671142578125,
+            798.4967041015625,
+            667.0570068359375,
+            940.7019653320312
+          ],
+          "confidence": 0.9472326636314392,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            107.46231079101562,
+            492.64593505859375,
+            1008.3158569335938,
+            591.8948974609375
+          ],
+          "confidence": 0.9282135367393494,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9251973934233773,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.8926097806596744,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8483713257721559,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 132,
+      "time_sec": 4.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            170,
+            576,
+            964,
+            669
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            208,
+            1296,
+            816,
+            1466
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            392,
+            877,
+            676,
+            1016
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            211.36325073242188,
+            1298.3067626953125,
+            812.7506103515625,
+            1467.0367431640625
+          ],
+          "confidence": 0.9574039578437805,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            391.5718994140625,
+            880.365966796875,
+            672.572509765625,
+            1018.0405883789062
+          ],
+          "confidence": 0.9430702328681946,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            135.86746215820312,
+            576.7194213867188,
+            995.4910278320312,
+            675.0804443359375
+          ],
+          "confidence": 0.9206910729408264,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9698520294017946,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9488302203482106,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.860746668425969,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 138,
+      "time_sec": 4.6,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            184,
+            582,
+            974,
+            677
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            220,
+            1305,
+            832,
+            1475
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            406,
+            881,
+            688,
+            1020
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            222.88429260253906,
+            1309.038818359375,
+            830.57373046875,
+            1479.267333984375
+          ],
+          "confidence": 0.9502231478691101,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            406.1076354980469,
+            888.1798095703125,
+            687.7594604492188,
+            1025.791259765625
+          ],
+          "confidence": 0.9444870352745056,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            171.9102783203125,
+            589.4208374023438,
+            995.2844848632812,
+            685.1331787109375
+          ],
+          "confidence": 0.9144657254219055,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9457921560657069,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9093362339622693,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8171479712881305,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 144,
+      "time_sec": 4.8,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            188,
+            562,
+            978,
+            662
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            228,
+            1293,
+            850,
+            1464
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            414,
+            861,
+            698,
+            1001
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            232.8444366455078,
+            1295.6502685546875,
+            845.095947265625,
+            1466.278076171875
+          ],
+          "confidence": 0.957146406173706,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            413.1534729003906,
+            865.4940795898438,
+            698.671875,
+            1005.8530883789062
+          ],
+          "confidence": 0.9451102614402771,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            164.31338500976562,
+            564.860595703125,
+            1007.2010498046875,
+            667.133056640625
+          ],
+          "confidence": 0.9171062707901001,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9565282179985104,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9306500573166768,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.867472325618704,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 150,
+      "time_sec": 5.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            198,
+            570,
+            982,
+            678
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            238,
+            1305,
+            870,
+            1480
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            426,
+            866,
+            710,
+            1007
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            235.48614501953125,
+            1302.262939453125,
+            873.1365966796875,
+            1478.348876953125
+          ],
+          "confidence": 0.947891354560852,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            421.84600830078125,
+            865.3807373046875,
+            710.1357421875,
+            1007.4844360351562
+          ],
+          "confidence": 0.9496491551399231,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            155.19711303710938,
+            566.0454711914062,
+            1034.09814453125,
+            677.8218383789062
+          ],
+          "confidence": 0.9288912415504456,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9774687761710682,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9667478122177733,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8592425719765012,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 156,
+      "time_sec": 5.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            202,
+            586,
+            974,
+            703
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            236,
+            1321,
+            879,
+            1497
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            426,
+            879,
+            711,
+            1025
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            233.8536834716797,
+            1323.435791015625,
+            879.0502319335938,
+            1500.96484375
+          ],
+          "confidence": 0.9518444538116455,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            421.68939208984375,
+            881.6138305664062,
+            713.5852661132812,
+            1027.5108642578125
+          ],
+          "confidence": 0.9531962275505066,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            159.7685546875,
+            589.8800048828125,
+            1032.5919189453125,
+            706.13525390625
+          ],
+          "confidence": 0.8984153270721436,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9611948813841047,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9430757042222372,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8359554241521792,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 162,
+      "time_sec": 5.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            196,
+            524,
+            980,
+            652
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            228,
+            1268,
+            896,
+            1446
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            426,
+            816,
+            718,
+            972
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            238.1322784423828,
+            1271.584228515625,
+            888.3440551757812,
+            1448.88916015625
+          ],
+          "confidence": 0.9430808424949646,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            421.68182373046875,
+            821.6766967773438,
+            722.5139770507812,
+            974.2603149414062
+          ],
+          "confidence": 0.9485896825790405,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            149.2290802001953,
+            526.3670654296875,
+            1046.676513671875,
+            655.64111328125
+          ],
+          "confidence": 0.8871514797210693,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9389367394809514,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.922933641580323,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8356170385205084,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 168,
+      "time_sec": 5.6,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            200,
+            476,
+            980,
+            616
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            232,
+            1212,
+            910,
+            1394
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            428,
+            763,
+            724,
+            924
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            234.41146850585938,
+            1213.65625,
+            907.5363159179688,
+            1395.8985595703125
+          ],
+          "confidence": 0.9510794281959534,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            421.07818603515625,
+            767.1422729492188,
+            728.7911987304688,
+            926.4376220703125
+          ],
+          "confidence": 0.9522682428359985,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            148.81503295898438,
+            478.76983642578125,
+            1032.9505615234375,
+            615.8675537109375
+          ],
+          "confidence": 0.8858680725097656,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9736905106721134,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9240998805659899,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8660434075592686,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 174,
+      "time_sec": 5.8,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            186,
+            452,
+            964,
+            600
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            218,
+            1174,
+            912,
+            1363
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            416,
+            733,
+            715,
+            897
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            218.36924743652344,
+            1173.7291259765625,
+            916.9295043945312,
+            1362.8355712890625
+          ],
+          "confidence": 0.9533911943435669,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            411.802001953125,
+            733.2207641601562,
+            719.6150512695312,
+            896.0990600585938
+          ],
+          "confidence": 0.9449531435966492,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            140.8447723388672,
+            452.38934326171875,
+            1016.962890625,
+            597.4927368164062
+          ],
+          "confidence": 0.8875661492347717,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9901431193140516,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9649139498784431,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8725408128962249,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 180,
+      "time_sec": 6.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            172,
+            435,
+            948,
+            586
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            208,
+            1137,
+            915,
+            1332
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            408,
+            706,
+            707,
+            871
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            207.57302856445312,
+            1135.8662109375,
+            920.6605834960938,
+            1329.9730224609375
+          ],
+          "confidence": 0.9613959193229675,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            404.5437316894531,
+            706.6665649414062,
+            710.1057739257812,
+            871.3886108398438
+          ],
+          "confidence": 0.9540795683860779,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            130.43417358398438,
+            433.4960021972656,
+            991.603515625,
+            585.4046020507812
+          ],
+          "confidence": 0.8827435970306396,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.97557138911638,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9723658749733716,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8890389303064672,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 186,
+      "time_sec": 6.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            162,
+            410,
+            946,
+            570
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            196,
+            1104,
+            926,
+            1309
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            400,
+            676,
+            706,
+            847
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            190.97068786621094,
+            1104.9744873046875,
+            935.8645629882812,
+            1310.107421875
+          ],
+          "confidence": 0.9623553156852722,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            397.77423095703125,
+            679.5848999023438,
+            706.5340576171875,
+            848.3184204101562
+          ],
+          "confidence": 0.9422898292541504,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            121.38671112060547,
+            411.9652099609375,
+            981.3141479492188,
+            571.8439331054688
+          ],
+          "confidence": 0.9078714847564697,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9701979710457825,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9630400009841515,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8912025259273414,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 192,
+      "time_sec": 6.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            170,
+            400,
+            952,
+            558
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            208,
+            1085,
+            938,
+            1287
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            410,
+            664,
+            716,
+            830
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            209.1320343017578,
+            1081.9150390625,
+            941.4496459960938,
+            1284.8341064453125
+          ],
+          "confidence": 0.9526273608207703,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            411.5812683105469,
+            659.3742065429688,
+            716.1799926757812,
+            826.7306518554688
+          ],
+          "confidence": 0.9584303498268127,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            136.76959228515625,
+            394.9265441894531,
+            978.7899169921875,
+            557.6137084960938
+          ],
+          "confidence": 0.8943822383880615,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9683804531056666,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9483855931939154,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.897776491848426,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 198,
+      "time_sec": 6.6,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            158,
+            392,
+            944,
+            553
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            196,
+            1081,
+            930,
+            1285
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            400,
+            659,
+            708,
+            825
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            202.73348999023438,
+            1081.3153076171875,
+            936.677734375,
+            1286.0914306640625
+          ],
+          "confidence": 0.9556654691696167,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            402.46502685546875,
+            658.927490234375,
+            707.6393432617188,
+            826.6484375
+          ],
+          "confidence": 0.9520038962364197,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            138.6627655029297,
+            392.52362060546875,
+            961.1098022460938,
+            555.2280883789062
+          ],
+          "confidence": 0.887380063533783,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9807513843193199,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9752191211125493,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9397072386567602,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 204,
+      "time_sec": 6.8,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            124,
+            186,
+            958,
+            376
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            180,
+            917,
+            935,
+            1144
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            386,
+            479,
+            705,
+            670
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            160.04653930664062,
+            931.1287231445312,
+            958.3689575195312,
+            1157.0552978515625
+          ],
+          "confidence": 0.9633171558380127,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            374.906005859375,
+            490.48150634765625,
+            717.8071899414062,
+            684.2434692382812
+          ],
+          "confidence": 0.9495096206665039,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            86.80697631835938,
+            207.6355438232422,
+            999.214599609375,
+            394.16021728515625
+          ],
+          "confidence": 0.9138984680175781,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.8413248652583771,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.8168800226564531,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.7459784604670785,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": true,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 210,
+      "time_sec": 7.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            102,
+            0,
+            1014,
+            94
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            142,
+            787,
+            943,
+            1003
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            354,
+            263,
+            714,
+            464
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            158.04098510742188,
+            782.7908935546875,
+            929.250244140625,
+            999.6770629882812
+          ],
+          "confidence": 0.9628803730010986,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            361.43115234375,
+            265.52508544921875,
+            708.6800537109375,
+            463.6134948730469
+          ],
+          "confidence": 0.9556982517242432,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            238.89756774902344,
+            0.0,
+            844.8911743164062,
+            101.31233978271484
+          ],
+          "confidence": 0.8439509272575378,
+          "track_id": 3
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9506078295466825,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9305376392716815,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.6318088373879764,
+          "class_name": "highlighter",
+          "track_id": 3
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": true,
+      "truncated_classes_in_annotation": [
+        0
+      ]
+    },
+    {
+      "frame": 216,
+      "time_sec": 7.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            158,
+            0,
+            1080,
+            78
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            112,
+            907,
+            939,
+            1135
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            358,
+            322,
+            740,
+            523
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            112.02011108398438,
+            879.5415649414062,
+            946.555419921875,
+            1110.5428466796875
+          ],
+          "confidence": 0.9686171412467957,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            360.9611511230469,
+            292.4255065917969,
+            732.5545043945312,
+            500.11065673828125
+          ],
+          "confidence": 0.949486494064331,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            0.0,
+            0.13514403998851776,
+            1080.0,
+            69.60712432861328
+          ],
+          "confidence": 0.6802825927734375,
+          "track_id": 10
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.7902291988002926,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.772725029472902,
+          "class_name": "highlighter",
+          "track_id": 10
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.754055662226403,
+          "class_name": "eraser",
+          "track_id": 2
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": true,
+      "truncated_classes_in_annotation": [
+        0
+      ]
+    },
+    {
+      "frame": 222,
+      "time_sec": 7.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            38,
+            208,
+            1080,
+            396
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            74,
+            1202,
+            865,
+            1429
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            340,
+            657,
+            725,
+            852
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            61.709800720214844,
+            1187.467041015625,
+            883.0980224609375,
+            1418.0408935546875
+          ],
+          "confidence": 0.9641308784484863,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            353.46026611328125,
+            637.6764526367188,
+            718.060302734375,
+            835.678955078125
+          ],
+          "confidence": 0.9513627886772156,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            38.2802848815918,
+            198.23255920410156,
+            1080.0,
+            395.1170959472656
+          ],
+          "confidence": 0.8997083306312561,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9459051917022236,
+          "class_name": "highlighter",
+          "track_id": 11
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.8628140505137376,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.7933032532316366,
+          "class_name": "eraser",
+          "track_id": 2
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": true,
+      "truncated_classes_in_annotation": [
+        0
+      ]
+    },
+    {
+      "frame": 228,
+      "time_sec": 7.6,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            18,
+            376,
+            1080,
+            554
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            46,
+            1332,
+            814,
+            1544
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            316,
+            828,
+            707,
+            1016
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            51.04270935058594,
+            1339.864501953125,
+            806.9166259765625,
+            1551.19775390625
+          ],
+          "confidence": 0.9525176882743835,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            329.8951416015625,
+            833.839599609375,
+            694.39306640625,
+            1022.5720825195312
+          ],
+          "confidence": 0.9459284543991089,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            54.2499885559082,
+            383.5523376464844,
+            1044.9482421875,
+            565.2918090820312
+          ],
+          "confidence": 0.9020408391952515,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9170558749764337,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.8747564841081583,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8433715943431379,
+          "class_name": "highlighter",
+          "track_id": 11
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": [
+        0
+      ]
+    },
+    {
+      "frame": 234,
+      "time_sec": 7.8,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            16,
+            484,
+            1080,
+            636
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            62,
+            1368,
+            787,
+            1568
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            312,
+            902,
+            690,
+            1083
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            66.16231536865234,
+            1377.8033447265625,
+            780.7549438476562,
+            1576.59814453125
+          ],
+          "confidence": 0.9507274031639099,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            321.3815612792969,
+            912.5792846679688,
+            683.3626098632812,
+            1094.2667236328125
+          ],
+          "confidence": 0.9460837841033936,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            86.71910858154297,
+            487.429443359375,
+            1011.0774536132812,
+            646.6571655273438
+          ],
+          "confidence": 0.8939739465713501,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.89922838035854,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.8509266656277246,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.800403324002448,
+          "class_name": "highlighter",
+          "track_id": 11
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": [
+        0
+      ]
+    },
+    {
+      "frame": 240,
+      "time_sec": 8.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            50,
+            518,
+            1080,
+            647
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            98,
+            1320,
+            765,
+            1500
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            326,
+            902,
+            678,
+            1063
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            100.74645233154297,
+            1325.336181640625,
+            759.15087890625,
+            1507.0675048828125
+          ],
+          "confidence": 0.9579060077667236,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            330.2391357421875,
+            905.3052368164062,
+            667.788818359375,
+            1069.8974609375
+          ],
+          "confidence": 0.9488196969032288,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            143.0334930419922,
+            522.6376342773438,
+            979.2481079101562,
+            648.6742553710938
+          ],
+          "confidence": 0.8588455319404602,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9221105755372101,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9021966876247287,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.774511054195704,
+          "class_name": "highlighter",
+          "track_id": 11
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": [
+        0
+      ]
+    },
+    {
+      "frame": 246,
+      "time_sec": 8.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            118,
+            605,
+            1080,
+            705
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            162,
+            1330,
+            776,
+            1498
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            370,
+            943,
+            692,
+            1095
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            160.8389892578125,
+            1330.1593017578125,
+            776.5615844726562,
+            1499.7391357421875
+          ],
+          "confidence": 0.9617288708686829,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            367.0518798828125,
+            943.2021484375,
+            688.2537841796875,
+            1097.9473876953125
+          ],
+          "confidence": 0.9485094547271729,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            206.15208435058594,
+            605.5222778320312,
+            982.1486206054688,
+            708.0900268554688
+          ],
+          "confidence": 0.9146875739097595,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9860517569445411,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.959712839364288,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.7829214098459819,
+          "class_name": "highlighter",
+          "track_id": 11
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": [
+        0
+      ]
+    },
+    {
+      "frame": 252,
+      "time_sec": 8.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            184,
+            652,
+            1078,
+            737
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            222,
+            1329,
+            801,
+            1491
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            418,
+            960,
+            719,
+            1108
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            220.40943908691406,
+            1328.1597900390625,
+            806.6173706054688,
+            1491.2645263671875
+          ],
+          "confidence": 0.955416202545166,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            415.8740539550781,
+            963.2006225585938,
+            719.0758056640625,
+            1109.2745361328125
+          ],
+          "confidence": 0.9489621520042419,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            250.42115783691406,
+            652.478271484375,
+            1003.6844482421875,
+            738.9515380859375
+          ],
+          "confidence": 0.9152700901031494,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9810142491507311,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9631266016815574,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8219351568535587,
+          "class_name": "highlighter",
+          "track_id": 11
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 258,
+      "time_sec": 8.6,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            200,
+            706,
+            1038,
+            783
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            226,
+            1349,
+            780,
+            1506
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            416,
+            995,
+            702,
+            1137
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            225.68031311035156,
+            1346.494873046875,
+            785.4091796875,
+            1503.91845703125
+          ],
+          "confidence": 0.9512148499488831,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            414.7996520996094,
+            995.7373657226562,
+            703.1978149414062,
+            1135.46337890625
+          ],
+          "confidence": 0.9455674290657043,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            237.98919677734375,
+            703.0557861328125,
+            1006.179443359375,
+            784.1211547851562
+          ],
+          "confidence": 0.9211065769195557,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9759336728193347,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9614320310430632,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.8743761104100604,
+          "class_name": "highlighter",
+          "track_id": 11
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 264,
+      "time_sec": 8.8,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            218,
+            706,
+            1030,
+            783
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            240,
+            1341,
+            782,
+            1497
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            426,
+            991,
+            705,
+            1130
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            235.6116485595703,
+            1343.9100341796875,
+            783.4660034179688,
+            1499.6365966796875
+          ],
+          "confidence": 0.9419564008712769,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            423.39434814453125,
+            995.7777099609375,
+            705.7069091796875,
+            1133.4853515625
+          ],
+          "confidence": 0.9470928907394409,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            226.37718200683594,
+            706.739990234375,
+            1032.1298828125,
+            787.8244018554688
+          ],
+          "confidence": 0.9257581830024719,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9549104602093327,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9313208626770431,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9205479673806974,
+          "class_name": "highlighter",
+          "track_id": 11
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 270,
+      "time_sec": 9.0,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            214,
+            692,
+            988,
+            766
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            234,
+            1304,
+            756,
+            1453
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            412,
+            966,
+            684,
+            1100
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            233.9021759033203,
+            1303.988037109375,
+            761.2084350585938,
+            1454.301513671875
+          ],
+          "confidence": 0.9504041075706482,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            411.2466735839844,
+            966.4491577148438,
+            682.7791137695312,
+            1099.576171875
+          ],
+          "confidence": 0.9422213435173035,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            226.66810607910156,
+            694.345458984375,
+            988.3339233398438,
+            770.1591796875
+          ],
+          "confidence": 0.9259337782859802,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9863119940922829,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9812867287663665,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9021803082286731,
+          "class_name": "highlighter",
+          "track_id": 11
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 276,
+      "time_sec": 9.2,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            210,
+            685,
+            968,
+            760
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            228,
+            1290,
+            743,
+            1437
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            404,
+            956,
+            672,
+            1091
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            232.4638671875,
+            1290.8609619140625,
+            741.0677490234375,
+            1435.925537109375
+          ],
+          "confidence": 0.946993350982666,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            405.6069030761719,
+            956.4000244140625,
+            667.6705932617188,
+            1085.49072265625
+          ],
+          "confidence": 0.9373005032539368,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            205.026611328125,
+            686.8883056640625,
+            979.6222534179688,
+            764.3259887695312
+          ],
+          "confidence": 0.922055184841156,
+          "track_id": 11
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            673.2615966796875,
+            1805.842529296875,
+            1077.5736083984375,
+            1919.9949951171875
+          ],
+          "confidence": 0.35055235028266907,
+          "track_id": 12
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.9745777169436257,
+          "class_name": "correction_tape",
+          "track_id": 1
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9350465657815519,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.9023750115907001,
+          "class_name": "highlighter",
+          "track_id": 11
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [
+        3
+      ],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    },
+    {
+      "frame": 282,
+      "time_sec": 9.4,
+      "targets": [
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            182,
+            672,
+            946,
+            748
+          ]
+        },
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            202,
+            1282,
+            721,
+            1429
+          ]
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            380,
+            946,
+            647,
+            1076
+          ]
+        }
+      ],
+      "predictions": [
+        {
+          "class_id": 1,
+          "class_name": "correction_tape",
+          "xyxy": [
+            210.7460174560547,
+            1282.7508544921875,
+            721.5013427734375,
+            1428.025146484375
+          ],
+          "confidence": 0.9517272710800171,
+          "track_id": 1
+        },
+        {
+          "class_id": 2,
+          "class_name": "eraser",
+          "xyxy": [
+            381.4810485839844,
+            946.9576416015625,
+            644.5381469726562,
+            1076.50048828125
+          ],
+          "confidence": 0.9540536999702454,
+          "track_id": 2
+        },
+        {
+          "class_id": 0,
+          "class_name": "highlighter",
+          "xyxy": [
+            185.2858428955078,
+            672.2406005859375,
+            945.9542846679688,
+            749.1687622070312
+          ],
+          "confidence": 0.877173662185669,
+          "track_id": 11
+        }
+      ],
+      "matches": [
+        {
+          "target_index": 0,
+          "prediction_index": 2,
+          "iou": 0.977520137840735,
+          "class_name": "highlighter",
+          "track_id": 11
+        },
+        {
+          "target_index": 2,
+          "prediction_index": 1,
+          "iou": 0.9742793913146376,
+          "class_name": "eraser",
+          "track_id": 2
+        },
+        {
+          "target_index": 1,
+          "prediction_index": 0,
+          "iou": 0.970680000450406,
+          "class_name": "correction_tape",
+          "track_id": 1
+        }
+      ],
+      "false_negative_target_indices": [],
+      "false_positive_prediction_indices": [],
+      "wrong_class_overlaps": [],
+      "motion_blur_visible_in_annotation": false,
+      "truncated_classes_in_annotation": []
+    }
+  ],
+  "limitations": [
+    "All 48 annotated frames were used for fine-tuning; these are correlated samples of one training scene.",
+    "P/R here use a fixed confidence and fixed IoU on returned tracking Results, not AP/mAP or the separate original test split.",
+    "The other 239 frames have no reviewed boxes here. Their class/ID counts are structural observations, not proof of correct physical-object detection.",
+    "Track ID occurrence/counts are not MOTA/IDF1; no independently annotated tracking identities are available.",
+    "Ground truth is the existing AI-assisted visually reviewed annotation, not an independent human audit.",
+    "This checkpoint was selected at epoch82 of97 completed; the100-epoch training target remains unfinished."
+  ]
+}

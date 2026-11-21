@@ -1,0 +1,504 @@
+{
+  "scope": "requested_video_recheck_using_current_additional_training_checkpoint",
+  "completed_at_utc": "2026-11-21T10:57:50.746551+00:00",
+  "new_inference_executed": true,
+  "training_performed": false,
+  "training_run_id": "20261120T123735Z_2e0735a1",
+  "epochs_completed": 97,
+  "checkpoint_selected_epoch": 82,
+  "epochs_target": 100,
+  "model_sha256": "61e35e27335a72841e5ded5075d1e05d76460a0aa4b03590c0c656b6f9121976",
+  "source_sdr_sha256": "5e2484cb1b0e8f34aa5f63de28ae4342e2619220cfbc76320953b0c934380e7e",
+  "source_and_model_unchanged": true,
+  "inference_settings": {
+    "confidence": 0.25,
+    "matching_iou": 0.5,
+    "nms_iou": 0.5,
+    "imgsz": 640,
+    "rotation": 0,
+    "class_agnostic_nms": false,
+    "tracker": "ByteTrack"
+  },
+  "inference_device": "cpu",
+  "runtime_after_first_inference": {
+    "recorded_utc": "2026-11-21T10:49:51.616895+00:00",
+    "torch_available": true,
+    "torch_num_threads": 8,
+    "torch_num_interop_threads": 6,
+    "mkldnn_enabled": false
+  },
+  "full_video": {
+    "frames": 287,
+    "seconds": 9.566666666666666,
+    "fps": 30,
+    "trajectory_rows": 859,
+    "unique_returned_ids": 6,
+    "file_checks": {
+      "csv_unique_frame_id": true,
+      "csv_bounds_times": true,
+      "all_287_predict_results": true,
+      "observed_boxes_match_csv": true,
+      "single_h264_yuv420p_noaudio": true,
+      "dimensions_fps_count": true,
+      "duration_287_over_30": true,
+      "all_presentation_timestamps": true,
+      "full_decode_count_and_shape": true
+    },
+    "file_status": "passed",
+    "tracks": {
+      "1": {
+        "rows": 287,
+        "first_frame": 0,
+        "last_frame": 286,
+        "classes": {
+          "correction_tape": 287
+        },
+        "class_transitions": [],
+        "gaps": []
+      },
+      "2": {
+        "rows": 287,
+        "first_frame": 0,
+        "last_frame": 286,
+        "classes": {
+          "eraser": 287
+        },
+        "class_transitions": [],
+        "gaps": []
+      },
+      "3": {
+        "rows": 212,
+        "first_frame": 0,
+        "last_frame": 211,
+        "classes": {
+          "highlighter": 212
+        },
+        "class_transitions": [],
+        "gaps": []
+      },
+      "10": {
+        "rows": 3,
+        "first_frame": 216,
+        "last_frame": 218,
+        "classes": {
+          "highlighter": 3
+        },
+        "class_transitions": [],
+        "gaps": []
+      },
+      "11": {
+        "rows": 67,
+        "first_frame": 220,
+        "last_frame": 286,
+        "classes": {
+          "highlighter": 67
+        },
+        "class_transitions": [],
+        "gaps": []
+      },
+      "12": {
+        "rows": 3,
+        "first_frame": 276,
+        "last_frame": 279,
+        "classes": {
+          "correction_tape": 3
+        },
+        "class_transitions": [],
+        "gaps": [
+          {
+            "after": 277,
+            "before": 279
+          }
+        ]
+      }
+    },
+    "class_summary": {
+      "highlighter": {
+        "rows": 282,
+        "frames": 282,
+        "missing_frames": [
+          212,
+          213,
+          214,
+          215,
+          219
+        ],
+        "multiple_rows_frames": []
+      },
+      "correction_tape": {
+        "rows": 290,
+        "frames": 287,
+        "missing_frames": [],
+        "multiple_rows_frames": [
+          276,
+          277,
+          279
+        ]
+      },
+      "eraser": {
+        "rows": 287,
+        "frames": 287,
+        "missing_frames": [],
+        "multiple_rows_frames": []
+      }
+    }
+  },
+  "five_second_video": {
+    "frames": 150,
+    "seconds": 5,
+    "fps": 30,
+    "file_checks": {
+      "single_video_stream_no_audio": {
+        "passed": true
+      },
+      "h264_yuv420p": {
+        "passed": true
+      },
+      "portrait_1080x1920": {
+        "passed": true
+      },
+      "fps_30": {
+        "passed": true
+      },
+      "ffprobe_150_decoded_frames": {
+        "passed": true
+      },
+      "stream_and_container_duration_5": {
+        "passed": true,
+        "detail": {
+          "stream_seconds": 5.0,
+          "container_seconds": 5.0,
+          "stream_tick": 6.510416666666667e-05
+        }
+      },
+      "stream_start_zero": {
+        "passed": true
+      },
+      "150_presentation_timestamps": {
+        "passed": true
+      },
+      "presentation_timeline_matches_csv": {
+        "passed": true,
+        "detail": {
+          "first_pts": 0.0,
+          "last_pts": 4.966667,
+          "max_seconds_error": 3.33333333379926e-07
+        }
+      },
+      "last_frame_ends_at_5": {
+        "passed": true,
+        "detail": {
+          "last_frame_duration": "0.033333",
+          "end_seconds": 5.0
+        }
+      },
+      "csv_schema": {
+        "passed": true,
+        "detail": [
+          "frame",
+          "time_sec",
+          "track_id",
+          "class_id",
+          "class_name",
+          "confidence",
+          "center_x",
+          "center_y"
+        ]
+      },
+      "csv_values_and_unique_frame_id": {
+        "passed": true,
+        "detail": []
+      },
+      "csv_nonempty": {
+        "passed": true
+      },
+      "csv_frame_order": {
+        "passed": true
+      },
+      "render_decodes_150_at_30fps": {
+        "passed": true,
+        "detail": {
+          "frames": 150,
+          "fps": 30.0
+        }
+      },
+      "render_original_orientation": {
+        "passed": true,
+        "detail": [
+          [
+            1920,
+            1080
+          ]
+        ]
+      },
+      "final_decodes_150_at_30fps": {
+        "passed": true,
+        "detail": {
+          "frames": 150,
+          "fps": 30.0
+        }
+      },
+      "final_original_orientation": {
+        "passed": true,
+        "detail": [
+          [
+            1920,
+            1080
+          ]
+        ]
+      },
+      "render_and_final_frame_counts_match": {
+        "passed": true
+      },
+      "input_files_unchanged": {
+        "passed": true
+      }
+    },
+    "trajectory": {
+      "rows": 450,
+      "unique_ids": 3,
+      "class_row_counts": {
+        "highlighter": 150,
+        "correction_tape": 150,
+        "eraser": 150
+      },
+      "class_frame_counts": {
+        "highlighter": 150,
+        "correction_tape": 150,
+        "eraser": 150
+      },
+      "frames_without_tracked_rows": [],
+      "tracks": {
+        "1": {
+          "rows": 150,
+          "first_frame": 0,
+          "last_frame": 149,
+          "classes": [
+            "correction_tape"
+          ],
+          "class_changes": [],
+          "gaps": []
+        },
+        "2": {
+          "rows": 150,
+          "first_frame": 0,
+          "last_frame": 149,
+          "classes": [
+            "eraser"
+          ],
+          "class_changes": [],
+          "gaps": []
+        },
+        "3": {
+          "rows": 150,
+          "first_frame": 0,
+          "last_frame": 149,
+          "classes": [
+            "highlighter"
+          ],
+          "class_changes": [],
+          "gaps": []
+        }
+      }
+    },
+    "decoded_frames_match_full_render_prefix": true,
+    "trajectory_rows_unchanged_from_full_video_prefix": true,
+    "byte_identical_to_earlier_preview": true
+  },
+  "labeled_frame_check": {
+    "scope": "training_scene_resubstitution_fixed_threshold_post_tracking_boxes",
+    "matching": "Class-aware IoU>=0.5, descending-IoU one-to-one matching. One GT per class per selected frame; duplicates remain FP. xyxy uses exclusive upper/right bounds.",
+    "reviewed_frames": 48,
+    "targets": 144,
+    "tp": 144,
+    "fp": 1,
+    "fn": 0,
+    "precision_micro": 0.993103448275862,
+    "recall_micro": 1.0,
+    "per_class": {
+      "highlighter": {
+        "targets": 48,
+        "predictions": 48,
+        "tp": 48,
+        "fp": 0,
+        "fn": 0,
+        "matched_track_ids": [
+          3,
+          10,
+          11
+        ],
+        "failure_frames": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "minimum_matched_iou": 0.6318088373879764,
+        "mean_matched_iou": 0.8742439787699279,
+        "minimum_matched_confidence": 0.6802825927734375
+      },
+      "correction_tape": {
+        "targets": 48,
+        "predictions": 49,
+        "tp": 48,
+        "fp": 1,
+        "fn": 0,
+        "matched_track_ids": [
+          1
+        ],
+        "failure_frames": [
+          276
+        ],
+        "precision": 0.9795918367346939,
+        "recall": 1.0,
+        "minimum_matched_iou": 0.7902291988002926,
+        "mean_matched_iou": 0.9580214276107536,
+        "minimum_matched_confidence": 0.9392044544219971
+      },
+      "eraser": {
+        "targets": 48,
+        "predictions": 48,
+        "tp": 48,
+        "fp": 0,
+        "fn": 0,
+        "matched_track_ids": [
+          2
+        ],
+        "failure_frames": [],
+        "precision": 1.0,
+        "recall": 1.0,
+        "minimum_matched_iou": 0.754055662226403,
+        "mean_matched_iou": 0.9439290077859464,
+        "minimum_matched_confidence": 0.9373005032539368
+      }
+    },
+    "existing_project_matcher_agrees_on_all_48_frames": true
+  },
+  "full_video_findings": {
+    "highlighter_output_absent_frames": [
+      212,
+      213,
+      214,
+      215,
+      219
+    ],
+    "highlighter_ids_in_order": [
+      3,
+      10,
+      11
+    ],
+    "highlighter_absence_interpretation": "At 212-215 the object is mostly clipped or outside the image. At 219 it is visible but absent from returned tracking boxes. Raw detector output before tracking was not separately recorded.",
+    "background_correction_tape_false_positive_frames": [
+      276,
+      277,
+      279
+    ],
+    "background_false_positive_track_id": 12,
+    "background_false_positive_region": "Beige floor/mat boundary at the bottom edge; not the physical eraser.",
+    "true_correction_tape_and_eraser_ids": {
+      "correction_tape": 1,
+      "eraser": 2
+    },
+    "true_correction_tape_and_eraser_visible_in_tracking_output_all_287_frames": true
+  },
+  "visual_review": {
+    "reviewed_utc": "2026-11-21T10:57:50.745433+00:00",
+    "reviewer": "Codex image inspection; not independent human labeling",
+    "contact_sheets": [
+      "contact_sheet_5s.jpg",
+      "full_contact_sheet.jpg",
+      "failure_contact_sheet.jpg",
+      "extra_detection_contact_sheet.jpg"
+    ],
+    "reviewed_frames": [
+      0,
+      30,
+      60,
+      90,
+      120,
+      149,
+      180,
+      204,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220,
+      234,
+      246,
+      276,
+      277,
+      279,
+      282,
+      286
+    ],
+    "native_resolution_additional_frame": 276,
+    "findings": {
+      "first_5_seconds": "Top long yellow highlighter ID3/blue box, middle Faber-Castell eraser ID2/light box, bottom correction tape ID1/cyan box. Class names, IDs, confidences and yellow trails visible. No object-class swaps in reviewed first5s frames.",
+      "highlighter_border_event": "Near frames210-218 the camera shifts so the highlighter is substantially clipped by the top edge and at some moments almost/entirely outside the view. Highlighter rows absent in212-215 and219; these are absent tracking outputs, not five annotated ground-truth false negatives.",
+      "highlighter_identity_fragmentation": "ID3 ends211; ID10 spans216-218; ID11 starts220. Frame219 shows the physical highlighter without tracked output. Detector-vs-tracker cause cannot be separated from the captured post-tracking Results.",
+      "additional_false_positive": "Frames276/277/279 add correction_tape ID12 on the beige floor/mat boundary at the bottom of the image, separate from the true correction tape (ID1). Confirmed by contact sheet and native frame276.",
+      "trajectory_interpretation": "Yellow paths are screen-coordinate center histories including camera motion; they are not measured physical motion."
+    },
+    "limits": [
+      "Training-scene reinspection after adding this video to train; not independent generalization.",
+      "48 annotated frames cover every sixth frame, so they do not directly test all five missing-output frames.",
+      "Model is selected epoch82 from97/100 completed; the100-epoch plan is not declared complete.",
+      "Visual review covers stated sample frames; all287frames were decoded and CSV/box observations checked mechanically."
+    ]
+  },
+  "root_visual_review": {
+    "full_contact_sheet": true,
+    "highlighter_boundary_contact_sheet": true,
+    "background_false_positive_contact_sheet": true,
+    "independent_human_review": false
+  },
+  "limitations": [
+    "The source frames were included in the training addition; this is not held-out evaluation.",
+    "48-frame matching uses returned post-tracking boxes at fixed thresholds, not AP or raw-detector metrics.",
+    "No ground-truth boxes exist for the other 239 frames; five highlighter output absences are not counted as five ground-truth false negatives.",
+    "Short-clip stability does not imply perfect tracking over the full video; no formal IDF1/MOTA is claimed.",
+    "Trails include camera movement. The 100-epoch recovery and original-test evaluation remain pending."
+  ],
+  "files": {
+    "outputs/video_finetune/recheck_5s.mp4": {
+      "bytes": 8597224,
+      "sha256": "c0c125466a4accbc12c46950edf78e207207062d539a4366a20057cf33330d3b"
+    },
+    "outputs/video_finetune/recheck_full.mp4": {
+      "bytes": 17522497,
+      "sha256": "eb4fe8994fe1225977cefc146e923896c7d4efb5aa769cb306504ad92e2f6e7e"
+    },
+    "outputs/video_finetune/recheck_trajectory.csv": {
+      "bytes": 19488,
+      "sha256": "721bd9bf4641b16703e5cb9850174f0373f3bf32134c8d711674ff0b6cf96b75"
+    },
+    "outputs/video_finetune/recheck_full_trajectory.csv": {
+      "bytes": 37555,
+      "sha256": "dda20e64a5946b178060ef25fcf987a8920d8fb970a501dbb3de21d2cfbcff91"
+    },
+    "outputs/video_finetune/recheck_inference.json": {
+      "bytes": 295920,
+      "sha256": "b9c6747a7eb4b3ae5433896555a8886325006ba1ecc71826b52a4c96f2e61084"
+    },
+    "outputs/video_finetune/recheck_labeled_frames.json": {
+      "bytes": 133910,
+      "sha256": "12723d0e708e5b17c41b947ea52180b32667ce603d517b130c4add5669ecc043"
+    },
+    "report/assets/video_finetune/recheck_full.jpg": {
+      "bytes": 494028,
+      "sha256": "26692aa78844b8e0de6d27d80c5c918ca33543ab1b72c8910e33b5e7b7314494"
+    },
+    "report/assets/video_finetune/recheck_id_gap.jpg": {
+      "bytes": 574245,
+      "sha256": "13252f2ab982e960538fb305c9708b8375f3358c9a0ec1298dcc4bc4a581072c"
+    },
+    "report/assets/video_finetune/recheck_background_fp.jpg": {
+      "bytes": 320331,
+      "sha256": "2d64fefcc443366d14cbfbf250c8194812efc1cc18e04645a2a603661592025f"
+    }
+  }
+}

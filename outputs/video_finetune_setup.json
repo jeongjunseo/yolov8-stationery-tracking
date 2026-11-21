@@ -142,5 +142,23 @@
       100
     ],
     "finalize_at_97": false
+  },
+  "current_model_video_recheck": {
+    "requested_by_user": true,
+    "status": "completed",
+    "epochs_completed": 97,
+    "checkpoint_selected_epoch": 82,
+    "full_video": "outputs/video_finetune/recheck_full.mp4",
+    "five_second_video": "outputs/video_finetune/recheck_5s.mp4",
+    "verification": "outputs/video_finetune/video_recheck.json",
+    "full_frames": 287,
+    "labeled_frames": 48,
+    "sample_tp_fp_fn": [
+      144,
+      1,
+      0
+    ],
+    "full_video_has_tracking_gaps_and_background_false_positives": true,
+    "additional_training_performed": false
   }
 }

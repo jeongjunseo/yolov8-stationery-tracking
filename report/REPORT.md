@@ -357,6 +357,30 @@ GPU 대기 중에는 보존된 epoch 82 best를 사용해 CPU에서 [예비 5초
 
 2026-11-21 19:15 KST 사용자는 100 epoch 조건을 유지하고 GPU 재할당 뒤 남은 3 epoch를 재개하기로 결정했다. 따라서 이 보완 실험은 97 epoch에서 최종 종료한 것이 아니며, 최종 test 평가와 완성 결과의 검증은 재개 완료 후 수행한다.
 
+## 10. 현재 보완 모델로 원본 전체 영상 재검증
+
+사용자가 현재까지 추가 학습한 모델로 즉시 영상 검증을 요청해, 97회 완료 실행의 best82 체크포인트로 원본 전체 287프레임을 새로 추론했다. 추가 학습은 실행하지 않았다. CPU·imgsz 640·conf 0.25·NMS IoU 0.5·회전 0·클래스별 NMS·ByteTrack·최근 60점 궤적 설정을 유지했다. 추적 후 반환된 박스·클래스·ID를 읽기만 하는 관찰 코드를 추가했고 예측 인자나 결과는 바꾸지 않았다.
+
+[전체 영상](../outputs/video_finetune/recheck_full.mp4)은 약 9.566667초·287프레임이고 [5초 결과](../outputs/video_finetune/recheck_5s.mp4)는 첫 150프레임이다. 5초 영상과 CSV는 새 추론에서도 앞선 예비 결과와 바이트가 동일했다. 전체 파일 검사 9개와 5초 검사 20개를 통과했으며, 이는 검출 정확도 검사를 대신하지 않는다. [전체 궤적 CSV](../outputs/video_finetune/recheck_full_trajectory.csv)는 859행·6개 ID이고, [5초 CSV](../outputs/video_finetune/recheck_trajectory.csv)는 450행·3개 ID이다.
+
+정답이 있는 48개 학습 프레임에 한해, 추적 후 반환된 박스를 클래스별 IoU≥0.5로 일대일 대응시켰다. 다음 수치는 고정 임계값에서의 학습 장면 재검사이며 AP·독립 test 성능·MOTA/IDF1이 아니다.
+
+| 클래스 | TP / FP / FN | 최소 / 평균 IoU |
+|---|---:|---:|
+| highlighter | 48 / 0 / 0 | 0.632 / 0.874 |
+| correction_tape | 48 / 1 / 0 | 0.790 / 0.958 |
+| eraser | 48 / 0 / 0 | 0.754 / 0.944 |
+
+표본 전체 precision은 99.31%, recall은 100%다. 하지만 정답 박스가 없는 나머지 239프레임까지 같은 수치를 적용할 수 없다. 특히 형광펜이 화면 위쪽으로 대부분 잘리거나 벗어난 212–215프레임과 물체가 다시 보이는 219프레임에는 추적 출력이 없으며, ID가 3→10→11로 바뀐다. 이 다섯 프레임을 모두 정답 기준 FN으로 세지 않았다. 추적 전 원시 검출을 따로 기록하지 않아 219프레임의 원인을 detector 미검출과 tracker 처리 중 하나로 확정하지 않았다.
+
+![형광펜 경계 이탈과 ID 변경](assets/video_finetune/recheck_id_gap.jpg)
+
+276·277·279프레임(9.2·9.2333·9.3초)에는 화면 맨 아래 베이지색 바닥/매트 경계를 수정테이프 ID12로 오탐했다. 실제 지우개의 오분류가 아니며, 실제 수정테이프 ID1과 지우개 ID2는 모든 287프레임에 유지됐다. 표본 FP1은 라벨이 있는 276프레임에 해당하며, 나머지 두 프레임의 오탐은 전체 영상 시각 검토로 확인했다.
+
+![바닥 경계의 수정테이프 오탐](assets/video_finetune/recheck_background_fp.jpg)
+
+처음 5초의 클래스·ID 안정성은 재현됐지만 전체 영상의 완전한 추적 성공으로 일반화할 수 없다. [재검증 기록](../outputs/video_finetune/video_recheck.json), [실제 추적 박스](../outputs/video_finetune/recheck_inference.json), [48프레임 대조 기록](../outputs/video_finetune/recheck_labeled_frames.json)에 결과와 한계를 보존했다. 원본 영상·체크포인트·기존 공개 결과는 변경하지 않았다.
+
 [추가 데이터 검증 기록](../outputs/video_finetune_dataset.json)에 48장·144박스(각 클래스 48개), 원본 프레임 번호와 파일 해시를 저장했다. [정답 좌표 기록](../outputs/video_finetune_annotations.json)은 색상·연결 영역을 이용한 박스 제안과 전체 48프레임의 Codex 시각 검토를 명시하며, 독립적인 사람의 라벨 검증으로 표현하지 않는다. 216번 프레임은 수정테이프의 파란 뚜껑을 포함하도록 경계를 바로잡았다. 이미지 경계의 박스를 8자리 소수로 저장했을 때 생긴 미세한 범위 초과도 검증에서 발견해 v2의 정규화 좌표 저장 방식으로 수정했으며, 이전 ZIP·라벨은 보존했다. v2는 원래 라벨 검사와 새 혼합 데이터 검사를 통과했다.
 
 ![추가 학습용 정답 박스 — 모델의 예측 결과가 아님](assets/video_finetune/annotation_preview.jpg)

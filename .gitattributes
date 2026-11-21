@@ -6,3 +6,7 @@ models/video_finetune/*.pt -text
 outputs/video_finetune/*.mp4 -text
 outputs/video_finetune/trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
 outputs/video_finetune/interim_best82_trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
+outputs/video_finetune/recheck_trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
+outputs/video_finetune/recheck_full_trajectory.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
+outputs/video_finetune/recheck_inference.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+outputs/video_finetune/recheck_labeled_frames.json -text whitespace=trailing-space,space-before-tab,cr-at-eol

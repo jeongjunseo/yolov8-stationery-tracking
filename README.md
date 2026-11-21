@@ -2,7 +2,9 @@
 
 형광펜(`highlighter`), 수정테이프(`correction_tape`), 지우개(`eraser`)의 공개 Roboflow 데이터셋을 병합·가공해 YOLOv8을 학습하고, ByteTrack으로 객체 ID와 이동 궤적을 표시하는 과제 프로젝트입니다. 데이터 출처와 CC BY 4.0 표기는 [data/SOURCES.md](data/SOURCES.md)를 따릅니다.
 
-## 현재 진행 상태 — 2026-11-20
+**최신 영상 재검증 — 2026-11-21:** 현재까지 추가 학습한 모델로 원본 전체 287프레임을 새로 추론했습니다. [5초 결과](outputs/video_finetune/recheck_5s.mp4)는 세 물체의 클래스·ID가 유지됩니다. [전체 약 9.57초 결과](outputs/video_finetune/recheck_full.mp4)에는 후반 형광펜 ID 변경과 바닥을 수정테이프로 잡는 오탐이 남아 있습니다. [검증 기록](outputs/video_finetune/video_recheck.json)은 97 epoch까지 완료된 실행의 best82를 사용한 학습 장면 재검사이며, 최종 test 평가와 구분합니다.
+
+## 기준 모델의 완료된 실험
 
 교수님이 제공하신 자료는 [과제 지침 메모](docs/ASSIGNMENT_GUIDELINES.md)에 별도로 보존했습니다. **Colab Tesla T4의 CUDA 장치 0에서 batch 16으로 100 epoch 학습과 test 평가를 완료했습니다.** 기존 데이터 687장의 분할·라벨·설정을 유지했으며, 학습 CSV의 누적 시간은 **2시간 43분 54.78초**입니다. GPU 메모리 부족이나 batch 축소 없이 한 번의 시도로 완료했고, 100회의 epoch 백업이 성공했습니다.
 
@@ -26,7 +28,7 @@ Test 73장·정답 객체 108개에서 **Precision 93.70%, Recall 88.77%, mAP50 
 
 사용자는 실제 영상의 물체를 이미지로 추출해 추가 학습하도록 요청했습니다. 이 후속 실험은 완료된 `models/best.pt`에서 시작하며, 기존 학습 이미지 498장에 영상에서 0.2초 간격으로 추출한 48장과 검토한 세 물체의 정답 박스를 추가합니다. 원래 validation 116장·test 73장은 유지합니다.
 
-보완 학습은 Colab GPU에서 batch 16, epochs 100, imgsz 640 및 기존 설정으로 실행하며, 실제 CUDA 메모리 부족일 때만 batch를 8/4로 낮춥니다. 모델은 `models/video_finetune/best.pt`, 측정 기록은 `outputs/video_finetune/`에 저장해 기존 결과를 보존합니다. run `20261120T123735Z_2e0735a1`의 T4·CUDA와 **97 epoch·97회 성공한 Drive 백업**을 확인했습니다. 2026-11-21 00:31 KST 확인 시점에는 이후 백업과 완료 기록이 보이지 않아 현재 Colab 상태를 확인 중입니다. **100 epoch 완료·최종 test 평가·보완 영상은 아직 확인되지 않았습니다.** 재개 가능한 체크포인트와 기록을 별도 보존했으며, 실행 상태 확인 전에는 노트북을 처음부터 다시 실행하지 않습니다. 확인 시점과 최신 관찰은 [진행 기록](outputs/video_finetune_setup.json)을 따릅니다.
+보완 학습은 Colab GPU에서 batch 16, epochs 100, imgsz 640 및 기존 설정으로 실행하며, 실제 CUDA 메모리 부족일 때만 batch를 8/4로 낮춥니다. 모델은 `models/video_finetune/best.pt`, 측정 기록은 `outputs/video_finetune/`에 저장해 기존 결과를 보존합니다. run `20261120T123735Z_2e0735a1`의 T4·CUDA와 **97 epoch·97회 성공한 Drive 백업**을 확인했습니다. 이후 중단과 GPU 재할당 제한을 사용자가 확인했습니다. **보완 학습 100 epoch 완료와 최종 test 평가는 대기 중**이며, 현재 모델의 영상 재검증 결과를 별도로 공개했습니다. 재개 가능한 체크포인트와 기록을 보존했으므로 노트북을 처음부터 다시 학습시키지 않습니다. 확인 시점과 최신 관찰은 [진행 기록](outputs/video_finetune_setup.json)을 따릅니다.
 
 **97 epoch에서 중단된 현재 실행의 복구:** 2026-11-21 사용자가 재연결 후에도 학습이 멈춰 있음을 확인했고, GPU 사용 한도로 재할당도 불가능하다고 알렸습니다. 현재 복구 학습은 시작하지 않았습니다. GPU를 다시 사용할 수 있게 되면 [97 epoch 복구 노트북](https://colab.research.google.com/github/jeongjunseo/yolov8-stationery-tracking/blob/main/notebooks/resume_video_finetune_colab.ipynb)에서 **98–100 epoch만** 이어 학습할 수 있습니다. 원래 97행의 CSV·이전 best·optimizer 상태를 보존하고 새 Drive 폴더에 기록합니다. 원래 백업이 갱신되거나 같은 런타임의 학습 프로세스가 살아 있으면 재개를 거부합니다. 다른 런타임의 실행 여부까지 자동으로 확인하지는 못하므로 기존 실행 상태도 먼저 확인해야 합니다. 준비된 복구 절차이며 실제 재개·완료를 뜻하지 않습니다. 현재 한도 소진이 최초 중단 원인이었다고 단정하지 않습니다.
 
@@ -35,6 +37,8 @@ Test 73장·정답 객체 108개에서 **Precision 93.70%, Recall 88.77%, mAP50 
 GPU 대기 중 저장된 epoch 82 best로 [예비 5초 영상](outputs/video_finetune/interim_best82_5s.mp4)과 [궤적 CSV](outputs/video_finetune/interim_best82_trajectory.csv)를 CPU에서 생성했습니다. 150프레임에 세 클래스가 각각 같은 ID로 유지돼 CSV는 450행입니다. 20개 파일·시간 검사를 통과했고, 정답이 있는 25프레임의 클래스별 중심 75점이 모두 대응 정답 박스 안에 있었습니다([검증 기록](outputs/video_finetune/interim_best82_preview.json), [화면 미리보기](report/assets/video_finetune/interim_best82_preview.jpg)). 이는 **97/100 epoch 상태의 학습 장면 예비 결과**이며, 최종 test 성능이나 독립 영상 정확도를 뜻하지 않습니다. 기존 기준 영상은 보존했습니다.
 
 2026-11-21 사용자는 **100 epoch 조건 유지**를 선택했습니다. GPU 재할당 후 남은 3 epoch를 재개하며, 그 뒤 최종 test 평가와 결과 영상·보고서를 마무리합니다. 97 epoch로 실험을 종료하지 않습니다.
+
+이후 사용자의 즉시 영상 검증 요청에 따라 **원본 전체를 새로 추론**했습니다. 48개 학습 라벨 프레임·144개 정답을 반환된 추적 박스와 클래스별 IoU≥0.5로 대조한 결과 TP144·FP1·FN0이었습니다. 그러나 전체 영상에서는 형광펜이 화면 밖/경계에 걸린 212–215프레임 및 다시 보이는 219프레임에 추적 출력이 없었고, ID가 3→10→11로 바뀌었습니다. 276·277·279프레임(약 9.2–9.3초)에는 화면 아래 바닥을 수정테이프 ID12로 오탐했습니다. 48개 표본에 없는 프레임의 현상까지 표본 recall 100%로 덮어 해석하지 않습니다. [전체 궤적](outputs/video_finetune/recheck_full_trajectory.csv), [라벨 프레임 대조](outputs/video_finetune/recheck_labeled_frames.json), [ID 변경 장면](report/assets/video_finetune/recheck_id_gap.jpg), [오탐 장면](report/assets/video_finetune/recheck_background_fp.jpg)을 함께 공개합니다.
 
 추가 자료는 [데이터 검증 기록](outputs/video_finetune_dataset.json), [프레임별 정답 좌표와 작성 방법](outputs/video_finetune_annotations.json), [라벨 미리보기](report/assets/video_finetune/annotation_preview.jpg)에 기록했습니다. 실제 학습 이미지는 Git에서 제외된 별도 폴더와 개인 Drive의 `yolov8-stationery-tracking/video_finetune/video_training_addition_v2.zip`에 보존합니다. v2는 화면 끝에 걸친 박스의 소수 반올림 오류를 바로잡은 검증본이며, 이전 ZIP도 보존했습니다.
 
