@@ -34,6 +34,8 @@ Test 73장·정답 객체 108개에서 **Precision 93.70%, Recall 88.77%, mAP50 
 
 GPU 대기 중 저장된 epoch 82 best로 [예비 5초 영상](outputs/video_finetune/interim_best82_5s.mp4)과 [궤적 CSV](outputs/video_finetune/interim_best82_trajectory.csv)를 CPU에서 생성했습니다. 150프레임에 세 클래스가 각각 같은 ID로 유지돼 CSV는 450행입니다. 20개 파일·시간 검사를 통과했고, 정답이 있는 25프레임의 클래스별 중심 75점이 모두 대응 정답 박스 안에 있었습니다([검증 기록](outputs/video_finetune/interim_best82_preview.json), [화면 미리보기](report/assets/video_finetune/interim_best82_preview.jpg)). 이는 **97/100 epoch 상태의 학습 장면 예비 결과**이며, 최종 test 성능이나 독립 영상 정확도를 뜻하지 않습니다. 기존 기준 영상은 보존했습니다.
 
+2026-11-21 사용자는 **100 epoch 조건 유지**를 선택했습니다. GPU 재할당 후 남은 3 epoch를 재개하며, 그 뒤 최종 test 평가와 결과 영상·보고서를 마무리합니다. 97 epoch로 실험을 종료하지 않습니다.
+
 추가 자료는 [데이터 검증 기록](outputs/video_finetune_dataset.json), [프레임별 정답 좌표와 작성 방법](outputs/video_finetune_annotations.json), [라벨 미리보기](report/assets/video_finetune/annotation_preview.jpg)에 기록했습니다. 실제 학습 이미지는 Git에서 제외된 별도 폴더와 개인 Drive의 `yolov8-stationery-tracking/video_finetune/video_training_addition_v2.zip`에 보존합니다. v2는 화면 끝에 걸친 박스의 소수 반올림 오류를 바로잡은 검증본이며, 이전 ZIP도 보존했습니다.
 
 영상 전체가 새 학습 자료이므로, 보완 모델로 같은 영상을 다시 처리한 결과는 **학습 장면 재검사**입니다. 기존 test 성능 비교와 별도로 보고하며 새로운 영상에 대한 일반화 성능으로 해석하지 않습니다.

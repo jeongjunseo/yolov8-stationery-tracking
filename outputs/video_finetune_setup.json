@@ -1,5 +1,5 @@
 {
-  "phase": "gpu_quota_unavailable_awaiting_training_decision",
+  "phase": "waiting_for_gpu_reallocation_to_complete_100_epochs",
   "recorded_at_utc": "2026-11-20T09:09:01.423438+00:00",
   "fine_tuning_started": true,
   "fine_tuning_completed": false,
@@ -48,7 +48,7 @@
     "embedded_environment_code_ast_passed": true,
     "independent_preparation_review_completed": true
   },
-  "execution_blocker": "The user reconnected Colab and confirmed training remains stopped, then reported GPU allocation refused because usage quota is exhausted. The original 97-epoch backup remains unchanged. No GPU recovery was started. Awaiting the user choice between retaining the 100-epoch target and explicitly ending the adaptation run at 97 completed epochs.",
+  "execution_blocker": "GPU allocation is unavailable according to the latest user report. The user explicitly chose to retain the 100-epoch target and resume epochs 98-100 after GPU reallocation. No recovery has started; the 97-epoch checkpoint and interim preview remain preserved.",
   "evaluation_scope": {
     "original_test": "Unchanged original 73 images, retaining previously documented limitations.",
     "source_video": "Training-scene recheck after adaptation, not independent video evaluation."
@@ -75,7 +75,8 @@
     "recovery_checkpoint_metadata_verified": true,
     "last_checkpoint_completed_epochs": 97,
     "best_checkpoint_selected_epoch": 82,
-    "best_validation_mAP50-95": 0.83085
+    "best_validation_mAP50-95": 0.83085,
+    "gpu_fields_scope": "GPU/CUDA fields describe the original training environment; they do not assert current GPU availability."
   },
   "ui_control_limitation": "Windows UI input remains unavailable; user started Run all. Monitoring uses actual Drive backup files.",
   "recovery": {
@@ -129,5 +130,17 @@
     "unique_ids": 3,
     "file_checks_passed": 20,
     "checked_class_matched_centers_inside_gt": 75
+  },
+  "training_decision": {
+    "recorded_at_utc": "2026-11-21T10:16:12.414039+00:00",
+    "user_choice": "retain_100_epochs_and_resume_after_gpu_reallocation",
+    "epochs_target": 100,
+    "epochs_completed": 97,
+    "remaining_epochs": [
+      98,
+      99,
+      100
+    ],
+    "finalize_at_97": false
   }
 }
